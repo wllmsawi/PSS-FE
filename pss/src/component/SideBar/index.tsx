@@ -22,11 +22,10 @@ export default function SideBar() {
   const [logout, setLogout] = useState(false);
 
   return (
-    <Box>
       <VStack
-        w={"236px"}
-        h={"1024px"}
-        bgColor={"#FAFAFA"}
+        w={"100%"}
+        h={"100%"}
+        bgColor={"#fafafa"}
         p={"3em 1em 1em 1em"}
         spacing={"3.75em"}
       >
@@ -168,6 +167,5 @@ export default function SideBar() {
           </HStack>
         </Box>
       </VStack>
-    </Box>
   );
 }
