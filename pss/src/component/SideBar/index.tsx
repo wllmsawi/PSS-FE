@@ -141,39 +141,6 @@ export default function SideBar() {
           </HStack>
         </Box>
       </VStack>
-      <Box
-        w={"100%"}
-        h={"2.5em"}
-        display={"flex"}
-        flexDir={"row"}
-        _focusVisible={{ color: "red" }}
-        _hover={{ bgColor: "red.50" }}
-        borderRadius={"0.5em"}
-      >
-        <HStack
-          spacing={"1em"}
-          onClick={() => {
-            setOrder(false);
-            setTransaction(false);
-            setInventory(false);
-            setLogout(!logout);
-          }}
-          bgColor={logout ? "red.100" : "transparent"}
-          w={"100%"}
-          borderRadius={".5em"}
-          p={".65em"}
-          cursor={"pointer"}
-        >
-          <Box color={logout ? "red" : "black"}>
-            <IoLogOut />
-          </Box>
-          <Box color={logout ? "red" : "black"}>
-            <Link to={""}>
-              <Text as={logout ? "b" : "b"}>Log Out</Text>
-            </Link>
-          </Box>
-        </HStack>
-      </Box>
     </VStack>
   );
 }
