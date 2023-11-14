@@ -8,7 +8,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { IoIosNotifications } from "react-icons/io";
+import { RiNotification3Fill } from "react-icons/ri";
+import { BsCartFill } from "react-icons/bs";
+import budi from "./img/budi.jpg";
 export const NavBar = () => {
   const date = new Date();
   const days = [
@@ -49,10 +51,11 @@ export const NavBar = () => {
   return (
     <Flex
       w={"100%"}
-      h={"full"}
       alignItems={"center"}
       justifyContent={"center"}
       p={"0 .5em 0 0"}
+      zIndex={100}
+      bg={"#EEF1F2"}
     >
       <HStack>
         <Text fontWeight={"bold"}>{time}</Text>
@@ -60,27 +63,19 @@ export const NavBar = () => {
       </HStack>
       <Spacer />
       <HStack spacing={"1em"}>
-        <Box
-          borderRadius={"50%"}
-          bgColor={"#FAFAFA"}
-          p={".5em"}
-        >
-          <IoIosNotifications />
+        <Box borderRadius={"50%"} bgColor={"#FAFAFA"} p={".5em"}>
+          <BsCartFill />
         </Box>
-        <Box
-          borderRadius={"50%"}
-          bgColor={"#FAFAFA"}
-          p={".5em"}
-        >
+        <Box borderRadius={"50%"} bgColor={"#FAFAFA"} p={".5em"}>
+          <RiNotification3Fill />
+        </Box>
+
+        <Box borderRadius={"50%"} p={".5em"}>
           <Box overflow={"hidden"}>
-            <Image src={"./img/budi.jpg"} />
+            <Image src={budi} borderRadius={"50%"} boxSize={"2em"} />
           </Box>
         </Box>
-        <VStack
-          spacing={"0"}
-          align={"flex-start"}
-          lineHeight={"1"}
-        >
+        <VStack spacing={"0"} align={"flex-start"} lineHeight={"1"}>
           <Text fontWeight={"bold"}>Budi</Text>
           <Text fontSize={".75em"}>Admin</Text>
         </VStack>

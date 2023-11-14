@@ -1,10 +1,4 @@
-import {
-  Box,
-  HStack,
-  Image,
-  VStack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, HStack, Image, VStack, Text } from "@chakra-ui/react";
 import cklogo from "./cklogo.png";
 import { PiBasketFill } from "react-icons/pi";
 import { PiCalculatorFill } from "react-icons/pi";
@@ -21,6 +15,7 @@ export default function SideBar() {
 
   return (
     <VStack
+      top={"0"}
       w={"100%"}
       h={"100%"}
       bgColor={"#FAFAFA"}
@@ -30,11 +25,7 @@ export default function SideBar() {
       <Box>
         <Image src={cklogo} w={"9.75em"} />
       </Box>
-      <VStack
-        w={"100%"}
-        spacing={"1.5em"}
-        align={"flex-end"}
-      >
+      <VStack w={"100%"} spacing={"1.5em"} align={"flex-end"}>
         <Box
           w={"100%"}
           h={"2.5em"}
@@ -85,9 +76,7 @@ export default function SideBar() {
               setLogout(false);
               setTransaction(!transaction);
             }}
-            bgColor={
-              transaction ? "red.100" : "transparent"
-            }
+            bgColor={transaction ? "red.100" : "transparent"}
             w={"100%"}
             borderRadius={".5em"}
             p={".65em"}
@@ -98,9 +87,7 @@ export default function SideBar() {
             </Box>
             <Box color={transaction ? "red" : "black"}>
               <Link to={""}>
-                <Text as={transaction ? "b" : "b"}>
-                  Transaction
-                </Text>
+                <Text as={transaction ? "b" : "b"}>Transaction</Text>
               </Link>
             </Box>
           </HStack>
@@ -133,14 +120,45 @@ export default function SideBar() {
             </Box>
             <Box color={inventory ? "red" : "black"}>
               <Link to={""}>
-                <Text as={inventory ? "b" : "b"}>
-                  Inventory
-                </Text>
+                <Text as={inventory ? "b" : "b"}>Inventory</Text>
               </Link>
             </Box>
           </HStack>
         </Box>
       </VStack>
+      <Box
+        w={"100%"}
+        h={"2.5em"}
+        display={"flex"}
+        flexDir={"row"}
+        _focusVisible={{ color: "red" }}
+        _hover={{ bgColor: "red.50" }}
+        borderRadius={"0.5em"}
+      >
+        <HStack
+          spacing={"1em"}
+          onClick={() => {
+            setOrder(false);
+            setTransaction(false);
+            setInventory(false);
+            setLogout(!logout);
+          }}
+          bgColor={logout ? "red.100" : "transparent"}
+          w={"100%"}
+          borderRadius={".5em"}
+          p={".65em"}
+          cursor={"pointer"}
+        >
+          <Box color={logout ? "red" : "black"}>
+            <IoLogOut />
+          </Box>
+          <Box color={logout ? "red" : "black"}>
+            <Link to={""}>
+              <Text as={logout ? "b" : "b"}>Log Out</Text>
+            </Link>
+          </Box>
+        </HStack>
+      </Box>
     </VStack>
   );
 }
