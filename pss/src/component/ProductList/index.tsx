@@ -17,12 +17,7 @@ import { ProductCard } from "../ProductCard";
 
 export const ProductList = () => {
   return (
-    <Box
-      bgColor={"#FFFFFF"}
-      h={"100%"}
-      borderRadius={"1.5em"}
-      p={"1.5em"}
-    >
+    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
       <VStack align={"stretch"} spacing={"1.875em"}>
         <HStack spacing={"1.875em"}>
           <Link to={""}>Kitchen</Link>
@@ -80,10 +75,7 @@ export const ProductList = () => {
           </Link>
         </HStack>
         <InputGroup>
-          <InputLeftElement
-            color={"#6D6D6D"}
-            pointerEvents="none"
-          >
+          <InputLeftElement color={"#6D6D6D"} pointerEvents="none">
             <IoIosSearch />
           </InputLeftElement>
           <Input
@@ -97,7 +89,20 @@ export const ProductList = () => {
         <Grid
           gap={"1em"}
           gridTemplateColumns={"repeat(3, 1fr)"}
+          h={"20em"}
+          overflow={"auto"}
+          p={"1em 0"}
+          sx={{
+            "&::-webkit-scrollbar": {
+              display: "none",
+            }
+          }}
         >
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
           <ProductCard />
           <ProductCard />
           <ProductCard />
@@ -111,10 +116,7 @@ export const ProductList = () => {
           p={".875em"}
           borderRadius={"1em"}
         >
-          <Flex
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
+          <Flex justifyContent={"center"} alignItems={"center"}>
             <HStack spacing={"2.5em"} fontWeight={"bold"}>
               <Text>Page</Text>
               <Text>1</Text>

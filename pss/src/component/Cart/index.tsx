@@ -16,11 +16,9 @@ import { FaMoneyBillWave } from "react-icons/fa";
 
 export default function Cart() {
   return (
-    <Box>
       <VStack
-        bgColor={"#fafafa"}
-        minH={"100vh"}
-        w={"100%"}
+        bgColor={"#FAFAFA"}
+        h={"100%"}
         p={"1.5em"}
         borderRadius={"1.5em"}
         align={"stretch"}
@@ -31,7 +29,7 @@ export default function Cart() {
           </Text>
           <Text fontWeight={"500"}>Samuel Williams</Text>
         </VStack>
-        <Divider borderColor={"black"} borderWidth={"1px"} mt={"1em"} />
+        <Divider borderColor={"black"} borderWidth={"1px"} mt={"0.5em"}/>
         <Text fontWeight={"700"} alignSelf={"flex-start"} fontSize={"large"}>
           Item
         </Text>
@@ -71,7 +69,11 @@ export default function Cart() {
             <Spacer />
             <Text fontWeight={"500"}>30000</Text>
           </Flex>
-          <Spacer />
+          <Flex>
+            <Text fontWeight={"500"}>Total Diskon</Text>
+            <Spacer />
+            <Text fontWeight={"500"}>300</Text>
+          </Flex>
           <Flex>
             <Text fontWeight={"500"}>PPN</Text>
             <Spacer />
@@ -88,6 +90,7 @@ export default function Cart() {
             33000
           </Text>
         </HStack>
+        <Spacer/>
         <HStack align={"stretch"}>
           <Button
             leftIcon={<BsCartPlusFill />}
@@ -110,6 +113,5 @@ export default function Cart() {
           </Button>
         </HStack>
       </VStack>
-    </Box>
   );
 }

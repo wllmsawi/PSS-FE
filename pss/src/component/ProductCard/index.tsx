@@ -10,7 +10,7 @@ export const ProductCard = () => {
   return (
     <Box
       h={"264px"}
-      boxShadow={"xl"}
+      boxShadow={"lg"}
       borderRadius={"1em"}
       overflow={"hidden"}
     >
