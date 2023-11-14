@@ -1,9 +1,7 @@
 import {
   Box,
-  Flex,
   HStack,
   Image,
-  Spacer,
   VStack,
   Text,
 } from "@chakra-ui/react";
@@ -22,118 +20,91 @@ export default function SideBar() {
   const [logout, setLogout] = useState(false);
 
   return (
-    <Box bgColor={"#EEF1F2"}>
+    <VStack
+      w={"100%"}
+      h={"100%"}
+      bgColor={"#FAFAFA"}
+      p={"3em 1em 1em 1em"}
+      spacing={"3.75em"}
+    >
+      <Box>
+        <Image src={cklogo} w={"9.75em"} />
+      </Box>
       <VStack
-        w={"236px"}
-        h={"1024px"}
-        bgColor={"#FAFAFA"}
-        p={"3em 1em 1em 1em"}
-        spacing={"3.75em"}
+        w={"100%"}
+        spacing={"1.5em"}
+        align={"flex-end"}
       >
-        <Box>
-          <Image src={cklogo} w={"9.75em"} />
+        <Box
+          w={"100%"}
+          h={"2.5em"}
+          display={"flex"}
+          flexDir={"row"}
+          _focusVisible={{ color: "red" }}
+          _hover={{ bgColor: "red.50" }}
+          borderRadius={"0.5em"}
+        >
+          <HStack
+            spacing={"1em"}
+            onClick={() => {
+              setInventory(false);
+              setTransaction(false);
+              setLogout(false);
+              setOrder(!order);
+            }}
+            bgColor={order ? "red.100" : "transparent"}
+            w={"100%"}
+            borderRadius={".5em"}
+            p={".65em"}
+            cursor={"pointer"}
+          >
+            <Box color={order ? "red" : "black"}>
+              <PiBasketFill />
+            </Box>
+            <Box color={order ? "red" : "black"}>
+              <Link to={""}>
+                <Text as={order ? "b" : "b"}>Order</Text>
+              </Link>
+            </Box>
+          </HStack>
         </Box>
-        <VStack w={"100%"} spacing={"1.5em"} align={"flex-end"}>
-          <Box
+        <Box
+          w={"100%"}
+          h={"2.5em"}
+          display={"flex"}
+          flexDir={"row"}
+          _focusVisible={{ color: "red" }}
+          _hover={{ bgColor: "red.50" }}
+          borderRadius={"0.5em"}
+        >
+          <HStack
+            spacing={"1em"}
+            onClick={() => {
+              setOrder(false);
+              setInventory(false);
+              setLogout(false);
+              setTransaction(!transaction);
+            }}
+            bgColor={
+              transaction ? "red.100" : "transparent"
+            }
             w={"100%"}
-            h={"2.5em"}
-            display={"flex"}
-            flexDir={"row"}
-            _focusVisible={{ color: "red" }}
-            _hover={{ bgColor: "red.50" }}
-            borderRadius={"0.5em"}
+            borderRadius={".5em"}
+            p={".65em"}
+            cursor={"pointer"}
           >
-            <HStack
-              spacing={"1em"}
-              onClick={() => {
-                setInventory(false);
-                setTransaction(false);
-                setLogout(false);
-                setOrder(!order);
-              }}
-              bgColor={order ? "red.100" : "transparent"}
-              w={"100%"}
-              borderRadius={".5em"}
-              p={".65em"}
-              cursor={"pointer"}
-            >
-              <Box color={order ? "red" : "black"}>
-                <PiBasketFill />
-              </Box>
-              <Box color={order ? "red" : "black"}>
-                <Link to={""}>
-                  <Text as={order ? "b" : "b"}>Order</Text>
-                </Link>
-              </Box>
-            </HStack>
-          </Box>
-          <Box
-            w={"100%"}
-            h={"2.5em"}
-            display={"flex"}
-            flexDir={"row"}
-            _focusVisible={{ color: "red" }}
-            _hover={{ bgColor: "red.50" }}
-            borderRadius={"0.5em"}
-          >
-            <HStack
-              spacing={"1em"}
-              onClick={() => {
-                setOrder(false);
-                setInventory(false);
-                setLogout(false);
-                setTransaction(!transaction);
-              }}
-              bgColor={transaction ? "red.100" : "transparent"}
-              w={"100%"}
-              borderRadius={".5em"}
-              p={".65em"}
-              cursor={"pointer"}
-            >
-              <Box color={transaction ? "red" : "black"}>
-                <PiCalculatorFill />
-              </Box>
-              <Box color={transaction ? "red" : "black"}>
-                <Link to={""}>
-                  <Text as={transaction ? "b" : "b"}>Transaction</Text>
-                </Link>
-              </Box>
-            </HStack>
-          </Box>
-          <Box
-            w={"100%"}
-            h={"2.5em"}
-            display={"flex"}
-            flexDir={"row"}
-            _focusVisible={{ color: "red" }}
-            _hover={{ bgColor: "red.50" }}
-            borderRadius={"0.5em"}
-          >
-            <HStack
-              spacing={"1em"}
-              onClick={() => {
-                setOrder(false);
-                setTransaction(false);
-                setLogout(false);
-                setInventory(!inventory);
-              }}
-              bgColor={inventory ? "red.100" : "transparent"}
-              w={"100%"}
-              borderRadius={".5em"}
-              p={".65em"}
-              cursor={"pointer"}
-            >
-              <Box color={inventory ? "red" : "black"}>
-                <PiNotepadFill />
-              </Box>
-              <Box color={inventory ? "red" : "black"}>
-                <Link to={""}>
-                  <Text as={inventory ? "b" : "b"}>Inventory</Text>
-                </Link>
-              </Box>
-            </HStack>
-          </Box>
-        </VStack>
+            <Box color={transaction ? "red" : "black"}>
+              <PiCalculatorFill />
+            </Box>
+            <Box color={transaction ? "red" : "black"}>
+              <Link to={""}>
+                <Text as={transaction ? "b" : "b"}>
+                  Transaction
+                </Text>
+              </Link>
+            </Box>
+          </HStack>
+        </Box>
         <Box
           w={"100%"}
           h={"2.5em"}
@@ -148,26 +119,61 @@ export default function SideBar() {
             onClick={() => {
               setOrder(false);
               setTransaction(false);
-              setInventory(false);
-              setLogout(!logout);
+              setLogout(false);
+              setInventory(!inventory);
             }}
-            bgColor={logout ? "red.100" : "transparent"}
+            bgColor={inventory ? "red.100" : "transparent"}
             w={"100%"}
             borderRadius={".5em"}
             p={".65em"}
             cursor={"pointer"}
           >
-            <Box color={logout ? "red" : "black"}>
-              <IoLogOut />
+            <Box color={inventory ? "red" : "black"}>
+              <PiNotepadFill />
             </Box>
-            <Box color={logout ? "red" : "black"}>
+            <Box color={inventory ? "red" : "black"}>
               <Link to={""}>
-                <Text as={logout ? "b" : "b"}>Log Out</Text>
+                <Text as={inventory ? "b" : "b"}>
+                  Inventory
+                </Text>
               </Link>
             </Box>
           </HStack>
         </Box>
       </VStack>
-    </Box>
+      <Box
+        w={"100%"}
+        h={"2.5em"}
+        display={"flex"}
+        flexDir={"row"}
+        _focusVisible={{ color: "red" }}
+        _hover={{ bgColor: "red.50" }}
+        borderRadius={"0.5em"}
+      >
+        <HStack
+          spacing={"1em"}
+          onClick={() => {
+            setOrder(false);
+            setTransaction(false);
+            setInventory(false);
+            setLogout(!logout);
+          }}
+          bgColor={logout ? "red.100" : "transparent"}
+          w={"100%"}
+          borderRadius={".5em"}
+          p={".65em"}
+          cursor={"pointer"}
+        >
+          <Box color={logout ? "red" : "black"}>
+            <IoLogOut />
+          </Box>
+          <Box color={logout ? "red" : "black"}>
+            <Link to={""}>
+              <Text as={logout ? "b" : "b"}>Log Out</Text>
+            </Link>
+          </Box>
+        </HStack>
+      </Box>
+    </VStack>
   );
 }

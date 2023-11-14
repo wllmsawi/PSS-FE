@@ -1,4 +1,7 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
+import SideBar from "../../component/SideBar";
+import { NavBar } from "../../component/NavBar";
+import { ProductList } from "../../component/ProductList";
 
 export const AdminView = () => {
   return (
@@ -6,17 +9,24 @@ export const AdminView = () => {
       templateAreas={`
         "nav header"
         "nav main"
-        "nav footer"`}
+        "nav main"`}
       gridTemplateColumns={"1fr 3fr"}
       gridTemplateRows={"3em 1fr 3em"}
       minH={"100vh"}
       maxW={"100vw"}
       gap={".5em"}
+      bgColor={"#EEF1F2"}
+      p={"0 .5em 0 0"}
     >
-      <GridItem bg={"orange.300"} area={"nav"}></GridItem>
-      <GridItem bg={"red.300"} area={"header"}></GridItem>
-      <GridItem bg={"green.300"} area={"main"}></GridItem>
-      <GridItem bg={"blue.300"} area={"footer"}></GridItem>
+      <GridItem bg={"orange.300"} area={"nav"}>
+        <SideBar />
+      </GridItem>
+      <GridItem area={"header"}>
+        <NavBar />
+      </GridItem>
+      <GridItem area={"main"}>
+        <ProductList />
+      </GridItem>
     </Grid>
   );
 };
