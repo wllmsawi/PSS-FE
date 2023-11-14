@@ -1,4 +1,12 @@
-import { Box, Flex, HStack, Image, Spacer, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Image,
+  Spacer,
+  VStack,
+  Text,
+} from "@chakra-ui/react";
 import cklogo from "./cklogo.png";
 import { PiBasketFill } from "react-icons/pi";
 import { PiCalculatorFill } from "react-icons/pi";
@@ -9,6 +17,10 @@ import { useState } from "react";
 
 export default function SideBar() {
   const [order, setOrder] = useState(false);
+  const [transaction, setTransaction] = useState(false);
+  const [inventory, setInventory] = useState(false);
+  const [logout, setLogout] = useState(false);
+
   return (
     <Box bgColor={"#EEF1F2"}>
       <VStack
@@ -28,23 +40,30 @@ export default function SideBar() {
             display={"flex"}
             flexDir={"row"}
             _focusVisible={{ color: "red" }}
-            _hover={{ bgColor: "#FFD6D8" }}
+            _hover={{ bgColor: "red.50" }}
             borderRadius={"0.5em"}
           >
             <HStack
               spacing={"1em"}
-              onClick={() => setOrder(!order)}
-              bgColor={order ? "red.200" : "transparent"}
+              onClick={() => {
+                setInventory(false);
+                setTransaction(false);
+                setLogout(false);
+                setOrder(!order);
+              }}
+              bgColor={order ? "red.100" : "transparent"}
               w={"100%"}
               borderRadius={".5em"}
               p={".65em"}
               cursor={"pointer"}
             >
-              <Box>
+              <Box color={order ? "red" : "black"}>
                 <PiBasketFill />
               </Box>
-              <Box>
-                <Link to={""}>Order</Link>
+              <Box color={order ? "red" : "black"}>
+                <Link to={""}>
+                  <Text as={order ? "b" : "b"}>Order</Text>
+                </Link>
               </Box>
             </HStack>
           </Box>
@@ -54,14 +73,32 @@ export default function SideBar() {
             display={"flex"}
             flexDir={"row"}
             _focusVisible={{ color: "red" }}
-            _hover={{ bgColor: "#FFD6D8" }}
+            _hover={{ bgColor: "red.50" }}
             borderRadius={"0.5em"}
           >
-            <Flex w={"100%"} gap={"1em"}>
-              <Box _focus={{ bgColor: "#FFD6D8" }} w={"100%"}>
-                <Link to={""}>Order</Link>
+            <HStack
+              spacing={"1em"}
+              onClick={() => {
+                setOrder(false);
+                setInventory(false);
+                setLogout(false);
+                setTransaction(!transaction);
+              }}
+              bgColor={transaction ? "red.100" : "transparent"}
+              w={"100%"}
+              borderRadius={".5em"}
+              p={".65em"}
+              cursor={"pointer"}
+            >
+              <Box color={transaction ? "red" : "black"}>
+                <PiCalculatorFill />
               </Box>
-            </Flex>
+              <Box color={transaction ? "red" : "black"}>
+                <Link to={""}>
+                  <Text as={transaction ? "b" : "b"}>Transaction</Text>
+                </Link>
+              </Box>
+            </HStack>
           </Box>
           <Box
             w={"100%"}
@@ -69,14 +106,32 @@ export default function SideBar() {
             display={"flex"}
             flexDir={"row"}
             _focusVisible={{ color: "red" }}
-            _hover={{ bgColor: "#FFD6D8" }}
+            _hover={{ bgColor: "red.50" }}
             borderRadius={"0.5em"}
           >
-            <Flex w={"100%"} gap={"1em"}>
-              <Box _focus={{ bgColor: "#FFD6D8" }} w={"100%"}>
-                <Link to={""}>Order</Link>
+            <HStack
+              spacing={"1em"}
+              onClick={() => {
+                setOrder(false);
+                setTransaction(false);
+                setLogout(false);
+                setInventory(!inventory);
+              }}
+              bgColor={inventory ? "red.100" : "transparent"}
+              w={"100%"}
+              borderRadius={".5em"}
+              p={".65em"}
+              cursor={"pointer"}
+            >
+              <Box color={inventory ? "red" : "black"}>
+                <PiNotepadFill />
               </Box>
-            </Flex>
+              <Box color={inventory ? "red" : "black"}>
+                <Link to={""}>
+                  <Text as={inventory ? "b" : "b"}>Inventory</Text>
+                </Link>
+              </Box>
+            </HStack>
           </Box>
         </VStack>
         <Box
@@ -85,14 +140,32 @@ export default function SideBar() {
           display={"flex"}
           flexDir={"row"}
           _focusVisible={{ color: "red" }}
-          _hover={{ bgColor: "#FFD6D8" }}
+          _hover={{ bgColor: "red.50" }}
           borderRadius={"0.5em"}
         >
-          <Flex w={"100%"} gap={"1em"}>
-            <Box _focus={{ bgColor: "#FFD6D8" }} w={"100%"}>
-              <Link to={""}>Order</Link>
+          <HStack
+            spacing={"1em"}
+            onClick={() => {
+              setOrder(false);
+              setTransaction(false);
+              setInventory(false);
+              setLogout(!logout);
+            }}
+            bgColor={logout ? "red.100" : "transparent"}
+            w={"100%"}
+            borderRadius={".5em"}
+            p={".65em"}
+            cursor={"pointer"}
+          >
+            <Box color={logout ? "red" : "black"}>
+              <IoLogOut />
             </Box>
-          </Flex>
+            <Box color={logout ? "red" : "black"}>
+              <Link to={""}>
+                <Text as={logout ? "b" : "b"}>Log Out</Text>
+              </Link>
+            </Box>
+          </HStack>
         </Box>
       </VStack>
     </Box>
