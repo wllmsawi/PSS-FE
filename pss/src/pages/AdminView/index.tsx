@@ -12,11 +12,11 @@ export const AdminView = () => {
         "nav main"`}
       gridTemplateColumns={"1fr 3fr"}
       gridTemplateRows={"3em 1fr 3em"}
-      minH={"100vh"}
+      h={"100vh"}
       maxW={"100vw"}
       gap={".5em"}
       bgColor={"#EEF1F2"}
-      p={"0 .5em 0 0"}
+      p={"0 1em 0 0"}
     >
       <GridItem bg={"orange.300"} area={"nav"}>
         <SideBar />
@@ -24,7 +24,7 @@ export const AdminView = () => {
       <GridItem area={"header"}>
         <NavBar />
       </GridItem>
-      <GridItem area={"main"}>
+      <GridItem area={"main"} p={"0 0 1em 0"}>
         <ProductList />
       </GridItem>
     </Grid>
