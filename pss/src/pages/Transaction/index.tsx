@@ -5,6 +5,7 @@ export default function Transaction() {
   return (
     <Box>
       <Text>This is Transaction Page!</Text>
+      
     <SideBar/>
     </Box>
   );

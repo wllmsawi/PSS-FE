@@ -22,7 +22,7 @@ export default function SideBar() {
   const [logout, setLogout] = useState(false);
 
   return (
-    <Box bgColor={"#EEF1F2"}>
+    <Box>
       <VStack
         w={"236px"}
         h={"1024px"}
