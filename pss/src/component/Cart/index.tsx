@@ -21,17 +21,20 @@ import {
   ModalContent,
   ModalCloseButton,
   Center,
+  Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineWallet } from "react-icons/md";
 import { MdOutlineQrCode2 } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
+import { color } from "framer-motion";
 
 export default function Cart() {
   const [cash, setCash] = useState(false);
   const [qris, setQris] = useState(false);
   const [wallet, setWallet] = useState(false);
+  const [change, setChange] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -136,8 +139,12 @@ export default function Cart() {
           <ModalContent>
             <ModalCloseButton />
             <ModalBody>
-              <VStack p={"2em"} spacing={"2em"}>
-                <Text fontWeight={"bold"} fontSize={"x-large"}>Choose Payment</Text>
+              <Center>
+              <Text fontWeight={"bold"} fontSize={"x-large"}>
+                Choose Payment
+              </Text>
+              </Center>
+              <VStack p={"3em"} spacing={"1em"}>
                 <Link to={""}>
                   <Box
                     w={"15em"}
@@ -148,7 +155,8 @@ export default function Cart() {
                     _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
-                    border={cash ? "solid #F99B2A" : "solid #6D6D6D" }
+                    border={cash ? "solid #F99B2A" : "solid #6D6D6D"}
+                    boxShadow={"lg"}
                   >
                     <VStack
                       spacing={"0"}
@@ -156,6 +164,7 @@ export default function Cart() {
                         setWallet(false);
                         setQris(false);
                         setCash(!cash);
+                        setChange(!change);
                       }}
                       bgColor={cash ? "#FFDAAD" : "transparent"}
                       w={"100%"}
@@ -163,15 +172,28 @@ export default function Cart() {
                       p={".65em"}
                       cursor={"pointer"}
                     >
-                      <Box color={cash ? "#F99B2A" : "#6D6D6D"} fontSize={"5em"}>
+                      <Box
+                        color={cash ? "#F99B2A" : "#6D6D6D"}
+                        fontSize={"5em"}
+                      >
                         <FaRegMoneyBillAlt />
                       </Box>
                       <Box color={cash ? "#F99B2A" : "#6D6D6D"}>
-                        <Text as={cash ? "b" : "b"} fontSize={"xl"}>Cash</Text>
+                        <Text as={cash ? "b" : "b"} fontSize={"xl"}>
+                          Cash
+                        </Text>
                       </Box>
                     </VStack>
                   </Box>
                 </Link>
+                <Input
+                  boxShadow={"md"}
+                  display={change ? "block" : "none"}
+                  type={"number"}
+                  placeholder={"Payment Amount"}
+                  w={"15em"}
+                  focusBorderColor={"#6D6D6D"}
+                />
                 <Link to={""}>
                   <Box
                     w={"15em"}
@@ -182,13 +204,15 @@ export default function Cart() {
                     _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
-                    border={qris ? "solid #F99B2A" : "solid #6D6D6D" }
+                    border={qris ? "solid #F99B2A" : "solid #6D6D6D"}
+                    boxShadow={"lg"}
                   >
                     <VStack
                       spacing={"0"}
                       onClick={() => {
                         setWallet(false);
                         setCash(false);
+                        setChange(false);
                         setQris(!qris);
                       }}
                       bgColor={qris ? "#FFDAAD" : "transparent"}
@@ -197,11 +221,16 @@ export default function Cart() {
                       p={".65em"}
                       cursor={"pointer"}
                     >
-                      <Box color={qris ? "#F99B2A" : "#6D6D6D"} fontSize={"5em"}>
+                      <Box
+                        color={qris ? "#F99B2A" : "#6D6D6D"}
+                        fontSize={"5em"}
+                      >
                         <MdOutlineQrCode2 />
                       </Box>
                       <Box color={qris ? "#F99B2A" : "#6D6D6D"}>
-                        <Text as={qris ? "b" : "b"} fontSize={"xl"}>Qris</Text>
+                        <Text as={qris ? "b" : "b"} fontSize={"xl"}>
+                          Qris
+                        </Text>
                       </Box>
                     </VStack>
                   </Box>
@@ -216,13 +245,15 @@ export default function Cart() {
                     _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
-                    border={wallet ? "solid #F99B2A" : "solid #6D6D6D" }
+                    border={wallet ? "solid #F99B2A" : "solid #6D6D6D"}
+                    boxShadow={"lg"}
                   >
                     <VStack
                       spacing={"0"}
                       onClick={() => {
                         setCash(false);
                         setQris(false);
+                        setChange(false);
                         setWallet(!wallet);
                       }}
                       bgColor={wallet ? "#FFDAAD" : "transparent"}
@@ -231,11 +262,16 @@ export default function Cart() {
                       p={".65em"}
                       cursor={"pointer"}
                     >
-                      <Box color={wallet ? "#F99B2A" : "#6D6D6D"} fontSize={"5em"}>
+                      <Box
+                        color={wallet ? "#F99B2A" : "#6D6D6D"}
+                        fontSize={"5em"}
+                      >
                         <MdOutlineWallet />
                       </Box>
                       <Box color={wallet ? "#F99B2A" : "#6D6D6D"}>
-                        <Text as={wallet ? "b" : "b"} fontSize={"xl"}>E-Wallet</Text>
+                        <Text as={wallet ? "b" : "b"} fontSize={"xl"}>
+                          E-Wallet
+                        </Text>
                       </Box>
                     </VStack>
                   </Box>
