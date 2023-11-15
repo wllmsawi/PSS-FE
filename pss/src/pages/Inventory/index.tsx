@@ -26,8 +26,7 @@ export const Inventory = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [sortField, setSortField] =
-    useState("product_name");
+  const [sortField, setSortField] = useState("product_name");
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
@@ -42,12 +41,7 @@ export const Inventory = () => {
     fetchProduct();
   }, []);
   return (
-    <Box
-      bgColor={"#FFFFFF"}
-      h={"100%"}
-      borderRadius={"1.5em"}
-      p={"1.5em"}
-    >
+    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
       <Flex
         bg={"#FFFFFF"}
         h={"100%"}
@@ -136,10 +130,7 @@ export const Inventory = () => {
           </Flex>
           <Spacer />
           <InputGroup w={"11em"}>
-            <InputLeftElement
-              color={"#6D6D6D"}
-              pointerEvents="none"
-            >
+            <InputLeftElement color={"#6D6D6D"} pointerEvents="none">
               <IoIosSearch />
             </InputLeftElement>
             <Input
@@ -178,18 +169,8 @@ export const Inventory = () => {
                 return (
                   <Tr>
                     <Td>{el?.product_name}</Td>
-                    <Td>
-                      {
-                        el?.product_category
-                          ?.product_category_name
-                      }
-                    </Td>
-                    <Td>
-                      {
-                        el?.product_group
-                          ?.product_group_name
-                      }
-                    </Td>
+                    <Td>{el?.product_category?.product_category_name}</Td>
+                    <Td>{el?.product_group?.product_group_name}</Td>
                     <Td>----</Td>
                     <Td>Pieces(pcs)</Td>
                     <Td>----</Td>
@@ -200,10 +181,7 @@ export const Inventory = () => {
           </Table>
         </TableContainer>
         <Spacer />
-        <Flex
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
+        <Flex justifyContent={"center"} alignItems={"center"}>
           <HStack spacing={"2.5em"} fontWeight={"bold"}>
             <Text>Page</Text>
             <Text>1</Text>
