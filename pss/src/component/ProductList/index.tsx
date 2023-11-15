@@ -14,15 +14,30 @@ import {
 import { Link } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { ProductCard } from "../ProductCard";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const ProductList = () => {
+  const [product, setProduct] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortField, setSortField] = useState("product_name");
+  const fetchProduct = async (): Promise<any> => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}`
+      );
+      setProduct(res?.data?.result);
+    } catch (err) {
+      throw err;
+    }
+  };
+  useEffect(() => {
+    fetchProduct();
+  }, []);
   return (
-    <Box
-      bgColor={"#FFFFFF"}
-      h={"100%"}
-      borderRadius={"1.5em"}
-      p={"1.5em"}
-    >
+    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
       <Flex flexDir={"column"} h={"100%"}>
         <HStack spacing={"1.875em"}>
           <Link to={""}>Kitchen</Link>
@@ -82,9 +97,9 @@ export const ProductList = () => {
               Beverages
             </Button>
           </Link>
-          <Spacer/>
+          <Spacer />
           <Select size={"sm"} borderRadius={"0.5em"}>
-            <option>Product Name A-Z</option>
+            <option onChange={}>Product Name A-Z</option>
             <option>Product Name Z-A</option>
             <option>Most Expensive</option>
             <option>Cheapest</option>
@@ -92,10 +107,7 @@ export const ProductList = () => {
         </HStack>
         <Spacer />
         <InputGroup>
-          <InputLeftElement
-            color={"#6D6D6D"}
-            pointerEvents="none"
-          >
+          <InputLeftElement color={"#6D6D6D"} pointerEvents="none">
             <IoIosSearch />
           </InputLeftElement>
           <Input
@@ -119,17 +131,10 @@ export const ProductList = () => {
             },
           }}
         >
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {product.map((el, index) => {
+            return <ProductCard key={index} {...el} />;
+          })}
+          
         </Grid>
         <Spacer />
         <Box
@@ -138,10 +143,7 @@ export const ProductList = () => {
           p={".875em"}
           borderRadius={"1em"}
         >
-          <Flex
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
+          <Flex justifyContent={"center"} alignItems={"center"}>
             <HStack spacing={"2.5em"} fontWeight={"bold"}>
               <Text>Page</Text>
               <Text>1</Text>

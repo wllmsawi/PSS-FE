@@ -28,14 +28,16 @@ import { Link } from "react-router-dom";
 import { MdOutlineWallet } from "react-icons/md";
 import { MdOutlineQrCode2 } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
-import { color } from "framer-motion";
 
-export default function Cart() {
+export default function Cart(props: any) {
   const [cash, setCash] = useState(false);
   const [qris, setQris] = useState(false);
   const [wallet, setWallet] = useState(false);
   const [change, setChange] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [carts, setCart] = useState([]);
+
+  
 
   return (
     <VStack
@@ -72,15 +74,6 @@ export default function Cart() {
         }}
       >
         <Grid gap={"1em"}>
-          <ProductInCart />
-          <ProductInCart />
-          <ProductInCart />
-          <ProductInCart />
-          <ProductInCart />
-          <ProductInCart />
-          <ProductInCart />
-          <ProductInCart />
-          <ProductInCart />
           <ProductInCart />
         </Grid>
       </Box>
@@ -140,9 +133,9 @@ export default function Cart() {
             <ModalCloseButton />
             <ModalBody>
               <Center>
-              <Text fontWeight={"bold"} fontSize={"x-large"}>
-                Choose Payment
-              </Text>
+                <Text fontWeight={"bold"} fontSize={"x-large"}>
+                  Choose Payment
+                </Text>
               </Center>
               <VStack p={"3em"} spacing={"1em"}>
                 <Link to={""}>
