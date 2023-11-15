@@ -121,7 +121,7 @@ export default function SideBar() {
               <PiNotepadFill />
             </Box>
             <Box color={inventory ? "red" : "black"}>
-              <Link to={""}>
+              <Link to={"/admin/inventory"}>
                 <Text as={inventory ? "b" : "b"}>
                   Inventory
                 </Text>
