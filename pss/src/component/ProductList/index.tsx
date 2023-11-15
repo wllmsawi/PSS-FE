@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
   Spacer,
   Text,
   VStack,
@@ -29,6 +30,7 @@ export const ProductList = () => {
               p={"1em"}
               bg={"#EEF1F2"}
               border={"1px solid #6D6D6D"}
+              size={"sm"}
               _hover={{
                 bg: "#FFDAAD",
                 color: "#F99B2A",
@@ -48,6 +50,7 @@ export const ProductList = () => {
               p={"1em"}
               bg={"#EEF1F2"}
               border={"1px solid #6D6D6D"}
+              size={"sm"}
               _hover={{
                 bg: "#FFDAAD",
                 color: "#F99B2A",
@@ -63,6 +66,7 @@ export const ProductList = () => {
               p={"1em"}
               bg={"#EEF1F2"}
               border={"1px solid #6D6D6D"}
+              size={"sm"}
               _hover={{
                 bg: "#FFDAAD",
                 color: "#F99B2A",
@@ -73,6 +77,13 @@ export const ProductList = () => {
               Beverages
             </Button>
           </Link>
+          <Spacer/>
+          <Select size={"sm"} borderRadius={"0.5em"}>
+            <option>Product Name A-Z</option>
+            <option>Product Name Z-A</option>
+            <option>Most Expensive</option>
+            <option>Cheapest</option>
+          </Select>
         </HStack>
         <InputGroup>
           <InputLeftElement color={"#6D6D6D"} pointerEvents="none">

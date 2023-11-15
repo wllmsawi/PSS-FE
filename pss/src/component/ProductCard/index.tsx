@@ -2,27 +2,26 @@ import {
   Box,
   Button,
   Center,
-  Divider,
   Flex,
   HStack,
+  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalOverlay,
-  Spacer,
   Text,
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import useCounter from "./useCounter";
-import product1 from "../ProductInCart/img/product1.png"
+import product1 from "../ProductInCart/img/product1.png";
+import { BsCartPlusFill } from "react-icons/bs";
 
 export const ProductCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [count, increment, decrement] = useCounter(0);
+  const [count, increment, decrement] = useCounter(1);
   const minus = () => {
     decrement();
   };
@@ -30,7 +29,13 @@ export const ProductCard = () => {
     increment();
   };
   return (
-    <Box h={"264px"} boxShadow={"lg"} borderRadius={"1em"} overflow={"hidden"}>
+    <Box
+      h={"264px"}
+      boxShadow={"lg"}
+      borderRadius={"1em"}
+      overflow={"hidden"}
+      onClick={onOpen}
+    >
       <Box bgColor={"gray.300"} h={"50%"}>
         {/* <Image src="" /> */}
       </Box>
@@ -49,65 +54,69 @@ export const ProductCard = () => {
         <Text color={"#F99B2A"} fontWeight={"bold"}>
           Rp 10.000
         </Text>
-        <Button size={"xs"} w={"8em"} onClick={onOpen}>
-          Add
-        </Button>
         <Modal isOpen={isOpen} onClose={onClose} size={"lg"} isCentered>
           <ModalOverlay />
           <ModalContent>
-            <VStack p={".5em"}>
-            <Center>
-              <Text fontWeight={"bold"} fontSize={"xl"}>
-                ADD ITEM
-              </Text>
-            </Center>
-            <Spacer/>
-            <Divider/>
-            </VStack>
             <ModalCloseButton />
             <ModalBody>
-              <VStack>
-                
-                <Text fontWeight={"bold"} color={"red"}>Iced Coffe Latte</Text>
-                <Text fontWeight={"bold"} color={"orange"}>Rp.10.000</Text>
+              <VStack p={"1.5em"}>
+                <Image
+                  src={product1}
+                  boxSize={"20emem"}
+                  borderRadius={".5em"}
+                />
+                <Text fontWeight={"bold"} color={"red"}>
+                  Iced Coffe Latte
+                </Text>
+                <Text fontWeight={"bold"} color={"orange"}>
+                  Rp.10.000
+                </Text>
+                <HStack>
+                  <Button
+                    size={"md"}
+                    bgColor={"transparent"}
+                    _hover={{ bgColor: "transparent" }}
+                    _active={{ bgColor: "lightgrey" }}
+                    fontSize={"xl"}
+                    color={"#ED1C24"}
+                    onClick={() => {
+                      count > 1 ? minus() : null;
+                    }}
+                  >
+                    <FaMinusCircle />
+                  </Button>
+                  <Text fontWeight={"bold"} fontSize={"md"}>
+                    {count}
+                  </Text>
+                  <Button
+                    size={"md"}
+                    bgColor={"transparent"}
+                    _hover={{ bgColor: "transparent" }}
+                    _active={{ bgColor: "lightgrey" }}
+                    fontSize={"xl"}
+                    color={"#ED1C24"}
+                    onClick={() => {
+                      count !== 100 ? plus() : null;
+                    }}
+                  >
+                    <FaPlusCircle />
+                  </Button>
+                </HStack>
               </VStack>
             </ModalBody>
-
-            <ModalFooter>
-              <HStack>
+            <Box p={"1em"}>
+              <Center>
                 <Button
-                  size={"md"}
-                  bgColor={"transparent"}
-                  _hover={{ bgColor: "transparent" }}
-                  _active={{ bgColor: "lightgrey" }}
-                  fontSize={"xl"}
-                  onClick={() => {
-                    count !== 0 ? minus() : null;
-                  }}
+                  leftIcon={<BsCartPlusFill />}
+                  type={"submit"}
+                  color={"#6D6D6D"}
+                  onClick={onClose}
+                  w={"15em"}
                 >
-                  <FaMinusCircle />
+                  Add to Cart
                 </Button>
-                <Text fontWeight={"bold"} fontSize={"md"}>
-                  {count}
-                </Text>
-                <Button
-                  size={"md"}
-                  bgColor={"transparent"}
-                  _hover={{ bgColor: "transparent" }}
-                  _active={{ bgColor: "lightgrey" }}
-                  fontSize={"xl"}
-                  onClick={() => {
-                    count !== 100 ? plus() : null;
-                  }}
-                >
-                  <FaPlusCircle />
-                </Button>
-              </HStack>
-              <Spacer />
-              <Button type={"submit"} colorScheme={"red"} onClick={onClose}>
-                Confirm
-              </Button>
-            </ModalFooter>
+              </Center>
+            </Box>
           </ModalContent>
         </Modal>
       </Flex>
