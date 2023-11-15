@@ -1,4 +1,4 @@
-import { Box, Text, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import SideBar from "../../component/SideBar";
 import Cart from "../../component/Cart";
 import { NavBar } from "../../component/NavBar";
