@@ -16,10 +16,31 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export const Inventory = () => {
+  const [product, setProduct] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortField, setSortField] =
+    useState("product_name");
+  const fetchProduct = async (): Promise<any> => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}`
+      );
+      setProduct(res?.data?.result);
+    } catch (err) {
+      throw err;
+    }
+  };
+  useEffect(() => {
+    fetchProduct();
+  }, []);
   return (
     <Box
       bgColor={"#FFFFFF"}
@@ -152,14 +173,28 @@ export const Inventory = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>----</Td>
-                <Td>----</Td>
-                <Td>----</Td>
-                <Td>----</Td>
-                <Td>----</Td>
-                <Td>----</Td>
-              </Tr>
+              {product.map((el) => {
+                return (
+                  <Tr>
+                    <Td>{el?.product_name}</Td>
+                    <Td>
+                      {
+                        el?.product_category
+                          ?.product_category_name
+                      }
+                    </Td>
+                    <Td>
+                      {
+                        el?.product_group
+                          ?.product_group_name
+                      }
+                    </Td>
+                    <Td>----</Td>
+                    <Td>Pieces(pcs)</Td>
+                    <Td>----</Td>
+                  </Tr>
+                );
+              })}
             </Tbody>
           </Table>
         </TableContainer>
