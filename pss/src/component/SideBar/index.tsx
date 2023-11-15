@@ -100,7 +100,7 @@ export default function SideBar() {
             <Box color={transaction ? "red" : "black"}>
               <Link to={""}>
                 <Text as={transaction ? "b" : "b"}>
-                  Transaction
+                  Product
                 </Text>
               </Link>
             </Box>
@@ -135,7 +135,7 @@ export default function SideBar() {
             <Box color={inventory ? "red" : "black"}>
               <Link to={""}>
                 <Text as={inventory ? "b" : "b"}>
-                  Inventory
+                  Employee
                 </Text>
               </Link>
             </Box>
