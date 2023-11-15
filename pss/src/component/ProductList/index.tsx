@@ -9,7 +9,6 @@ import {
   InputLeftElement,
   Spacer,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
@@ -17,12 +16,18 @@ import { ProductCard } from "../ProductCard";
 
 export const ProductList = () => {
   return (
-    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
-      <VStack align={"stretch"} spacing={"1.875em"}>
+    <Box
+      bgColor={"#FFFFFF"}
+      h={"100%"}
+      borderRadius={"1.5em"}
+      p={"1.5em"}
+    >
+      <Flex flexDir={"column"} h={"100%"}>
         <HStack spacing={"1.875em"}>
           <Link to={""}>Kitchen</Link>
           <Link to={""}>Beverages</Link>
         </HStack>
+        <Spacer />
         <HStack spacing={"2em"}>
           <Link to={""}>
             <Button
@@ -74,8 +79,12 @@ export const ProductList = () => {
             </Button>
           </Link>
         </HStack>
+        <Spacer />
         <InputGroup>
-          <InputLeftElement color={"#6D6D6D"} pointerEvents="none">
+          <InputLeftElement
+            color={"#6D6D6D"}
+            pointerEvents="none"
+          >
             <IoIosSearch />
           </InputLeftElement>
           <Input
@@ -86,6 +95,7 @@ export const ProductList = () => {
             focusBorderColor={"transparent"}
           />
         </InputGroup>
+        <Spacer />
         <Grid
           gap={"1em"}
           gridTemplateColumns={"repeat(3, 1fr)"}
@@ -95,7 +105,7 @@ export const ProductList = () => {
           sx={{
             "&::-webkit-scrollbar": {
               display: "none",
-            }
+            },
           }}
         >
           <ProductCard />
@@ -110,13 +120,17 @@ export const ProductList = () => {
           <ProductCard />
           <ProductCard />
         </Grid>
+        <Spacer />
         <Box
           overflow={"hidden"}
           bgColor={"#FAFAFA"}
           p={".875em"}
           borderRadius={"1em"}
         >
-          <Flex justifyContent={"center"} alignItems={"center"}>
+          <Flex
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
             <HStack spacing={"2.5em"} fontWeight={"bold"}>
               <Text>Page</Text>
               <Text>1</Text>
@@ -139,7 +153,7 @@ export const ProductList = () => {
             <Text>of 30 pages</Text>
           </Flex>
         </Box>
-      </VStack>
+      </Flex>
     </Box>
   );
 };
