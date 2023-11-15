@@ -21,7 +21,7 @@ function App() {
       />
       <Route
         path="/admin/report"
-        element={<AdminView view={<Text>Product</Text>} />}
+        element={<AdminView view={<Text>Report</Text>} />}
       />
 
       <Route path="*" element={<ErrorPages />} />

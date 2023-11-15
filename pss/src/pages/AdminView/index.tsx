@@ -27,7 +27,6 @@ export const AdminView = (props: any) => {
       </GridItem>
       <GridItem area={"main"} p={"0 0 1em 0"}>
         {props.view}
-        {/* <ProductList /> */}
       </GridItem>
     </Grid>
   );
