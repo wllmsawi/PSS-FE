@@ -1,10 +1,4 @@
-import {
-  Box,
-  Flex,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 export const ProductCard = () => {
   return (

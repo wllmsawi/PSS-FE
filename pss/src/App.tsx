@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Transaction from "./pages/Transaction";
 import { AdminView } from "./pages/AdminView";
+import { ErrorPages } from "./pages/ErrorPages";
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
         element={<Transaction />}
       />
       <Route path="/admin" element={<AdminView />} />
+      <Route path="/admin/:link" element={<AdminView />} />
+      <Route path="*" element={<ErrorPages />} />
     </Routes>
   );
 }

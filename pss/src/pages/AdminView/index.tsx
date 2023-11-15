@@ -1,9 +1,10 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import SideBar from "../../component/SideBar";
+import SideBar from "./SideBar";
 import { NavBar } from "../../component/NavBar";
 import { ProductList } from "../../component/ProductList";
 
-export const AdminView = () => {
+export const AdminView = (props: {}) => {
+  console.log("props", props);
   return (
     <Grid
       templateAreas={`
