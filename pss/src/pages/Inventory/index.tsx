@@ -6,7 +6,10 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Radio,
+  RadioGroup,
   Spacer,
+  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -28,19 +31,22 @@ export const Inventory = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortField, setSortField] =
     useState("product_name");
+  const [branchId, setBranchId] = useState(1);
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}`
+        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
       throw err;
     }
   };
+
   useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [page, pageSize]);
+  console.log("product", product[0]?.stock[0]?.quantity);
   return (
     <Box
       bgColor={"#FFFFFF"}
@@ -165,34 +171,73 @@ export const Inventory = () => {
           <Table variant={"simple"}>
             <Thead bg={"#ED1C24"}>
               <Tr>
-                <Th color={"#FEFEFE"}>Name</Th>
-                <Th color={"#FEFEFE"}>Category</Th>
-                <Th color={"#FEFEFE"}>Type</Th>
-                <Th color={"#FEFEFE"}>In Stock</Th>
-                <Th color={"#FEFEFE"}>Unit</Th>
-                <Th color={"#FEFEFE"}>Stock Alert</Th>
+                <Th color={"#FEFEFE"} textAlign={"center"}>
+                  Name
+                </Th>
+                <Th color={"#FEFEFE"} textAlign={"center"}>
+                  Category
+                </Th>
+                <Th color={"#FEFEFE"} textAlign={"center"}>
+                  Type
+                </Th>
+                <Th color={"#FEFEFE"} textAlign={"center"}>
+                  In Stock
+                </Th>
+                <Th color={"#FEFEFE"} textAlign={"center"}>
+                  Unit
+                </Th>
+                <Th color={"#FEFEFE"} textAlign={"center"}>
+                  Stock Alert
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
               {product.map((el) => {
                 return (
                   <Tr>
-                    <Td>{el?.product_name}</Td>
-                    <Td>
+                    <Td textAlign={"center"}>
+                      {el?.product_name}
+                    </Td>
+                    <Td textAlign={"center"}>
                       {
                         el?.product_category
                           ?.product_category_name
                       }
                     </Td>
-                    <Td>
+                    <Td textAlign={"center"}>
                       {
                         el?.product_group
                           ?.product_group_name
                       }
                     </Td>
-                    <Td>----</Td>
-                    <Td>Pieces(pcs)</Td>
-                    <Td>----</Td>
+                    <Td textAlign={"center"}>
+                      {el?.stock[0]?.quantity
+                        ? el?.stock[0]?.quantity
+                        : "0"}
+                    </Td>
+                    <Td textAlign={"center"}>
+                      Pieces(pcs)
+                    </Td>
+                    <Td textAlign={"center"}>
+                      {el?.stock[0]?.quantity === 0 ||
+                      el?.stock[0]?.quantity === "false" ? (
+                        <Text color={"#ED1C24"}>
+                          Out of stock
+                        </Text>
+                      ) : el?.stock[0]?.quantity < 5 ? (
+                        <Text color={"#F99B2A"}>
+                          Low in stock
+                        </Text>
+                      ) : el?.stock[0]?.quantity >= 10 ? (
+                        <Text color={"#07C180"}>
+                          In stock
+                        </Text>
+                      ) : (
+                        <Text color={"#ED1C24"}>
+                          Error{" "}
+                        </Text>
+                      )}
+                    </Td>
                   </Tr>
                 );
               })}
@@ -206,12 +251,98 @@ export const Inventory = () => {
         >
           <HStack spacing={"2.5em"} fontWeight={"bold"}>
             <Text>Page</Text>
-            <Text>1</Text>
-            <Text>2</Text>
-            <Text>3</Text>
-            <Text>4</Text>
-            <Text>5</Text>
+            <Button
+              onClick={(e) => {
+                setPage(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  )
+                );
+                setPageSize(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  ) * 10
+                );
+              }}
+              variant={"link"}
+              value={1}
+            >
+              1
+            </Button>
+            <Button
+              onClick={(e) => {
+                setPage(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  )
+                );
+                setPageSize(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  ) * 10
+                );
+              }}
+              variant={"link"}
+              value={2}
+            >
+              2
+            </Button>
+            <Button
+              onClick={(e) => {
+                setPage(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  )
+                );
+                setPageSize(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  ) * 10
+                );
+              }}
+              variant={"link"}
+              value={3}
+            >
+              3
+            </Button>
+            <Button
+              onClick={(e) => {
+                setPage(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  )
+                );
+                setPageSize(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  ) * 10
+                );
+              }}
+              variant={"link"}
+              value={4}
+            >
+              4
+            </Button>
+            <Button
+              onClick={(e) => {
+                setPage(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  )
+                );
+                setPageSize(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  ) * 10
+                );
+              }}
+              variant={"link"}
+              value={5}
+            >
+              5
+            </Button>
           </HStack>
+
           <Spacer />
           <Input
             type="number"
@@ -221,6 +352,16 @@ export const Inventory = () => {
             w={"2.5em"}
             focusBorderColor={"transparent"}
             p={".5em"}
+            onChange={(e) => {
+              setPage(
+                Number((e.target as HTMLInputElement).value)
+              );
+              setPageSize(
+                Number(
+                  (e.target as HTMLInputElement).value
+                ) * 10
+              );
+            }}
           />
           <Spacer />
           <Text>of 30 pages</Text>
