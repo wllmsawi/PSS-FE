@@ -3,7 +3,6 @@ import {
   Divider,
   Flex,
   Grid,
-  GridItem,
   HStack,
   Spacer,
   Text,
