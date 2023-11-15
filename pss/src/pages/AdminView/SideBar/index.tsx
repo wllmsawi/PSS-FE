@@ -48,12 +48,7 @@ export default function SideBar() {
         >
           <HStack
             spacing={"1em"}
-            onClick={() => {
-              setInventory(false);
-              setTransaction(false);
-              setLogout(false);
-              setOrder(!order);
-            }}
+            onClick={() => {}}
             bgColor={order ? "red.100" : "transparent"}
             w={"100%"}
             borderRadius={".5em"}
@@ -64,44 +59,9 @@ export default function SideBar() {
               <PiBasketFill />
             </Box>
             <Box color={order ? "red" : "black"}>
-              <Link to={"/admin/product"}>
-                <Text as={order ? "b" : "b"}>Product</Text>
-              </Link>
-            </Box>
-          </HStack>
-        </Box>
-        <Box
-          w={"100%"}
-          h={"2.5em"}
-          display={"flex"}
-          flexDir={"row"}
-          _focusVisible={{ color: "red" }}
-          _hover={{ bgColor: "red.50" }}
-          borderRadius={"0.5em"}
-        >
-          <HStack
-            spacing={"1em"}
-            onClick={() => {
-              setOrder(false);
-              setInventory(false);
-              setLogout(false);
-              setTransaction(!transaction);
-            }}
-            bgColor={
-              transaction ? "red.100" : "transparent"
-            }
-            w={"100%"}
-            borderRadius={".5em"}
-            p={".65em"}
-            cursor={"pointer"}
-          >
-            <Box color={transaction ? "red" : "black"}>
-              <PiCalculatorFill />
-            </Box>
-            <Box color={transaction ? "red" : "black"}>
-              <Link to={""}>
-                <Text as={transaction ? "b" : "b"}>
-                  Product Category
+              <Link to={"/admin/dashboard"}>
+                <Text as={order ? "b" : "b"}>
+                  Dashboard
                 </Text>
               </Link>
             </Box>
@@ -118,12 +78,39 @@ export default function SideBar() {
         >
           <HStack
             spacing={"1em"}
-            onClick={() => {
-              setOrder(false);
-              setTransaction(false);
-              setLogout(false);
-              setInventory(!inventory);
-            }}
+            onClick={() => {}}
+            bgColor={
+              transaction ? "red.100" : "transparent"
+            }
+            w={"100%"}
+            borderRadius={".5em"}
+            p={".65em"}
+            cursor={"pointer"}
+          >
+            <Box color={transaction ? "red" : "black"}>
+              <PiCalculatorFill />
+            </Box>
+            <Box color={transaction ? "red" : "black"}>
+              <Link to={"/admin/report"}>
+                <Text as={transaction ? "b" : "b"}>
+                  Report
+                </Text>
+              </Link>
+            </Box>
+          </HStack>
+        </Box>
+        <Box
+          w={"100%"}
+          h={"2.5em"}
+          display={"flex"}
+          flexDir={"row"}
+          _focusVisible={{ color: "red" }}
+          _hover={{ bgColor: "red.50" }}
+          borderRadius={"0.5em"}
+        >
+          <HStack
+            spacing={"1em"}
+            onClick={() => {}}
             bgColor={inventory ? "red.100" : "transparent"}
             w={"100%"}
             borderRadius={".5em"}
@@ -136,7 +123,67 @@ export default function SideBar() {
             <Box color={inventory ? "red" : "black"}>
               <Link to={""}>
                 <Text as={inventory ? "b" : "b"}>
-                  Transaction
+                  Inventory
+                </Text>
+              </Link>
+            </Box>
+          </HStack>
+        </Box>
+        <Box
+          w={"100%"}
+          h={"2.5em"}
+          display={"flex"}
+          flexDir={"row"}
+          _focusVisible={{ color: "red" }}
+          _hover={{ bgColor: "red.50" }}
+          borderRadius={"0.5em"}
+        >
+          <HStack
+            spacing={"1em"}
+            onClick={() => {}}
+            bgColor={order ? "red.100" : "transparent"}
+            w={"100%"}
+            borderRadius={".5em"}
+            p={".65em"}
+            cursor={"pointer"}
+          >
+            <Box color={order ? "red" : "black"}>
+              <PiBasketFill />
+            </Box>
+            <Box color={order ? "red" : "black"}>
+              <Link to={"/admin/product"}>
+                <Text as={order ? "b" : "b"}>Employee</Text>
+              </Link>
+            </Box>
+          </HStack>
+        </Box>
+        <Box
+          w={"100%"}
+          h={"2.5em"}
+          display={"flex"}
+          flexDir={"row"}
+          _focusVisible={{ color: "red" }}
+          _hover={{ bgColor: "red.50" }}
+          borderRadius={"0.5em"}
+        >
+          <HStack
+            spacing={"1em"}
+            onClick={() => {}}
+            bgColor={
+              transaction ? "red.100" : "transparent"
+            }
+            w={"100%"}
+            borderRadius={".5em"}
+            p={".65em"}
+            cursor={"pointer"}
+          >
+            <Box color={transaction ? "red" : "black"}>
+              <PiCalculatorFill />
+            </Box>
+            <Box color={transaction ? "red" : "black"}>
+              <Link to={""}>
+                <Text as={transaction ? "b" : "b"}>
+                  Customer
                 </Text>
               </Link>
             </Box>
@@ -154,12 +201,7 @@ export default function SideBar() {
       >
         <HStack
           spacing={"1em"}
-          onClick={() => {
-            setOrder(false);
-            setTransaction(false);
-            setInventory(false);
-            setLogout(!logout);
-          }}
+          onClick={() => {}}
           bgColor={logout ? "red.100" : "transparent"}
           w={"100%"}
           borderRadius={".5em"}

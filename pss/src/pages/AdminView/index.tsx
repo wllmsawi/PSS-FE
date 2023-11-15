@@ -3,7 +3,7 @@ import SideBar from "./SideBar";
 import { NavBar } from "../../component/NavBar";
 import { ProductList } from "../../component/ProductList";
 
-export const AdminView = (props: {}) => {
+export const AdminView = (props: any) => {
   console.log("props", props);
   return (
     <Grid
@@ -26,7 +26,8 @@ export const AdminView = (props: {}) => {
         <NavBar />
       </GridItem>
       <GridItem area={"main"} p={"0 0 1em 0"}>
-        <ProductList />
+        {props.view}
+        {/* <ProductList /> */}
       </GridItem>
     </Grid>
   );
