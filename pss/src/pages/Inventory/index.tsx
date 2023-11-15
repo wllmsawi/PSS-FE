@@ -160,16 +160,17 @@ export const Inventory = () => {
               display: "none",
             },
           }}
+          borderRadius={".5em"}
         >
           <Table variant={"simple"}>
-            <Thead>
+            <Thead bg={"#ED1C24"}>
               <Tr>
-                <Th>Name</Th>
-                <Th>Category</Th>
-                <Th>Type</Th>
-                <Th>In Stock</Th>
-                <Th>Unit</Th>
-                <Th>Stock Alert</Th>
+                <Th color={"#FEFEFE"}>Name</Th>
+                <Th color={"#FEFEFE"}>Category</Th>
+                <Th color={"#FEFEFE"}>Type</Th>
+                <Th color={"#FEFEFE"}>In Stock</Th>
+                <Th color={"#FEFEFE"}>Unit</Th>
+                <Th color={"#FEFEFE"}>Stock Alert</Th>
               </Tr>
             </Thead>
             <Tbody>
