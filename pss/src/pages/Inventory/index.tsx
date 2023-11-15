@@ -252,6 +252,8 @@ export const Inventory = () => {
           <HStack spacing={"2.5em"} fontWeight={"bold"}>
             <Text>Page</Text>
             <Button
+              _active={{ color: "#ED1C24" }}
+              _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
                 setPage(
                   Number(
@@ -270,6 +272,8 @@ export const Inventory = () => {
               1
             </Button>
             <Button
+              _active={{ color: "#ED1C24" }}
+              _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
                 setPage(
                   Number(
@@ -288,6 +292,8 @@ export const Inventory = () => {
               2
             </Button>
             <Button
+              _active={{ color: "#ED1C24" }}
+              _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
                 setPage(
                   Number(
@@ -306,6 +312,8 @@ export const Inventory = () => {
               3
             </Button>
             <Button
+              _active={{ color: "#ED1C24" }}
+              _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
                 setPage(
                   Number(
@@ -324,6 +332,8 @@ export const Inventory = () => {
               4
             </Button>
             <Button
+              _active={{ color: "#ED1C24" }}
+              _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
                 setPage(
                   Number(
@@ -344,25 +354,29 @@ export const Inventory = () => {
           </HStack>
 
           <Spacer />
-          <Input
-            type="number"
-            borderRadius={".5em"}
-            bg={"#EEF1F2"}
-            border={"none"}
-            w={"2.5em"}
-            focusBorderColor={"transparent"}
-            p={".5em"}
-            onChange={(e) => {
-              setPage(
-                Number((e.target as HTMLInputElement).value)
-              );
-              setPageSize(
-                Number(
-                  (e.target as HTMLInputElement).value
-                ) * 10
-              );
-            }}
-          />
+          <form>
+            <Input
+              type="number"
+              borderRadius={".5em"}
+              bg={"#EEF1F2"}
+              border={"none"}
+              w={"2.5em"}
+              focusBorderColor={"transparent"}
+              p={".5em"}
+              onChange={(e) => {
+                setPage(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  )
+                );
+                setPageSize(
+                  Number(
+                    (e.target as HTMLInputElement).value
+                  ) * 10
+                );
+              }}
+            />
+          </form>
           <Spacer />
           <Text>of 30 pages</Text>
         </Flex>
