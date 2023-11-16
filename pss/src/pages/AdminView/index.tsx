@@ -1,7 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import SideBar from "./SideBar";
 import { NavBar } from "../../component/NavBar";
-import { ProductList } from "../../component/ProductList";
 
 export const AdminView = (props: any) => {
   console.log("props", props);
@@ -15,6 +14,7 @@ export const AdminView = (props: any) => {
       gridTemplateRows={"3em 1fr 3em"}
       h={"100vh"}
       maxW={"100vw"}
+      overflow={"hidden"}
       gap={".5em"}
       bgColor={"#EEF1F2"}
       p={"0 1em 0 0"}

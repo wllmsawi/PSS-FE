@@ -3,13 +3,11 @@ import {
   Button,
   Flex,
   HStack,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
-  Radio,
-  RadioGroup,
   Spacer,
-  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -19,12 +17,14 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-export const Inventory = () => {
+import esKopiSusuGulaAren from "../../../../../../PSS/src/public/images/product/product_2023_10_13_es_kopi_susu_gula_aren.jpg";
+
+export const AdminProductList = () => {
   const [product, setProduct] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -34,10 +34,12 @@ export const Inventory = () => {
   const [branchId, setBranchId] = useState(1);
   const [gte, setGte] = useState(0);
   const [lte, setLte] = useState(100);
+  const ROUTE: string = import.meta.env
+    .VITE_APP_API_BASE_URL;
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}`
+        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -48,18 +50,6 @@ export const Inventory = () => {
   useEffect(() => {
     fetchProduct();
   }, [page, pageSize]);
-  console.log("product", product[0]?.stock[0]?.quantity);
-
-  let filter = product?.filter((el) => {
-    if (
-      el?.stock[0]?.quantity > gte &&
-      el?.stock[0]?.quantity <= lte
-    ) {
-      return el;
-    }
-  });
-
-  console.log("filter", filter);
   return (
     <Box
       bgColor={"#FFFFFF"}
@@ -91,10 +81,6 @@ export const Inventory = () => {
                   color: "#F99B2A",
                   border: "1px solid #F99B2A ",
                 }}
-                onClick={() => {
-                  setGte(0);
-                  setLte(100);
-                }}
               >
                 All
               </Button>
@@ -113,10 +99,6 @@ export const Inventory = () => {
                 _active={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
-                }}
-                onClick={() => {
-                  setGte(0);
-                  setLte(100);
                 }}
               >
                 In Stock
@@ -137,10 +119,6 @@ export const Inventory = () => {
                   bg: "#FFDAAD",
                   color: "#F99B2A",
                 }}
-                onClick={() => {
-                  setGte(0);
-                  setLte(5);
-                }}
               >
                 Low Stock
               </Button>
@@ -159,10 +137,6 @@ export const Inventory = () => {
                 _active={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
-                }}
-                onClick={() => {
-                  setGte(0);
-                  setLte(0);
                 }}
               >
                 Out of stock
@@ -195,14 +169,33 @@ export const Inventory = () => {
               display: "none",
             },
           }}
-          borderRadius={".5em"}
         >
-          <Table variant={"simple"}>
-            <Thead bg={"#ED1C24"}>
+          <Table
+            variant={"simple"}
+            style={{
+              borderCollapse: "separate",
+              borderSpacing: "0 .5em",
+              padding: "0",
+              borderRadius: ".5em",
+              overflow: "hidden",
+            }}
+          >
+            <Thead
+              bg={"#ED1C24"}
+              position={"relative"}
+              top={"-.5em"}
+            >
               <Tr>
+                <Th color={"#FEFEFE"} textAlign={"center"}>
+                  Photo
+                </Th>
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Name
                 </Th>
+                <Th color={"#FEFEFE"} textAlign={"center"}>
+                  SKU
+                </Th>
+
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Category
                 </Th>
@@ -210,23 +203,35 @@ export const Inventory = () => {
                   Type
                 </Th>
                 <Th color={"#FEFEFE"} textAlign={"center"}>
-                  In Stock
-                </Th>
-                <Th color={"#FEFEFE"} textAlign={"center"}>
                   Unit
-                </Th>
-                <Th color={"#FEFEFE"} textAlign={"center"}>
-                  Stock Alert
                 </Th>
               </Tr>
             </Thead>
             <Tbody>
-              {filter?.map((el) => {
+              {product.map((el) => {
                 return (
-                  <Tr>
+                  <Tr p={".875em"} bgColor={"#FAFAFA"}>
+                    <Td
+                      textAlign={"center"}
+                      bgColor={"green.00"}
+                    >
+                      <Flex
+                        justifyContent={"center"}
+                        alignItems={"center"}
+                      >
+                        <Image
+                          src={esKopiSusuGulaAren}
+                          maxH={"3em"}
+                          objectFit={"contain"}
+                        />
+                      </Flex>
+                    </Td>
                     <Td textAlign={"center"}>
                       {el?.product_name}
                     </Td>
+                    <Td
+                      textAlign={"center"}
+                    >{`PSS-CK-${el?.id}`}</Td>
                     <Td textAlign={"center"}>
                       {
                         el?.product_category
@@ -240,32 +245,7 @@ export const Inventory = () => {
                       }
                     </Td>
                     <Td textAlign={"center"}>
-                      {el?.stock[0]?.quantity
-                        ? el?.stock[0]?.quantity
-                        : "0"}
-                    </Td>
-                    <Td textAlign={"center"}>
                       Pieces(pcs)
-                    </Td>
-                    <Td textAlign={"center"}>
-                      {el?.stock[0]?.quantity === 0 ||
-                      el?.stock[0]?.quantity === "false" ? (
-                        <Text color={"#ED1C24"}>
-                          Out of stock
-                        </Text>
-                      ) : el?.stock[0]?.quantity <= 5 ? (
-                        <Text color={"#F99B2A"}>
-                          Low in stock
-                        </Text>
-                      ) : el?.stock[0]?.quantity >= 10 ? (
-                        <Text color={"#07C180"}>
-                          In stock
-                        </Text>
-                      ) : (
-                        <Text color={"#ED1C24"}>
-                          Error{" "}
-                        </Text>
-                      )}
                     </Td>
                   </Tr>
                 );
