@@ -33,12 +33,13 @@ export const AdminProductList = () => {
     useState("product_name");
   const [branchId, setBranchId] = useState(1);
   const [gte, setGte] = useState(0);
+  const [lte, setLte] = useState(100);
   const ROUTE: string = import.meta.env
     .VITE_APP_API_BASE_URL;
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}`
+        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -228,7 +229,9 @@ export const AdminProductList = () => {
                     <Td textAlign={"center"}>
                       {el?.product_name}
                     </Td>
-                    <Td textAlign={"center"}></Td>
+                    <Td
+                      textAlign={"center"}
+                    >{`PSS-CK-${el?.id}`}</Td>
                     <Td textAlign={"center"}>
                       {
                         el?.product_category
