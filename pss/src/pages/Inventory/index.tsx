@@ -29,8 +29,7 @@ export const Inventory = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [sortField, setSortField] =
-    useState("product_name");
+  const [sortField, setSortField] = useState("product_name");
   const [branchId, setBranchId] = useState(1);
   const fetchProduct = async (): Promise<any> => {
     try {
@@ -48,12 +47,7 @@ export const Inventory = () => {
   }, [page, pageSize]);
   console.log("product", product[0]?.stock[0]?.quantity);
   return (
-    <Box
-      bgColor={"#FFFFFF"}
-      h={"100%"}
-      borderRadius={"1.5em"}
-      p={"1.5em"}
-    >
+    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
       <Flex
         bg={"#FFFFFF"}
         h={"100%"}
@@ -142,10 +136,7 @@ export const Inventory = () => {
           </Flex>
           <Spacer />
           <InputGroup w={"11em"}>
-            <InputLeftElement
-              color={"#6D6D6D"}
-              pointerEvents="none"
-            >
+            <InputLeftElement color={"#6D6D6D"} pointerEvents="none">
               <IoIosSearch />
             </InputLeftElement>
             <Input
@@ -195,47 +186,27 @@ export const Inventory = () => {
               {product.map((el) => {
                 return (
                   <Tr>
+                    <Td textAlign={"center"}>{el?.product_name}</Td>
                     <Td textAlign={"center"}>
-                      {el?.product_name}
+                      {el?.product_category?.product_category_name}
                     </Td>
                     <Td textAlign={"center"}>
-                      {
-                        el?.product_category
-                          ?.product_category_name
-                      }
+                      {el?.product_group?.product_group_name}
                     </Td>
                     <Td textAlign={"center"}>
-                      {
-                        el?.product_group
-                          ?.product_group_name
-                      }
+                      {el?.stock[0]?.quantity ? el?.stock[0]?.quantity : "0"}
                     </Td>
-                    <Td textAlign={"center"}>
-                      {el?.stock[0]?.quantity
-                        ? el?.stock[0]?.quantity
-                        : "0"}
-                    </Td>
-                    <Td textAlign={"center"}>
-                      Pieces(pcs)
-                    </Td>
+                    <Td textAlign={"center"}>Pieces(pcs)</Td>
                     <Td textAlign={"center"}>
                       {el?.stock[0]?.quantity === 0 ||
                       el?.stock[0]?.quantity === "false" ? (
-                        <Text color={"#ED1C24"}>
-                          Out of stock
-                        </Text>
+                        <Text color={"#ED1C24"}>Out of stock</Text>
                       ) : el?.stock[0]?.quantity < 5 ? (
-                        <Text color={"#F99B2A"}>
-                          Low in stock
-                        </Text>
+                        <Text color={"#F99B2A"}>Low in stock</Text>
                       ) : el?.stock[0]?.quantity >= 10 ? (
-                        <Text color={"#07C180"}>
-                          In stock
-                        </Text>
+                        <Text color={"#07C180"}>In stock</Text>
                       ) : (
-                        <Text color={"#ED1C24"}>
-                          Error{" "}
-                        </Text>
+                        <Text color={"#ED1C24"}>Error </Text>
                       )}
                     </Td>
                   </Tr>
@@ -245,26 +216,15 @@ export const Inventory = () => {
           </Table>
         </TableContainer>
         <Spacer />
-        <Flex
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
+        <Flex justifyContent={"center"} alignItems={"center"}>
           <HStack spacing={"2.5em"} fontWeight={"bold"}>
             <Text>Page</Text>
             <Button
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={1}
@@ -275,16 +235,8 @@ export const Inventory = () => {
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={2}
@@ -295,16 +247,8 @@ export const Inventory = () => {
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={3}
@@ -315,16 +259,8 @@ export const Inventory = () => {
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={4}
@@ -335,16 +271,8 @@ export const Inventory = () => {
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={5}
@@ -364,16 +292,8 @@ export const Inventory = () => {
               focusBorderColor={"transparent"}
               p={".5em"}
               onChange={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
             />
           </form>
