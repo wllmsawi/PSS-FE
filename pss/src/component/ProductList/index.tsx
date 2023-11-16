@@ -25,7 +25,6 @@ export const ProductList = (props: any) => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortField, setSortField] = useState("product_name");
   const [search, setSearch] = useState("");
-  console.log("propsPL", props);
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
@@ -108,6 +107,7 @@ export const ProductList = (props: any) => {
               size={"sm"}
               borderRadius={"0.5em"}
               onChange={(e) => {
+                setSortField("product_name");
                 setSortOrder(e.target.value);
               }}
             >
@@ -171,6 +171,8 @@ export const ProductList = (props: any) => {
                 {...el}
                 cartPC={props.cartPL}
                 setCartPC={props.setCartPL}
+                total={props.total}
+                setTotal={props.setTotal}
               />
             ))}
         </Grid>

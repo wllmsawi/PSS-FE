@@ -35,7 +35,8 @@ export default function Cart(props: any) {
   const [wallet, setWallet] = useState(false);
   const [change, setChange] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log("PROPSPC", props.cartPC);
+  const [ppn, setPpn] = useState(0);
+  // const [totalPpn = setPpn(totalSales * 0.10)
   return (
     <VStack
       bgColor={"#FAFAFA"}
@@ -72,7 +73,14 @@ export default function Cart(props: any) {
       >
         <Grid gap={"1em"}>
           {props?.cartPC?.map((el: any, index: any) => {
-            return <ProductInCart {...el} key={index} />;
+            return (
+              <ProductInCart
+                {...el}
+                key={index}
+                total={props.total}
+                setTotal={props.setTotal}
+              />
+            );
           })}
         </Grid>
       </Box>
@@ -81,7 +89,7 @@ export default function Cart(props: any) {
         <Flex>
           <Text fontWeight={"500"}>Total Sales</Text>
           <Spacer />
-          <Text fontWeight={"500"}>30000</Text>
+          <Text fontWeight={"500"}>{props.total}</Text>
         </Flex>
         <Flex>
           <Text fontWeight={"500"}>Total Diskon</Text>
@@ -91,7 +99,7 @@ export default function Cart(props: any) {
         <Flex>
           <Text fontWeight={"500"}>PPN</Text>
           <Spacer />
-          <Text fontWeight={"500"}>3000</Text>
+          <Text fontWeight={"500"}>{ppn}</Text>
         </Flex>
       </VStack>
       <Divider borderColor={"black"} borderWidth={"1px"} />
@@ -100,9 +108,7 @@ export default function Cart(props: any) {
           Total :
         </Text>
         <Spacer />
-        <Text fontSize={"x-large"} fontWeight={"700"}>
-          33000
-        </Text>
+        <Text fontSize={"x-large"} fontWeight={"700"}></Text>
       </HStack>
       <Spacer />
       <HStack align={"stretch"}>

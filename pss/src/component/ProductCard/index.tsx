@@ -21,7 +21,7 @@ import { BsCartPlusFill } from "react-icons/bs";
 
 export const ProductCard = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [count, increment, decrement] = useCounter(0);
+  const [count, increment, decrement] = useCounter(1);
   return (
     <Box
       h={"264px"}
@@ -71,7 +71,7 @@ export const ProductCard = (props: any) => {
                     fontSize={"xl"}
                     color={"#ED1C24"}
                     onClick={() => {
-                      count > 1 ? decrement() : null;
+                      count > 0 ? decrement() : null;
                     }}
                   >
                     <FaMinusCircle />
@@ -106,9 +106,17 @@ export const ProductCard = (props: any) => {
                       id: props.id,
                       product_name: props.product_name,
                       product_price: props.product_price,
+                      qty: count,
                     };
                     props.setCartPC([test, ...props.cartPC]);
-                    console.log("props", props.cartPC);
+                    console.log("TOTALPRODUCTCARD", props.total);
+                    props.setTotal(props.total + count * props.product_price);
+                    console.log(
+                      "now",
+                      props.total,
+                      props.count,
+                      props.product_price
+                    );
                   }}
                   w={"15em"}
                 >

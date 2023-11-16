@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 export default function Transaction() {
   const [cart, setCart] = useState([]);
-
+  const [total, setTotal] = useState(0);
   return (
     <Grid
       templateAreas={`
@@ -30,10 +30,15 @@ export default function Transaction() {
         <NavBar />
       </GridItem>
       <GridItem area={"product"} p={"0 0 1em 0"}>
-        <ProductList cartPL={cart} setCartPL={setCart} />
+        <ProductList
+          cartPL={cart}
+          setCartPL={setCart}
+          total={total}
+          setTotal={setTotal}
+        />
       </GridItem>
       <GridItem area={"cart"} p={"0 0 1em 0"}>
-        <Cart cartPC={cart} />
+        <Cart cartPC={cart} total={total} setTotal={setTotal} />
       </GridItem>
     </Grid>
   );

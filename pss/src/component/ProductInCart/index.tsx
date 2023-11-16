@@ -5,8 +5,23 @@ import { IconButton } from "@chakra-ui/react";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Spacer } from "@chakra-ui/react";
-
+import { useState, useEffect } from "react";
+import useCounter from "../ProductCard/useCounter";
 export default function ProductInCart(props: any) {
+  // const handlePlus = (id) => {
+  // }
+  const [count, increment, decrement] = useCounter(props.qty);
+  // console.log("PICTOTAL", total);
+  const plus = () => {
+    increment();
+    props.setTotal(props.total + props.product_price);
+  };
+
+  const minus = () => {
+    decrement();
+    props.setTotal(props.total - props.product_price);
+  };
+
   return (
     <HStack>
       <Box>
@@ -14,7 +29,9 @@ export default function ProductInCart(props: any) {
       </Box>
       <VStack align={"stretch"} spacing={"1em"}>
         <Text fontWeight={"400"}>{props.product_name}</Text>
-        <Text fontWeight={"400"}>{`1 X Rp. ${props.product_price}`}</Text>
+        <Text
+          fontWeight={"400"}
+        >{`${count} X Rp. ${props.product_price}`}</Text>
       </VStack>
       <Spacer />
       <VStack align={"stretch"}>
@@ -24,12 +41,15 @@ export default function ProductInCart(props: any) {
             icon={<FaMinusCircle />}
             variant={"ghost"}
             size={"md"}
+            onClick={minus}
           />
+          <Text>{count}</Text>
           <IconButton
             aria-label="Plus"
             icon={<FaPlusCircle />}
             variant={"ghost"}
             size={"md"}
+            onClick={plus}
           />
           <IconButton
             aria-label="Delete"
