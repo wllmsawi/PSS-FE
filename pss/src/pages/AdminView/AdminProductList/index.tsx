@@ -208,46 +208,73 @@ export const AdminProductList = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {product.map((el) => {
+              {product.map((el, index) => {
                 return (
-                  <Tr p={".875em"} bgColor={"#FAFAFA"}>
-                    <Td
-                      textAlign={"center"}
-                      bgColor={"green.00"}
-                    >
-                      <Flex
-                        justifyContent={"center"}
-                        alignItems={"center"}
+                  <>
+                    <Tr p={".875em"} bgColor={"#FAFAFA"}>
+                      <Td
+                        textAlign={"center"}
+                        bgColor={"green.00"}
                       >
-                        <Image
-                          src={esKopiSusuGulaAren}
-                          maxH={"3em"}
-                          objectFit={"contain"}
-                        />
-                      </Flex>
-                    </Td>
-                    <Td textAlign={"center"}>
-                      {el?.product_name}
-                    </Td>
-                    <Td
-                      textAlign={"center"}
-                    >{`PSS-CK-${el?.id}`}</Td>
-                    <Td textAlign={"center"}>
-                      {
-                        el?.product_category
-                          ?.product_category_name
-                      }
-                    </Td>
-                    <Td textAlign={"center"}>
-                      {
-                        el?.product_group
-                          ?.product_group_name
-                      }
-                    </Td>
-                    <Td textAlign={"center"}>
-                      Pieces(pcs)
-                    </Td>
-                  </Tr>
+                        <Flex
+                          justifyContent={"center"}
+                          alignItems={"center"}
+                        >
+                          <Image
+                            src={esKopiSusuGulaAren}
+                            maxH={"3em"}
+                            objectFit={"contain"}
+                          />
+                        </Flex>
+                      </Td>
+                      <Td textAlign={"center"}>
+                        {el?.product_name}
+                      </Td>
+                      <Td
+                        textAlign={"center"}
+                      >{`PSS-CK-${el?.id}`}</Td>
+                      <Td textAlign={"center"}>
+                        {
+                          el?.product_category
+                            ?.product_category_name
+                        }
+                      </Td>
+                      <Td textAlign={"center"}>
+                        {
+                          el?.product_group
+                            ?.product_group_name
+                        }
+                      </Td>
+                      <Td textAlign={"center"}>
+                        Pieces(pcs)
+                      </Td>
+                    </Tr>
+                    <Tr key={index}>
+                      <Td>
+                        <Link to={"/"}>Edit Photo</Link>
+                      </Td>
+                      <Td>
+                        {" "}
+                        <Link to={"/"}>Edit Name</Link>
+                      </Td>
+                      <Td>
+                        {" "}
+                        <Link to={"/"}>Edit SKU</Link>
+                      </Td>
+                      <Td>
+                        {" "}
+                        <Link to={"/"}>Edit Category</Link>
+                      </Td>
+                      <Td>
+                        {" "}
+                        <Link to={"/"}>Edit Type</Link>
+                      </Td>
+                      <Td>
+                        {" "}
+                        <Link to={"/"}>Edit Unit</Link>
+                      </Td>
+                    </Tr>
+                  </>
                 );
               })}
             </Tbody>
