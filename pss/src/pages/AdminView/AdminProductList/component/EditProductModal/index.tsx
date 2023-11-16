@@ -12,7 +12,6 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 export const EditProductModal = (props: any) => {
-  console.log("props", props);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const formik = useFormik({
     initialValues: {

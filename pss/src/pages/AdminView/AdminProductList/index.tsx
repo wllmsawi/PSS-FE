@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
   Spacer,
   Table,
   TableContainer,
@@ -17,13 +18,10 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import React from "react";
-import Collapsible from "react-collapsible";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
-
 import esKopiSusuGulaAren from "../../../../../../PSS/src/public/images/product/product_2023_10_13_es_kopi_susu_gula_aren.jpg";
 import { EditProductModal } from "./component/EditProductModal";
 
@@ -37,22 +35,59 @@ export const AdminProductList = () => {
   const [branchId, setBranchId] = useState(1);
   const [gte, setGte] = useState(0);
   const [lte, setLte] = useState(100);
+  const [category, setCategory] = useState<any>([]);
+  const [catId, setCatId] = useState(1);
+  const [group, setGroup] = useState<any>([]);
+  const [groupId, setGroupId] = useState(1);
   const ROUTE: string = import.meta.env
     .VITE_APP_API_BASE_URL;
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}`
+        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
       throw err;
     }
   };
+  const fetchCategory = async (): Promise<any> => {
+    try {
+      const res = await axios.get(
+        `${ROUTE}/category/category`
+      );
+      console.log(res);
+      setCategory(res?.data?.data);
+    } catch (err) {
+      throw err;
+    }
+  };
 
+  const fetchGroup = async () => {
+    try {
+      const res = await axios.get(
+        `${ROUTE}/category/group`
+      );
+      setGroup(res?.data?.data);
+    } catch (err) {
+      throw err;
+    }
+  };
   useEffect(() => {
     fetchProduct();
-  }, [page, pageSize]);
+    fetchCategory();
+    fetchGroup();
+    setBranchId(1);
+    setGte(0);
+    setLte(100);
+  }, [
+    page,
+    pageSize,
+    sortField,
+    sortOrder,
+    catId,
+    groupId,
+  ]);
 
   return (
     <Box
@@ -69,84 +104,64 @@ export const AdminProductList = () => {
         flexDir={"column"}
       >
         <Flex w={"100%"}>
-          <Flex w={"25em"}>
-            <Link to={""}>
-              <Button
-                p={"1em"}
-                bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
-                _hover={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-                _active={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-              >
-                All
-              </Button>
-            </Link>
-            <Spacer />
-            <Link to={""}>
-              <Button
-                p={"1em"}
-                bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
-                _hover={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-                _active={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                }}
-              >
-                In Stock
-              </Button>
-            </Link>
-            <Spacer />
-            <Link to={""}>
-              <Button
-                p={"1em"}
-                bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
-                _hover={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-                _active={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                }}
-              >
-                Low Stock
-              </Button>
-            </Link>
-            <Spacer />
-            <Link to={""}>
-              <Button
-                p={"1em"}
-                bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
-                _hover={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-                _active={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                }}
-              >
-                Out of stock
-              </Button>
-            </Link>
-          </Flex>
+          <HStack>
+            <Select
+              w={"8em"}
+              size={"sm"}
+              borderRadius={"0.5em"}
+              onChange={(e) => {
+                setSortOrder(e.target.value);
+                setSortField("product_name");
+              }}
+            >
+              <option value={"asc"}>Name A-Z</option>
+              <option value={"desc"}>Name Z-A</option>
+            </Select>
+            <Select
+              w={"8em"}
+              size={"sm"}
+              borderRadius={"0.5em"}
+              onChange={(e) => {
+                setSortField("product_price");
+                setSortOrder(e.target.value);
+              }}
+            >
+              <option value={"asc"}>Lowest Price</option>
+              <option value={"desc"}>Highest Price</option>
+            </Select>
+            <Select
+              w={"8em"}
+              size={"sm"}
+              borderRadius={"0.5em"}
+              onChange={(e) => {
+                setCatId(Number(e.target.value));
+              }}
+            >
+              {category?.map((el: any) => {
+                return (
+                  <option value={el?.id}>
+                    {el.product_category_name}
+                  </option>
+                );
+              })}
+            </Select>
+            <Select
+              w={"8em"}
+              size={"sm"}
+              borderRadius={"0.5em"}
+              onChange={(e) => {
+                setGroupId(Number(e.target.value));
+              }}
+            >
+              {group?.map((el: any) => {
+                return (
+                  <option value={el?.id}>
+                    {el?.product_group_name}
+                  </option>
+                );
+              })}
+            </Select>
+          </HStack>
           <Spacer />
           <InputGroup w={"11em"}>
             <InputLeftElement
