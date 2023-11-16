@@ -3,8 +3,11 @@ import SideBar from "../../component/SideBar";
 import Cart from "../../component/Cart";
 import { NavBar } from "../../component/NavBar";
 import { ProductList } from "../../component/ProductList";
+import { useState, useEffect } from "react";
 
 export default function Transaction() {
+  const [cart, setCart] = useState([]);
+
   return (
     <Grid
       templateAreas={`
@@ -27,10 +30,10 @@ export default function Transaction() {
         <NavBar />
       </GridItem>
       <GridItem area={"product"} p={"0 0 1em 0"}>
-        <ProductList />
+        <ProductList cartPL={cart} setCartPL={setCart} />
       </GridItem>
       <GridItem area={"cart"} p={"0 0 1em 0"}>
-        <Cart />
+        <Cart cartPC={cart} />
       </GridItem>
     </Grid>
   );

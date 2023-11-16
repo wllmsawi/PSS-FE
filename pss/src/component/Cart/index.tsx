@@ -35,10 +35,7 @@ export default function Cart(props: any) {
   const [wallet, setWallet] = useState(false);
   const [change, setChange] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [carts, setCart] = useState([]);
-
-  
-
+  console.log("PROPSPC", props.cartPC);
   return (
     <VStack
       bgColor={"#FAFAFA"}
@@ -74,7 +71,9 @@ export default function Cart(props: any) {
         }}
       >
         <Grid gap={"1em"}>
-          <ProductInCart />
+          {props?.cartPC?.map((el: any, index: any) => {
+            return <ProductInCart {...el} key={index} />;
+          })}
         </Grid>
       </Box>
       <Divider borderColor={"black"} borderWidth={"1px"} />

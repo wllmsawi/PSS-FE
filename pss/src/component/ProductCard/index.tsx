@@ -22,7 +22,6 @@ import { BsCartPlusFill } from "react-icons/bs";
 export const ProductCard = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, increment, decrement] = useCounter(0);
-
   return (
     <Box
       h={"264px"}
@@ -102,7 +101,15 @@ export const ProductCard = (props: any) => {
                   leftIcon={<BsCartPlusFill />}
                   type={"submit"}
                   color={"#6D6D6D"}
-                  onClick={onClose}
+                  onClick={() => {
+                    const test = {
+                      id: props.id,
+                      product_name: props.product_name,
+                      product_price: props.product_price,
+                    };
+                    props.setCartPC([test, ...props.cartPC]);
+                    console.log("props", props.cartPC);
+                  }}
                   w={"15em"}
                 >
                   Add to Cart
