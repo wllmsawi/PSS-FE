@@ -6,15 +6,15 @@ import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Spacer } from "@chakra-ui/react";
 
-export default function ProductInCart() {
+export default function ProductInCart(props: any) {
   return (
     <HStack>
       <Box>
         <Image src={product1} borderRadius={"0.5em"} boxSize={"5em"} />
       </Box>
       <VStack align={"stretch"} spacing={"1em"}>
-        <Text fontWeight={"400"}>Iced Coffe Latte</Text>
-        <Text fontWeight={"400"}>1 X 10.000</Text>
+        <Text fontWeight={"400"}>{props.product_name}</Text>
+        <Text fontWeight={"400"}>{`1 X Rp. ${props.product_price}`}</Text>
       </VStack>
       <Spacer />
       <VStack align={"stretch"}>

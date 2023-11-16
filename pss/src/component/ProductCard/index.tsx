@@ -19,15 +19,9 @@ import useCounter from "./useCounter";
 import product1 from "../ProductInCart/img/product1.png";
 import { BsCartPlusFill } from "react-icons/bs";
 
-export const ProductCard = () => {
+export const ProductCard = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [count, increment, decrement] = useCounter(1);
-  const minus = () => {
-    decrement();
-  };
-  const plus = () => {
-    increment();
-  };
+  const [count, increment, decrement] = useCounter(0);
   return (
     <Box
       h={"264px"}
@@ -46,13 +40,10 @@ export const ProductCard = () => {
         alignItems={"center"}
       >
         <Text color={"#ED1C24"} fontWeight={"bold"}>
-          Product Name
-        </Text>
-        <Text fontWeight={"bold"} fontSize={".75em"} as={"s"}>
-          Rp 15.000
+          {props.product_name}
         </Text>
         <Text color={"#F99B2A"} fontWeight={"bold"}>
-          Rp 10.000
+          {props.product_price}
         </Text>
         <Modal isOpen={isOpen} onClose={onClose} size={"lg"} isCentered>
           <ModalOverlay />
@@ -66,10 +57,10 @@ export const ProductCard = () => {
                   borderRadius={".5em"}
                 />
                 <Text fontWeight={"bold"} color={"red"}>
-                  Iced Coffe Latte
+                  {props.product_name}
                 </Text>
                 <Text fontWeight={"bold"} color={"orange"}>
-                  Rp.10.000
+                  {props.product_price}
                 </Text>
                 <HStack>
                   <Button
@@ -80,7 +71,7 @@ export const ProductCard = () => {
                     fontSize={"xl"}
                     color={"#ED1C24"}
                     onClick={() => {
-                      count > 1 ? minus() : null;
+                      count > 1 ? decrement() : null;
                     }}
                   >
                     <FaMinusCircle />
@@ -96,7 +87,7 @@ export const ProductCard = () => {
                     fontSize={"xl"}
                     color={"#ED1C24"}
                     onClick={() => {
-                      count !== 100 ? plus() : null;
+                      count !== 100 ? increment() : null;
                     }}
                   >
                     <FaPlusCircle />
@@ -110,7 +101,15 @@ export const ProductCard = () => {
                   leftIcon={<BsCartPlusFill />}
                   type={"submit"}
                   color={"#6D6D6D"}
-                  onClick={onClose}
+                  onClick={() => {
+                    const test = {
+                      id: props.id,
+                      product_name: props.product_name,
+                      product_price: props.product_price,
+                    };
+                    props.setCartPC([test, ...props.cartPC]);
+                    console.log("props", props.cartPC);
+                  }}
                   w={"15em"}
                 >
                   Add to Cart
