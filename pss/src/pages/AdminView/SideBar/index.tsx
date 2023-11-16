@@ -152,7 +152,7 @@ export default function SideBar() {
             </Box>
             <Box color={order ? "red" : "black"}>
               <Link to={"/admin/product"}>
-                <Text as={order ? "b" : "b"}>Employee</Text>
+                <Text as={order ? "b" : "b"}>Product</Text>
               </Link>
             </Box>
           </HStack>
@@ -183,7 +183,7 @@ export default function SideBar() {
             <Box color={transaction ? "red" : "black"}>
               <Link to={""}>
                 <Text as={transaction ? "b" : "b"}>
-                  Customer
+                  Employee
                 </Text>
               </Link>
             </Box>

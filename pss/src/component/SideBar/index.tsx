@@ -98,7 +98,7 @@ export default function SideBar() {
               <PiCalculatorFill />
             </Box>
             <Box color={transaction ? "red" : "black"}>
-              <Link to={""}>
+              <Link to={"/admin/product"}>
                 <Text as={transaction ? "b" : "b"}>
                   Product
                 </Text>
