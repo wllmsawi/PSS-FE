@@ -32,10 +32,12 @@ export const Inventory = () => {
   const [sortField, setSortField] =
     useState("product_name");
   const [branchId, setBranchId] = useState(1);
+  const [gte, setGte] = useState(0);
+  const [lte, setLte] = useState(100);
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}`
+        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -47,6 +49,17 @@ export const Inventory = () => {
     fetchProduct();
   }, [page, pageSize]);
   console.log("product", product[0]?.stock[0]?.quantity);
+
+  let filter = product?.filter((el) => {
+    if (
+      el?.stock[0]?.quantity > gte &&
+      el?.stock[0]?.quantity <= lte
+    ) {
+      return el;
+    }
+  });
+
+  console.log("filter", filter);
   return (
     <Box
       bgColor={"#FFFFFF"}
@@ -78,6 +91,10 @@ export const Inventory = () => {
                   color: "#F99B2A",
                   border: "1px solid #F99B2A ",
                 }}
+                onClick={() => {
+                  setGte(0);
+                  setLte(100);
+                }}
               >
                 All
               </Button>
@@ -96,6 +113,10 @@ export const Inventory = () => {
                 _active={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
+                }}
+                onClick={() => {
+                  setGte(0);
+                  setLte(100);
                 }}
               >
                 In Stock
@@ -116,6 +137,10 @@ export const Inventory = () => {
                   bg: "#FFDAAD",
                   color: "#F99B2A",
                 }}
+                onClick={() => {
+                  setGte(0);
+                  setLte(5);
+                }}
               >
                 Low Stock
               </Button>
@@ -134,6 +159,10 @@ export const Inventory = () => {
                 _active={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
+                }}
+                onClick={() => {
+                  setGte(0);
+                  setLte(0);
                 }}
               >
                 Out of stock
@@ -192,7 +221,7 @@ export const Inventory = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {product.map((el) => {
+              {filter?.map((el) => {
                 return (
                   <Tr>
                     <Td textAlign={"center"}>
@@ -224,7 +253,7 @@ export const Inventory = () => {
                         <Text color={"#ED1C24"}>
                           Out of stock
                         </Text>
-                      ) : el?.stock[0]?.quantity < 5 ? (
+                      ) : el?.stock[0]?.quantity <= 5 ? (
                         <Text color={"#F99B2A"}>
                           Low in stock
                         </Text>
@@ -378,7 +407,7 @@ export const Inventory = () => {
             />
           </form>
           <Spacer />
-          <Text>of 30 pages</Text>
+          <Text>of 5 pages</Text>
         </Flex>
       </Flex>
     </Box>

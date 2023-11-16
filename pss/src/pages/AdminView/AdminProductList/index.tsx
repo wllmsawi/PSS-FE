@@ -32,10 +32,13 @@ export const AdminProductList = () => {
   const [sortField, setSortField] =
     useState("product_name");
   const [branchId, setBranchId] = useState(1);
+  const [gte, setGte] = useState(0);
+  const ROUTE: string = import.meta.env
+    .VITE_APP_API_BASE_URL;
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}`
+        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -171,13 +174,16 @@ export const AdminProductList = () => {
             style={{
               borderCollapse: "separate",
               borderSpacing: "0 .5em",
-
+              padding: "0",
               borderRadius: ".5em",
-              border: "1px solid red",
               overflow: "hidden",
             }}
           >
-            <Thead bg={"#ED1C24"}>
+            <Thead
+              bg={"#ED1C24"}
+              position={"relative"}
+              top={"-.5em"}
+            >
               <Tr>
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Photo
@@ -204,10 +210,20 @@ export const AdminProductList = () => {
               {product.map((el) => {
                 return (
                   <Tr p={".875em"} bgColor={"#FAFAFA"}>
-                    <Td textAlign={"center"}>
-                      <Image
-                        src={`/../../../../../../PSS/src/public/images/product/es_kopi_susu_gula_aren.jpg`}
-                      />
+                    <Td
+                      textAlign={"center"}
+                      bgColor={"green.00"}
+                    >
+                      <Flex
+                        justifyContent={"center"}
+                        alignItems={"center"}
+                      >
+                        <Image
+                          src={esKopiSusuGulaAren}
+                          maxH={"3em"}
+                          objectFit={"contain"}
+                        />
+                      </Flex>
                     </Td>
                     <Td textAlign={"center"}>
                       {el?.product_name}
@@ -368,7 +384,7 @@ export const AdminProductList = () => {
             />
           </form>
           <Spacer />
-          <Text>of 30 pages</Text>
+          <Text>of 5 pages</Text>
         </Flex>
       </Flex>
     </Box>
