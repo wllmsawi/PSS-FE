@@ -17,12 +17,15 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import React from "react";
+import Collapsible from "react-collapsible";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 import esKopiSusuGulaAren from "../../../../../../PSS/src/public/images/product/product_2023_10_13_es_kopi_susu_gula_aren.jpg";
+import { EditProductModal } from "./component/EditProductModal";
 
 export const AdminProductList = () => {
   const [product, setProduct] = useState<any[]>([]);
@@ -50,6 +53,7 @@ export const AdminProductList = () => {
   useEffect(() => {
     fetchProduct();
   }, [page, pageSize]);
+
   return (
     <Box
       bgColor={"#FFFFFF"}
@@ -205,13 +209,22 @@ export const AdminProductList = () => {
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Unit
                 </Th>
+                <Th
+                  color={"#FEFEFE"}
+                  textAlign={"center"}
+                ></Th>
               </Tr>
             </Thead>
             <Tbody>
               {product.map((el, index) => {
                 return (
                   <>
-                    <Tr p={".875em"} bgColor={"#FAFAFA"}>
+                    <Tr
+                      cursor={"pointer"}
+                      key={index}
+                      p={".875em"}
+                      bgColor={"#FAFAFA"}
+                    >
                       <Td
                         textAlign={"center"}
                         bgColor={"green.00"}
@@ -248,30 +261,10 @@ export const AdminProductList = () => {
                       <Td textAlign={"center"}>
                         Pieces(pcs)
                       </Td>
-                    </Tr>
-                    <Tr key={index}>
-                      <Td>
-                        <Link to={"/"}>Edit Photo</Link>
-                      </Td>
-                      <Td>
-                        {" "}
-                        <Link to={"/"}>Edit Name</Link>
-                      </Td>
-                      <Td>
-                        {" "}
-                        <Link to={"/"}>Edit SKU</Link>
-                      </Td>
-                      <Td>
-                        {" "}
-                        <Link to={"/"}>Edit Category</Link>
-                      </Td>
-                      <Td>
-                        {" "}
-                        <Link to={"/"}>Edit Type</Link>
-                      </Td>
-                      <Td>
-                        {" "}
-                        <Link to={"/"}>Edit Unit</Link>
+                      <Td textAlign={"center"}>
+                        <Link to={""}>
+                          <EditProductModal {...el} />
+                        </Link>
                       </Td>
                     </Tr>
                   </>
