@@ -21,7 +21,7 @@ import { BsCartPlusFill } from "react-icons/bs";
 
 export const ProductCard = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [count, increment, decrement] = useCounter(0);
+  const [count, increment, decrement] = useCounter(1);
   return (
     <Box
       h={"264px"}
@@ -29,6 +29,8 @@ export const ProductCard = (props: any) => {
       borderRadius={"1em"}
       overflow={"hidden"}
       onClick={onOpen}
+      transition="transform .3s"
+      _hover={{ transform: "scale(1.05)" }}
     >
       <Box bgColor={"gray.300"} h={"50%"}>
         {/* <Image src="" /> */}
@@ -71,7 +73,7 @@ export const ProductCard = (props: any) => {
                     fontSize={"xl"}
                     color={"#ED1C24"}
                     onClick={() => {
-                      count > 1 ? decrement() : null;
+                      count > 0 ? decrement() : null;
                     }}
                   >
                     <FaMinusCircle />
@@ -101,14 +103,19 @@ export const ProductCard = (props: any) => {
                   leftIcon={<BsCartPlusFill />}
                   type={"submit"}
                   color={"#6D6D6D"}
-                  onClick={() => {
+                  onClick={async () => {
                     const test = {
                       id: props.id,
                       product_name: props.product_name,
                       product_price: props.product_price,
+                      qty: count,
                     };
-                    props.setCartPC([test, ...props.cartPC]);
-                    console.log("props", props.cartPC);
+
+                    await props.handlePlus(Number(props.id), {
+                      ...test,
+                    });
+                    // await props.setCart([test, ...props.cart]);
+                    props.setTotal(props.total + count * props.product_price);
                   }}
                   w={"15em"}
                 >

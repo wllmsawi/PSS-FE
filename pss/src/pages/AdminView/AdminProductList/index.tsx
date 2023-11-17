@@ -29,13 +29,13 @@ export const AdminProductList = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [sortField, setSortField] =
-    useState("product_name");
+  const [sortField, setSortField] = useState("product_name");
   const [branchId, setBranchId] = useState(1);
   const [gte, setGte] = useState(0);
   const [lte, setLte] = useState(100);
-  const ROUTE: string = import.meta.env
-    .VITE_APP_API_BASE_URL;
+  const ROUTE: string = import.meta.env.VITE_APP_API_BASE_URL;
+  console.log(ROUTE);
+
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
@@ -51,12 +51,7 @@ export const AdminProductList = () => {
     fetchProduct();
   }, [page, pageSize]);
   return (
-    <Box
-      bgColor={"#FFFFFF"}
-      h={"100%"}
-      borderRadius={"1.5em"}
-      p={"1.5em"}
-    >
+    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
       <Flex
         bg={"#FFFFFF"}
         h={"100%"}
@@ -145,10 +140,7 @@ export const AdminProductList = () => {
           </Flex>
           <Spacer />
           <InputGroup w={"11em"}>
-            <InputLeftElement
-              color={"#6D6D6D"}
-              pointerEvents="none"
-            >
+            <InputLeftElement color={"#6D6D6D"} pointerEvents="none">
               <IoIosSearch />
             </InputLeftElement>
             <Input
@@ -180,11 +172,7 @@ export const AdminProductList = () => {
               overflow: "hidden",
             }}
           >
-            <Thead
-              bg={"#ED1C24"}
-              position={"relative"}
-              top={"-.5em"}
-            >
+            <Thead bg={"#ED1C24"} position={"relative"} top={"-.5em"}>
               <Tr>
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Photo
@@ -211,14 +199,8 @@ export const AdminProductList = () => {
               {product.map((el) => {
                 return (
                   <Tr p={".875em"} bgColor={"#FAFAFA"}>
-                    <Td
-                      textAlign={"center"}
-                      bgColor={"green.00"}
-                    >
-                      <Flex
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                      >
+                    <Td textAlign={"center"} bgColor={"green.00"}>
+                      <Flex justifyContent={"center"} alignItems={"center"}>
                         <Image
                           src={esKopiSusuGulaAren}
                           maxH={"3em"}
@@ -226,27 +208,15 @@ export const AdminProductList = () => {
                         />
                       </Flex>
                     </Td>
+                    <Td textAlign={"center"}>{el?.product_name}</Td>
+                    <Td textAlign={"center"}>{`PSS-CK-${el?.id}`}</Td>
                     <Td textAlign={"center"}>
-                      {el?.product_name}
-                    </Td>
-                    <Td
-                      textAlign={"center"}
-                    >{`PSS-CK-${el?.id}`}</Td>
-                    <Td textAlign={"center"}>
-                      {
-                        el?.product_category
-                          ?.product_category_name
-                      }
+                      {el?.product_category?.product_category_name}
                     </Td>
                     <Td textAlign={"center"}>
-                      {
-                        el?.product_group
-                          ?.product_group_name
-                      }
+                      {el?.product_group?.product_group_name}
                     </Td>
-                    <Td textAlign={"center"}>
-                      Pieces(pcs)
-                    </Td>
+                    <Td textAlign={"center"}>Pieces(pcs)</Td>
                   </Tr>
                 );
               })}
@@ -254,26 +224,15 @@ export const AdminProductList = () => {
           </Table>
         </TableContainer>
         <Spacer />
-        <Flex
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
+        <Flex justifyContent={"center"} alignItems={"center"}>
           <HStack spacing={"2.5em"} fontWeight={"bold"}>
             <Text>Page</Text>
             <Button
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={1}
@@ -284,16 +243,8 @@ export const AdminProductList = () => {
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={2}
@@ -304,16 +255,8 @@ export const AdminProductList = () => {
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={3}
@@ -324,16 +267,8 @@ export const AdminProductList = () => {
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={4}
@@ -344,16 +279,8 @@ export const AdminProductList = () => {
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
               onClick={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
               variant={"link"}
               value={5}
@@ -373,16 +300,8 @@ export const AdminProductList = () => {
               focusBorderColor={"transparent"}
               p={".5em"}
               onChange={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+                setPage(Number((e.target as HTMLInputElement).value));
+                setPageSize(Number((e.target as HTMLInputElement).value) * 10);
               }}
             />
           </form>
