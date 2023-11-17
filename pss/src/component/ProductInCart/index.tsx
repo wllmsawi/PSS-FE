@@ -5,14 +5,34 @@ import { IconButton } from "@chakra-ui/react";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Spacer } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 import useCounter from "../ProductCard/useCounter";
+import { useState, useEffect } from "react";
 export default function ProductInCart(props: any) {
-
   const [count, increment, decrement] = useCounter(props.qty);
-  const plus = () => {
+  const [totalPPrice, setTotalPPrice] = useState(
+    props.product_price * props.qty
+  );
+  useEffect(() => {
+    setTotalPPrice(props.qty * props.product_price);
+  }, [totalPPrice, setTotalPPrice, props.qty]);
+  console.log("PIC", props);
+  const plus = (id: number) => {
+    props?.setCart(
+      props?.cart.map((el: any) => {
+        if (el?.id === id) {
+          console.log(el.id === id);
+          return {
+            ...el,
+            qty: el.qty + 1,
+          };
+        } else {
+          return el;
+        }
+      })
+    );
+    setTotalPPrice(props.qty * props.product_price);
     increment();
-    props.setTotal(props.total + props.product_price);
+    props?.setTotal(props.total + props.product_price);
   };
 
   const minus = () => {
@@ -25,11 +45,12 @@ export default function ProductInCart(props: any) {
       <Box>
         <Image src={product1} borderRadius={"0.5em"} boxSize={"5em"} />
       </Box>
-      <VStack align={"stretch"} spacing={"1em"}>
+      <VStack align={"stretch"} spacing={"0"}>
         <Text fontWeight={"400"}>{props.product_name}</Text>
         <Text
           fontWeight={"400"}
-        >{`${count} X Rp. ${props.product_price}`}</Text>
+        >{`${props.qty} X Rp ${props.product_price}`}</Text>
+        <Text>Sum : Rp {totalPPrice}</Text>
       </VStack>
       <Spacer />
       <VStack align={"stretch"}>
@@ -39,14 +60,18 @@ export default function ProductInCart(props: any) {
             icon={<FaMinusCircle />}
             variant={"ghost"}
             size={"md"}
-            onClick={() => { count > 0 ? minus() : null}}
+            onClick={() => {
+              count > 1 ? minus() : null;
+            }}
           />
           <IconButton
             aria-label="Plus"
             icon={<FaPlusCircle />}
             variant={"ghost"}
             size={"md"}
-            onClick={() => { count !== 100 ? plus() : null}}
+            onClick={() => {
+              count !== 100 ? plus(props?.id) : null;
+            }}
           />
           <IconButton
             aria-label="Delete"

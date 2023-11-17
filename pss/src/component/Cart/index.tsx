@@ -23,7 +23,7 @@ import {
   Center,
   Input,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineWallet } from "react-icons/md";
 import { MdOutlineQrCode2 } from "react-icons/md";
@@ -35,6 +35,13 @@ export default function Cart(props: any) {
   const [wallet, setWallet] = useState(false);
   const [change, setChange] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [paymentAmount, setPaymentAmount] = useState(0);
+  const [paymentChange, setPaymentChange] = useState(0);
+  
+  useEffect(() => {
+    setPaymentChange(paymentAmount - props.totalPpn);
+  }, [paymentAmount, paymentChange]);
+
   return (
     <VStack
       bgColor={"#FAFAFA"}
@@ -74,6 +81,8 @@ export default function Cart(props: any) {
             return (
               <ProductInCart
                 {...el}
+                cart={props.cart}
+                setCart={props.setCart}
                 key={index}
                 total={props.total}
                 setTotal={props.setTotal}
@@ -119,10 +128,13 @@ export default function Cart(props: any) {
           bgColor={"#ED1C24"}
           fontWeight={"bold"}
           transition="transform .3s"
-          _hover={{ transform: "scale(1.05)", boxShadow: "lg", bgColor: "#F99B2A" }}
+          _hover={{
+            transform: "scale(1.05)",
+            boxShadow: "lg",
+            bgColor: "#F99B2A",
+          }}
           color={"white"}
-          _active={{bgColor: "#ED1C24"}}
-
+          _active={{ bgColor: "#ED1C24" }}
         >
           Add to Cart
         </Button>
@@ -134,10 +146,14 @@ export default function Cart(props: any) {
           fontWeight={"bold"}
           onClick={onOpen}
           transition="transform .3s"
-          _hover={{ transform: "scale(1.05)",boxShadow: "lg", bgColor: "#F99B2A" }}
+          _hover={{
+            transform: "scale(1.05)",
+            boxShadow: "lg",
+            bgColor: "#F99B2A",
+          }}
           bgColor={"#ED1C24"}
           color={"white"}
-          _active={{bgColor: "#ED1C24"}}
+          _active={{ bgColor: "#ED1C24" }}
         >
           Payment
         </Button>
@@ -151,57 +167,7 @@ export default function Cart(props: any) {
                   Choose Payment
                 </Text>
               </Center>
-              <VStack p={"3em"} spacing={"1em"}>
-                <Link to={""}>
-                  <Box
-                    w={"15em"}
-                    h={"8em"}
-                    display={"flex"}
-                    flexDir={"row"}
-                    _focusVisible={{ color: "red" }}
-                    borderRadius={"0.5em"}
-                    bgColor={"#EEF1F2"}
-                    border={cash ? "solid #F99B2A" : "solid #6D6D6D"}
-                    boxShadow={"lg"}
-                    transition={"transform .3s"}
-                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
-                  >
-                    <VStack
-                      spacing={"0"}
-                      onClick={() => {
-                        setWallet(false);
-                        setQris(false);
-                        setCash(!cash);
-                        setChange(!change);
-                      }}
-                      bgColor={cash ? "#FFDAAD" : "transparent"}
-                      w={"100%"}
-                      borderRadius={".5em"}
-                      p={".65em"}
-                      cursor={"pointer"}
-                    >
-                      <Box
-                        color={cash ? "#F99B2A" : "#6D6D6D"}
-                        fontSize={"5em"}
-                      >
-                        <FaRegMoneyBillAlt />
-                      </Box>
-                      <Box color={cash ? "#F99B2A" : "#6D6D6D"}>
-                        <Text as={cash ? "b" : "b"} fontSize={"xl"}>
-                          Cash
-                        </Text>
-                      </Box>
-                    </VStack>
-                  </Box>
-                </Link>
-                <Input
-                  boxShadow={"md"}
-                  display={change ? "block" : "none"}
-                  type={"number"}
-                  placeholder={"Payment Amount"}
-                  w={"15em"}
-                  focusBorderColor={"#6D6D6D"}
-                />
+              <VStack p={"1em"} spacing={"1em"}>
                 <Link to={""}>
                   <Box
                     w={"15em"}
@@ -256,7 +222,7 @@ export default function Cart(props: any) {
                     border={wallet ? "solid #F99B2A" : "solid #6D6D6D"}
                     boxShadow={"lg"}
                     transition={"transform .3s"}
-                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)",  }}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
                   >
                     <VStack
                       spacing={"0"}
@@ -286,21 +252,86 @@ export default function Cart(props: any) {
                     </VStack>
                   </Box>
                 </Link>
+                <Link to={""}>
+                  <Box
+                    w={"15em"}
+                    h={"8em"}
+                    display={"flex"}
+                    flexDir={"row"}
+                    _focusVisible={{ color: "red" }}
+                    borderRadius={"0.5em"}
+                    bgColor={"#EEF1F2"}
+                    border={cash ? "solid #F99B2A" : "solid #6D6D6D"}
+                    boxShadow={"lg"}
+                    transition={"transform .3s"}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
+                  >
+                    <VStack
+                      spacing={"0"}
+                      onClick={() => {
+                        setWallet(false);
+                        setQris(false);
+                        setCash(!cash);
+                        setChange(!change);
+                      }}
+                      bgColor={cash ? "#FFDAAD" : "transparent"}
+                      w={"100%"}
+                      borderRadius={".5em"}
+                      p={".65em"}
+                      cursor={"pointer"}
+                    >
+                      <Box
+                        color={cash ? "#F99B2A" : "#6D6D6D"}
+                        fontSize={"5em"}
+                      >
+                        <FaRegMoneyBillAlt />
+                      </Box>
+                      <Box color={cash ? "#F99B2A" : "#6D6D6D"}>
+                        <Text as={cash ? "b" : "b"} fontSize={"xl"}>
+                          Cash
+                        </Text>
+                      </Box>
+                    </VStack>
+                  </Box>
+                </Link>
+                <Input
+                  boxShadow={"md"}
+                  display={change ? "block" : "none"}
+                  type={"number"}
+                  placeholder={"Enter Payment Amount"}
+                  w={"14em"}
+                  focusBorderColor={"black"}
+                  onChange={(e) => setPaymentAmount(Number(e.target.value))}
+                  textAlign={"center"}
+                />
               </VStack>
             </ModalBody>
+            <Divider />
+            <Box p={"1em"}>
+              <Text textAlign={"left"}>Payment Change : {paymentChange} </Text>
+            </Box>
             <Box p={"1em"}>
               <Center>
                 <Button
                   leftIcon={<FaCheckCircle />}
                   type={"submit"}
-                  onClick={onClose}
+                  onClick={async () => {
+                    await props.setTotalPpn(0);
+                    setPaymentChange(0);
+                    setPaymentAmount(0);
+                    onClose();
+                  }}
                   w={"20em"}
                   fontWeight={"bold"}
                   transition="transform .3s"
-                  _hover={{ transform: "scale(1.05)", boxShadow: "lg", bgColor: "#F99B2A" }}
-                  _active={{bgColor: "#ED1C24"}}
+                  _hover={{
+                    transform: "scale(1.05)",
+                    boxShadow: "lg",
+                    bgColor: "#F99B2A",
+                  }}
+                  _active={{ bgColor: "#ED1C24" }}
                   bgColor={"#ED1C24"}
-          color={"white"}
+                  color={"white"}
                 >
                   Process Order
                 </Button>
