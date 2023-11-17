@@ -20,9 +20,9 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { Link } from "react-router-dom";
-
 import esKopiSusuGulaAren from "../../../../../../PSS/src/public/images/product/product_2023_10_13_es_kopi_susu_gula_aren.jpg";
+import { EditProductModal } from "./component/EditProductModal";
+import { CreateProductModal } from "./component/CreateProductModal";
 
 export const AdminProductList = () => {
   const [product, setProduct] = useState<any[]>([]);
@@ -46,6 +46,16 @@ export const AdminProductList = () => {
       throw err;
     }
   };
+  const fetchCategory = async (): Promise<any> => {
+    try {
+      const res = await axios.get(
+        `${ROUTE}/category/category`
+      );
+      setCategory(res?.data?.data);
+    } catch (err) {
+      throw err;
+    }
+  };
 
   useEffect(() => {
     fetchProduct();
@@ -65,84 +75,64 @@ export const AdminProductList = () => {
         flexDir={"column"}
       >
         <Flex w={"100%"}>
-          <Flex w={"25em"}>
-            <Link to={""}>
-              <Button
-                p={"1em"}
-                bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
-                _hover={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-                _active={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-              >
-                All
-              </Button>
-            </Link>
-            <Spacer />
-            <Link to={""}>
-              <Button
-                p={"1em"}
-                bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
-                _hover={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-                _active={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                }}
-              >
-                In Stock
-              </Button>
-            </Link>
-            <Spacer />
-            <Link to={""}>
-              <Button
-                p={"1em"}
-                bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
-                _hover={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-                _active={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                }}
-              >
-                Low Stock
-              </Button>
-            </Link>
-            <Spacer />
-            <Link to={""}>
-              <Button
-                p={"1em"}
-                bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
-                _hover={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
-                }}
-                _active={{
-                  bg: "#FFDAAD",
-                  color: "#F99B2A",
-                }}
-              >
-                Out of stock
-              </Button>
-            </Link>
-          </Flex>
+          <HStack>
+            <Select
+              w={"8em"}
+              size={"sm"}
+              borderRadius={"0.5em"}
+              onChange={(e) => {
+                setSortOrder(e.target.value);
+                setSortField("product_name");
+              }}
+            >
+              <option value={"asc"}>Name A-Z</option>
+              <option value={"desc"}>Name Z-A</option>
+            </Select>
+            <Select
+              w={"8em"}
+              size={"sm"}
+              borderRadius={"0.5em"}
+              onChange={(e) => {
+                setSortField("product_price");
+                setSortOrder(e.target.value);
+              }}
+            >
+              <option value={"asc"}>Lowest Price</option>
+              <option value={"desc"}>Highest Price</option>
+            </Select>
+            <Select
+              w={"8em"}
+              size={"sm"}
+              borderRadius={"0.5em"}
+              onChange={(e) => {
+                setCatId(Number(e.target.value));
+              }}
+            >
+              {category?.map((el: any, index: any) => {
+                return (
+                  <option value={el?.id} key={index}>
+                    {el.product_category_name}
+                  </option>
+                );
+              })}
+            </Select>
+            <Select
+              w={"8em"}
+              size={"sm"}
+              borderRadius={"0.5em"}
+              onChange={(e) => {
+                setGroupId(Number(e.target.value));
+              }}
+            >
+              {group?.map((el: any, index: any) => {
+                return (
+                  <option value={el?.id} key={index}>
+                    {el?.product_group_name}
+                  </option>
+                );
+              })}
+            </Select>
+          </HStack>
           <Spacer />
           <InputGroup w={"11em"}>
             <InputLeftElement
@@ -195,7 +185,6 @@ export const AdminProductList = () => {
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   SKU
                 </Th>
-
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Category
                 </Th>
@@ -205,12 +194,20 @@ export const AdminProductList = () => {
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Unit
                 </Th>
+                <Th textAlign={"center"}>
+                  <CreateProductModal />
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
               {product.map((el) => {
                 return (
-                  <Tr p={".875em"} bgColor={"#FAFAFA"}>
+                  <Tr
+                    key={index}
+                    cursor={"pointer"}
+                    p={".875em"}
+                    bgColor={"#FAFAFA"}
+                  >
                     <Td
                       textAlign={"center"}
                       bgColor={"green.00"}
@@ -246,6 +243,9 @@ export const AdminProductList = () => {
                     </Td>
                     <Td textAlign={"center"}>
                       Pieces(pcs)
+                    </Td>
+                    <Td textAlign={"center"}>
+                      <EditProductModal {...el} />
                     </Td>
                   </Tr>
                 );

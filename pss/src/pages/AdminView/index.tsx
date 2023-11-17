@@ -3,7 +3,6 @@ import SideBar from "./SideBar";
 import { NavBar } from "../../component/NavBar";
 
 export const AdminView = (props: any) => {
-  console.log("props", props);
   return (
     <Grid
       templateAreas={`
