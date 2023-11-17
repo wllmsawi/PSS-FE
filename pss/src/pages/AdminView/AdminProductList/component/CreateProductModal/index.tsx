@@ -63,7 +63,7 @@ export const CreateProductModal = () => {
       product_description: "",
     },
     validationSchema: Yup.object({}),
-    onSubmit: (values) => {
+    onSubmit: (values, actions) => {
       createProduct(
         values.product_name,
         values.product_group_id,
@@ -71,8 +71,7 @@ export const CreateProductModal = () => {
         values.product_price,
         values.product_description
       );
-      console.log("values", formik.values);
-      console.log("TEST");
+      actions.resetForm();
     },
   });
   return (
