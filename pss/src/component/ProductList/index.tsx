@@ -169,10 +169,11 @@ export const ProductList = (props: any) => {
               <ProductCard
                 key={index}
                 {...el}
-                cartPC={props.cartPL}
-                setCartPC={props.setCartPL}
+                cart={props.cart}
+                setCart={props.setCart}
                 total={props.total}
                 setTotal={props.setTotal}
+                handlePlus={props.handlePlus}
               />
             ))}
         </Grid>
@@ -191,9 +192,9 @@ export const ProductList = (props: any) => {
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  setPageSize(
-                    Number((e.target as HTMLInputElement).value) * 10
-                  );
+                  // setPageSize(
+                  //   Number((e.target as HTMLInputElement).value) * 10
+                  // );
                 }}
                 variant={"link"}
                 value={1}
@@ -205,9 +206,9 @@ export const ProductList = (props: any) => {
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  setPageSize(
-                    Number((e.target as HTMLInputElement).value) * 10
-                  );
+                  // setPageSize(
+                  //   Number((e.target as HTMLInputElement).value)
+                  // );
                 }}
                 variant={"link"}
                 value={2}
@@ -219,9 +220,9 @@ export const ProductList = (props: any) => {
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  setPageSize(
-                    Number((e.target as HTMLInputElement).value) * 10
-                  );
+                  // setPageSize(
+                  //   Number((e.target as HTMLInputElement).value)
+                  // );
                 }}
                 variant={"link"}
                 value={3}
@@ -233,9 +234,9 @@ export const ProductList = (props: any) => {
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  setPageSize(
-                    Number((e.target as HTMLInputElement).value) * 10
-                  );
+                  // setPageSize(
+                  //   Number((e.target as HTMLInputElement).value)
+                  // );
                 }}
                 variant={"link"}
                 value={4}
@@ -247,9 +248,9 @@ export const ProductList = (props: any) => {
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  setPageSize(
-                    Number((e.target as HTMLInputElement).value) * 10
-                  );
+                  // setPageSize(
+                  //   Number((e.target as HTMLInputElement).value)
+                  // );
                 }}
                 variant={"link"}
                 value={5}
@@ -270,9 +271,7 @@ export const ProductList = (props: any) => {
                 p={".5em"}
                 onChange={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  setPageSize(
-                    Number((e.target as HTMLInputElement).value) * 10
-                  );
+                  setPageSize(10);
                 }}
               />
             </form>

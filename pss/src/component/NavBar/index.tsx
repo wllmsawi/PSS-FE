@@ -11,7 +11,8 @@ import { useEffect, useState } from "react";
 import { RiNotification3Fill } from "react-icons/ri";
 import { BsCartFill } from "react-icons/bs";
 import budi from "./img/budi.jpg";
-export const NavBar = () => {
+export const NavBar = (props: any | null) => {
+  console.log("NAVBAR", props);
   const date = new Date();
   const days = [
     "Sunday",
@@ -47,6 +48,7 @@ export const NavBar = () => {
         months[date.getMonth()]
       } ${date.getFullYear()}`
     );
+    props.setDay(`${days[date.getDay()]}`);
   });
   return (
     <Flex
@@ -63,35 +65,19 @@ export const NavBar = () => {
       </HStack>
       <Spacer />
       <HStack spacing={"1em"}>
-        <Box
-          borderRadius={"50%"}
-          bgColor={"#FAFAFA"}
-          p={".5em"}
-        >
+        <Box borderRadius={"50%"} bgColor={"#FAFAFA"} p={".5em"}>
           <BsCartFill />
         </Box>
-        <Box
-          borderRadius={"50%"}
-          bgColor={"#FAFAFA"}
-          p={".5em"}
-        >
+        <Box borderRadius={"50%"} bgColor={"#FAFAFA"} p={".5em"}>
           <RiNotification3Fill />
         </Box>
 
         <Box borderRadius={"50%"} p={".5em"}>
           <Box overflow={"hidden"}>
-            <Image
-              src={budi}
-              borderRadius={"50%"}
-              boxSize={"2em"}
-            />
+            <Image src={budi} borderRadius={"50%"} boxSize={"2em"} />
           </Box>
         </Box>
-        <VStack
-          spacing={"0"}
-          align={"flex-start"}
-          lineHeight={"1"}
-        >
+        <VStack spacing={"0"} align={"flex-start"} lineHeight={"1"}>
           <Text fontWeight={"bold"}>Budi</Text>
           <Text fontSize={".75em"}>Admin</Text>
         </VStack>

@@ -29,6 +29,8 @@ export const ProductCard = (props: any) => {
       borderRadius={"1em"}
       overflow={"hidden"}
       onClick={onOpen}
+      transition="transform .3s"
+      _hover={{ transform: "scale(1.05)" }}
     >
       <Box bgColor={"gray.300"} h={"50%"}>
         {/* <Image src="" /> */}
@@ -101,22 +103,19 @@ export const ProductCard = (props: any) => {
                   leftIcon={<BsCartPlusFill />}
                   type={"submit"}
                   color={"#6D6D6D"}
-                  onClick={() => {
+                  onClick={async () => {
                     const test = {
                       id: props.id,
                       product_name: props.product_name,
                       product_price: props.product_price,
                       qty: count,
                     };
-                    props.setCartPC([test, ...props.cartPC]);
-                    console.log("TOTALPRODUCTCARD", props.total);
+
+                    await props.handlePlus(Number(props.id), {
+                      ...test,
+                    });
+                    // await props.setCart([test, ...props.cart]);
                     props.setTotal(props.total + count * props.product_price);
-                    console.log(
-                      "now",
-                      props.total,
-                      props.count,
-                      props.product_price
-                    );
                   }}
                   w={"15em"}
                 >

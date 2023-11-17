@@ -8,10 +8,8 @@ import { Spacer } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import useCounter from "../ProductCard/useCounter";
 export default function ProductInCart(props: any) {
-  // const handlePlus = (id) => {
-  // }
+
   const [count, increment, decrement] = useCounter(props.qty);
-  // console.log("PICTOTAL", total);
   const plus = () => {
     increment();
     props.setTotal(props.total + props.product_price);
@@ -41,15 +39,14 @@ export default function ProductInCart(props: any) {
             icon={<FaMinusCircle />}
             variant={"ghost"}
             size={"md"}
-            onClick={minus}
+            onClick={() => { count > 0 ? minus() : null}}
           />
-          <Text>{count}</Text>
           <IconButton
             aria-label="Plus"
             icon={<FaPlusCircle />}
             variant={"ghost"}
             size={"md"}
-            onClick={plus}
+            onClick={() => { count !== 100 ? plus() : null}}
           />
           <IconButton
             aria-label="Delete"
