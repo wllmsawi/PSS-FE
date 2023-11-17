@@ -13,6 +13,7 @@ import {
   Text,
   VStack,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import useCounter from "./useCounter";
@@ -22,13 +23,20 @@ import { BsCartPlusFill } from "react-icons/bs";
 export const ProductCard = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, increment, decrement, reset] = useCounter(1);
-  console.log("COUNT", count);
+  const toast = useToast();
   const checkExist = () => {
     let condition;
     try {
       props?.cart?.map((el: any) => {
         if (el?.id === props?.id) {
-          alert("PRODUCT SUDAH ADA");
+          toast({
+            title: "Product Already Added!",
+            description: "Please Check the Cart",
+            status: "warning",
+            duration: 2000,
+            isClosable: true,
+            position: "top-right",
+          });
           throw new Error();
         } else {
           condition = true;
@@ -87,7 +95,7 @@ export const ProductCard = (props: any) => {
                     size={"md"}
                     bgColor={"transparent"}
                     _hover={{ bgColor: "transparent" }}
-                    _active={{ bgColor: "lightgrey" }}
+                    _active={{ bgColor: "transparent" }}
                     fontSize={"xl"}
                     color={"#ED1C24"}
                     onClick={() => {
@@ -103,7 +111,7 @@ export const ProductCard = (props: any) => {
                     size={"md"}
                     bgColor={"transparent"}
                     _hover={{ bgColor: "transparent" }}
-                    _active={{ bgColor: "lightgrey" }}
+                    _active={{ bgColor: "transparent" }}
                     fontSize={"xl"}
                     color={"#ED1C24"}
                     onClick={() => {
@@ -136,6 +144,7 @@ export const ProductCard = (props: any) => {
                       props.setTotal(props.total + count * props.product_price);
                       reset();
                     }
+                    onClose();
                   }}
                   w={"15em"}
                 >

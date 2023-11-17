@@ -37,7 +37,7 @@ export default function Cart(props: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [paymentAmount, setPaymentAmount] = useState(0);
   const [paymentChange, setPaymentChange] = useState(0);
-  
+
   useEffect(() => {
     setPaymentChange(paymentAmount - props.totalPpn);
   }, [paymentAmount, paymentChange]);
@@ -316,7 +316,11 @@ export default function Cart(props: any) {
                   leftIcon={<FaCheckCircle />}
                   type={"submit"}
                   onClick={async () => {
-                    await props.setTotalPpn(0);
+                    await 
+                    props.setCart([])
+                    props.setPpn(0)
+                    props.setTotal(0)
+                    props.setTotalPpn(0);
                     setPaymentChange(0);
                     setPaymentAmount(0);
                     onClose();

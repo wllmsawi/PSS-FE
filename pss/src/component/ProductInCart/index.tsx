@@ -15,7 +15,7 @@ export default function ProductInCart(props: any) {
   useEffect(() => {
     setTotalPPrice(props.qty * props.product_price);
   }, [totalPPrice, setTotalPPrice, props.qty]);
-  console.log("PIC", props);
+
   const plus = (id: number) => {
     props?.setCart(
       props?.cart.map((el: any) => {
@@ -35,9 +35,28 @@ export default function ProductInCart(props: any) {
     props?.setTotal(props.total + props.product_price);
   };
 
-  const minus = () => {
+  const minus = (id: number) => {
+    props?.setCart(
+      props?.cart.map((el: any) => {
+        if (el?.id === id) {
+          return {
+            ...el,
+            qty: el.qty - 1,
+          };
+        } else {
+          return el;
+        }
+      })
+    );
+    setTotalPPrice(totalPPrice - props.product_price);
     decrement();
     props.setTotal(props.total - props.product_price);
+  };
+
+  const handleDelete = (id: number) => {
+    props?.setCart(
+      props?.cart.filter((el : any) => el.id !== id)
+    );
   };
 
   return (
@@ -61,7 +80,7 @@ export default function ProductInCart(props: any) {
             variant={"ghost"}
             size={"md"}
             onClick={() => {
-              count > 1 ? minus() : null;
+              count > 1 ? minus(props?.id) : null;
             }}
           />
           <IconButton
@@ -78,6 +97,11 @@ export default function ProductInCart(props: any) {
             icon={<MdDelete />}
             size={"md"}
             variant={"ghost"}
+            onClick={() => {
+              handleDelete(props?.id)
+              setTotalPPrice(0)
+              props.setTotal(0)
+            }}
           />
         </HStack>
       </VStack>

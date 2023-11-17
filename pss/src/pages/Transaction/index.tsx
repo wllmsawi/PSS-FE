@@ -59,6 +59,7 @@ export default function Transaction() {
           totalPpn={totalPpn}
           setTotalPpn={setTotalPpn}
           ppn={ppn}
+          setPpn= {setPpn}
           diskon={diskon}
         />
       </GridItem>
