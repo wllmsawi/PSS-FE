@@ -42,8 +42,6 @@ export const AdminProductList = () => {
   const [groupId, setGroupId] = useState(1);
   const ROUTE: string = import.meta.env
     .VITE_APP_API_BASE_URL;
-  const ROUTE: string = import.meta.env
-    .VITE_APP_API_BASE_URL;
   console.log(ROUTE);
 
   const fetchProduct = async (): Promise<any> => {
