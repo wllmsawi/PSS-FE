@@ -166,7 +166,6 @@ export const ProductList = (props: any) => {
                 setSortField("product_name");
                 setSortOrder(e.target.value);
               }}
-              
             >
               <option value={"asc"}>Name A-Z</option>
               <option value={"desc"}>Name Z-A</option>

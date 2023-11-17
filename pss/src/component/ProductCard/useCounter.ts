@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useCounter = (value: any) => {
   const [count, setCount] = useState(value);
@@ -14,7 +14,6 @@ const useCounter = (value: any) => {
   const reset = () => {
     setCount(1);
   };
-
   return [count, increment, decrement, reset];
 };
 

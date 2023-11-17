@@ -21,31 +21,6 @@ export default function Transaction() {
     setTotalPpn(total + total * 0.1 - diskon);
   }, [total, setTotal, ppn, setPpn, day]);
 
-  const handlePlus = async (id: number, params: any) => {
-    const exist = await cart.map((el: any) => {
-      if (el.id === Number(id)) {
-        return {
-          ...el,
-          qty: el.qty + el.qty,
-        };
-      }
-    });
-    if (exist.length > 0) {
-      alert("Product Sudah Ada");
-    } else {
-      setCart([params, ...cart]);
-      //   cart.map((el: any) => {
-      //     if (el.id == id) {
-      //       return {
-      //         ...el,
-      //         qty: 100,
-      //       };
-      //     } else {
-      //       setCart([...params, ...cart]);
-      //     }
-      //   });
-    }
-  };
   return (
     <Grid
       templateAreas={`
@@ -73,15 +48,16 @@ export default function Transaction() {
           setCart={setCart}
           total={total}
           setTotal={setTotal}
-          handlePlus={handlePlus}
         />
       </GridItem>
       <GridItem area={"cart"} p={"0 0 1em 0"}>
         <Cart
           cart={cart}
+          setCart={setCart}
           total={total}
           setTotal={setTotal}
           totalPpn={totalPpn}
+          setTotalPpn={setTotalPpn}
           ppn={ppn}
           diskon={diskon}
         />
