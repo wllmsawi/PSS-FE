@@ -36,6 +36,8 @@ export const AdminProductList = () => {
   const [lte, setLte] = useState(100);
   const ROUTE: string = import.meta.env
     .VITE_APP_API_BASE_URL;
+  console.log(ROUTE);
+
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
@@ -202,12 +204,7 @@ export const AdminProductList = () => {
             <Tbody>
               {product.map((el) => {
                 return (
-                  <Tr
-                    key={index}
-                    cursor={"pointer"}
-                    p={".875em"}
-                    bgColor={"#FAFAFA"}
-                  >
+                  <Tr p={".875em"} bgColor={"#FAFAFA"}>
                     <Td
                       textAlign={"center"}
                       bgColor={"green.00"}
@@ -243,9 +240,6 @@ export const AdminProductList = () => {
                     </Td>
                     <Td textAlign={"center"}>
                       Pieces(pcs)
-                    </Td>
-                    <Td textAlign={"center"}>
-                      <EditProductModal {...el} />
                     </Td>
                   </Tr>
                 );
