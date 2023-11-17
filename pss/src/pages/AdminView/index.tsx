@@ -1,9 +1,11 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import SideBar from "./SideBar";
 import { NavBar } from "../../component/NavBar";
+import { useState } from "react";
 
 export const AdminView = (props: any) => {
   console.log("props", props);
+  const [day, setDay] = useState("");
   return (
     <Grid
       templateAreas={`
@@ -23,7 +25,7 @@ export const AdminView = (props: any) => {
         <SideBar />
       </GridItem>
       <GridItem area={"header"}>
-        <NavBar setDay={null} />
+        <NavBar day={day} setDay={setDay} />
       </GridItem>
       <GridItem area={"main"} p={"0 0 1em 0"}>
         {props.view}

@@ -148,7 +148,7 @@ export const ProductList = (props: any) => {
           gridTemplateColumns={"repeat(3, 1fr)"}
           h={"20em"}
           overflow={"auto"}
-          p={"1em 0"}
+          p={"2em 0"}
           sx={{
             "&::-webkit-scrollbar": {
               display: "none",

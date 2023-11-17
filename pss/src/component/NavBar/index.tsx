@@ -11,8 +11,7 @@ import { useEffect, useState } from "react";
 import { RiNotification3Fill } from "react-icons/ri";
 import { BsCartFill } from "react-icons/bs";
 import budi from "./img/budi.jpg";
-export const NavBar = (props: any | null) => {
-  console.log("NAVBAR", props);
+export const NavBar = (props?: any | null) => {
   const date = new Date();
   const days = [
     "Sunday",
@@ -48,7 +47,7 @@ export const NavBar = (props: any | null) => {
         months[date.getMonth()]
       } ${date.getFullYear()}`
     );
-    props.setDay(`${days[date.getDay()]}`);
+    props?.setDay(`${days[date.getDay()]}`);
   });
   return (
     <Flex

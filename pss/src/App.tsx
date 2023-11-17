@@ -7,14 +7,12 @@ import { ProductList } from "./component/ProductList";
 import { Text } from "@chakra-ui/react";
 import { Inventory } from "./pages/Inventory";
 import { AdminProductList } from "./pages/AdminView/AdminProductList";
-import ProductView from "./pages/ProductView";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="transaction" element={<Transaction />} />
-      <Route path="product-view" element={<ProductView />} />
       <Route path="/admin" element={<AdminView />} />
       <Route
         path="/admin/dashboard"

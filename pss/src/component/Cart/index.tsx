@@ -118,6 +118,8 @@ export default function Cart(props: any) {
           borderRadius={"0.5em"}
           colorScheme="red"
           fontWeight={"bold"}
+          transition="transform .3s"
+          _hover={{ transform: "scale(1.05)" }}
         >
           Add to Cart
         </Button>
@@ -129,6 +131,8 @@ export default function Cart(props: any) {
           colorScheme="red"
           fontWeight={"bold"}
           onClick={onOpen}
+          transition="transform .3s"
+          _hover={{ transform: "scale(1.05)" }}
         >
           Payment
         </Button>
@@ -150,11 +154,12 @@ export default function Cart(props: any) {
                     display={"flex"}
                     flexDir={"row"}
                     _focusVisible={{ color: "red" }}
-                    _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
                     border={cash ? "solid #F99B2A" : "solid #6D6D6D"}
                     boxShadow={"lg"}
+                    transition={"transform .3s"}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
                   >
                     <VStack
                       spacing={"0"}
@@ -199,11 +204,12 @@ export default function Cart(props: any) {
                     display={"flex"}
                     flexDir={"row"}
                     _focusVisible={{ color: "red" }}
-                    _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
                     border={qris ? "solid #F99B2A" : "solid #6D6D6D"}
                     boxShadow={"lg"}
+                    transition={"transform .3s"}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
                   >
                     <VStack
                       spacing={"0"}
@@ -240,11 +246,12 @@ export default function Cart(props: any) {
                     display={"flex"}
                     flexDir={"row"}
                     _focusVisible={{ color: "red" }}
-                    _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
                     border={wallet ? "solid #F99B2A" : "solid #6D6D6D"}
                     boxShadow={"lg"}
+                    transition={"transform .3s"}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
                   >
                     <VStack
                       spacing={"0"}
@@ -285,6 +292,8 @@ export default function Cart(props: any) {
                   colorScheme={"red"}
                   w={"20em"}
                   fontWeight={"bold"}
+                  transition="transform .3s"
+                  _hover={{ transform: "scale(1.05)" }}
                 >
                   Process Order
                 </Button>
