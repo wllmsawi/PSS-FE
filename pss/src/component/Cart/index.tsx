@@ -35,7 +35,6 @@ export default function Cart(props: any) {
   const [wallet, setWallet] = useState(false);
   const [change, setChange] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log("PROPSPC", props.cartPC);
   return (
     <VStack
       bgColor={"#FAFAFA"}
@@ -71,8 +70,15 @@ export default function Cart(props: any) {
         }}
       >
         <Grid gap={"1em"}>
-          {props?.cartPC?.map((el: any, index: any) => {
-            return <ProductInCart {...el} key={index} />;
+          {props?.cart?.map((el: any, index: any) => {
+            return (
+              <ProductInCart
+                {...el}
+                key={index}
+                total={props.total}
+                setTotal={props.setTotal}
+              />
+            );
           })}
         </Grid>
       </Box>
@@ -81,17 +87,17 @@ export default function Cart(props: any) {
         <Flex>
           <Text fontWeight={"500"}>Total Sales</Text>
           <Spacer />
-          <Text fontWeight={"500"}>30000</Text>
+          <Text fontWeight={"500"}>{props.total}</Text>
         </Flex>
         <Flex>
           <Text fontWeight={"500"}>Total Diskon</Text>
           <Spacer />
-          <Text fontWeight={"500"}>300</Text>
+          <Text fontWeight={"500"}>{props.diskon}</Text>
         </Flex>
         <Flex>
           <Text fontWeight={"500"}>PPN</Text>
           <Spacer />
-          <Text fontWeight={"500"}>3000</Text>
+          <Text fontWeight={"500"}>{props.ppn}</Text>
         </Flex>
       </VStack>
       <Divider borderColor={"black"} borderWidth={"1px"} />
@@ -101,7 +107,7 @@ export default function Cart(props: any) {
         </Text>
         <Spacer />
         <Text fontSize={"x-large"} fontWeight={"700"}>
-          33000
+          {props.totalPpn}
         </Text>
       </HStack>
       <Spacer />
@@ -112,6 +118,8 @@ export default function Cart(props: any) {
           borderRadius={"0.5em"}
           colorScheme="red"
           fontWeight={"bold"}
+          transition="transform .3s"
+          _hover={{ transform: "scale(1.05)" }}
         >
           Add to Cart
         </Button>
@@ -123,6 +131,8 @@ export default function Cart(props: any) {
           colorScheme="red"
           fontWeight={"bold"}
           onClick={onOpen}
+          transition="transform .3s"
+          _hover={{ transform: "scale(1.05)" }}
         >
           Payment
         </Button>
@@ -144,11 +154,12 @@ export default function Cart(props: any) {
                     display={"flex"}
                     flexDir={"row"}
                     _focusVisible={{ color: "red" }}
-                    _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
                     border={cash ? "solid #F99B2A" : "solid #6D6D6D"}
                     boxShadow={"lg"}
+                    transition={"transform .3s"}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
                   >
                     <VStack
                       spacing={"0"}
@@ -193,11 +204,12 @@ export default function Cart(props: any) {
                     display={"flex"}
                     flexDir={"row"}
                     _focusVisible={{ color: "red" }}
-                    _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
                     border={qris ? "solid #F99B2A" : "solid #6D6D6D"}
                     boxShadow={"lg"}
+                    transition={"transform .3s"}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
                   >
                     <VStack
                       spacing={"0"}
@@ -234,11 +246,12 @@ export default function Cart(props: any) {
                     display={"flex"}
                     flexDir={"row"}
                     _focusVisible={{ color: "red" }}
-                    _hover={{ bgColor: "orange.100" }}
                     borderRadius={"0.5em"}
                     bgColor={"#EEF1F2"}
                     border={wallet ? "solid #F99B2A" : "solid #6D6D6D"}
                     boxShadow={"lg"}
+                    transition={"transform .3s"}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
                   >
                     <VStack
                       spacing={"0"}
@@ -279,6 +292,8 @@ export default function Cart(props: any) {
                   colorScheme={"red"}
                   w={"20em"}
                   fontWeight={"bold"}
+                  transition="transform .3s"
+                  _hover={{ transform: "scale(1.05)" }}
                 >
                   Process Order
                 </Button>
