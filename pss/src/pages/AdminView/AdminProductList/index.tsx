@@ -224,10 +224,15 @@ export const AdminProductList = () => {
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Unit
                 </Th>
-                <Th
-                  color={"#FEFEFE"}
-                  textAlign={"center"}
-                ></Th>
+                <Th textAlign={"center"}>
+                  <Button
+                    variant={"link"}
+                    color={"#FEFEFE"}
+                    fontSize={"1em"}
+                  >
+                    CREATE PRODUCT
+                  </Button>
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
