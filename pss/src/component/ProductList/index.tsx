@@ -18,18 +18,24 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export const ProductList = (props: any) => {
+  const [gte, setGte] = useState(0);
+  const [lte, setLte] = useState(100);
+  const [category, setCategory] = useState<any>([]);
+  const [catId, setCatId] = useState(1);
+  const [group, setGroup] = useState<any>([]);
+  const [groupId, setGroupId] = useState(1);
   const [branchId, setBranchId] = useState(1);
   const [product, setProduct] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [sortField, setSortField] =
-    useState("product_name");
+  const [sortField, setSortField] = useState("product_name");
   const [search, setSearch] = useState("");
+  const ROUTE: string = import.meta.env.VITE_APP_API_BASE_URL;
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}`
+        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -38,37 +44,62 @@ export const ProductList = (props: any) => {
   };
   useEffect(() => {
     fetchProduct();
-  }, [page, pageSize, sortOrder, sortField]);
+  }, [
+    page,
+    pageSize,
+    sortOrder,
+    sortField,
+    setGroupId,
+    groupId,
+    setCatId,
+    catId,
+  ]);
 
   return (
-    <Box
-      bgColor={"#FFFFFF"}
-      h={"100%"}
-      borderRadius={"1.5em"}
-      p={"1.5em"}
-    >
+    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
       <Flex flexDir={"column"} h={"100%"}>
         <HStack spacing={"1.875em"}>
-          <Link to={""}>Kitchen</Link>
-          <Link to={""}>Beverages</Link>
+          <Button
+            onClick={() => {
+              setCatId(1);
+            }}
+            variant={"link"}
+            _focus={{ color: "red", textDecoration: "underline" }}
+          >
+            Kitchen
+          </Button>
+          <Button
+            onClick={() => {
+              setCatId(2);
+            }}
+            variant={"link"}
+            _focus={{ color: "red", textDecoration: "underline" }}
+          >
+            Grocery
+          </Button>
         </HStack>
         <Spacer />
-        <HStack spacing={"2em"}>
+        <HStack spacing={"1em"}>
           <Link to={""}>
             <Button
+              w={"7em"}
               p={"1em"}
               bg={"#EEF1F2"}
-              border={"1px solid #6D6D6D"}
               size={"sm"}
               _hover={{
                 bg: "#FFDAAD",
                 color: "#F99B2A",
-                border: "1px solid #F99B2A ",
+                boxShadow: "lg",
+                transform: "scale(1.05)",
               }}
               _active={{
                 bg: "#FFDAAD",
                 color: "#F99B2A",
-                border: "1px solid #F99B2A ",
+              }}
+              _focus={{
+                bg: "#FFDAAD",
+                transform: "scale(1.06)",
+                boxShadow: "lg",
               }}
             >
               All
@@ -76,32 +107,50 @@ export const ProductList = (props: any) => {
           </Link>
           <Link to={""}>
             <Button
+              w={"7em"}
               p={"1em"}
               bg={"#EEF1F2"}
-              border={"1px solid #6D6D6D"}
               size={"sm"}
               _hover={{
                 bg: "#FFDAAD",
                 color: "#F99B2A",
-                border: "1px solid #F99B2A ",
+                boxShadow: "lg",
+                transform: "scale(1.05)",
               }}
               _active={{ bg: "#FFDAAD", color: "#F99B2A" }}
+              _focus={{
+                bg: "#FFDAAD",
+                transform: "scale(1.06)",
+                boxShadow: "lg",
+              }}
+              onClick={() => {
+                setGroupId(1);
+              }}
             >
               Food
             </Button>
           </Link>
           <Link to={""}>
             <Button
+              w={"7em"}
               p={"1em"}
               bg={"#EEF1F2"}
-              border={"1px solid #6D6D6D"}
               size={"sm"}
               _hover={{
                 bg: "#FFDAAD",
                 color: "#F99B2A",
-                border: "1px solid #F99B2A ",
+                boxShadow: "lg",
+                transform: "scale(1.05)",
               }}
               _active={{ bg: "#FFDAAD", color: "#F99B2A" }}
+              _focus={{
+                bg: "#FFDAAD",
+                transform: "scale(1.06)",
+                boxShadow: "lg",
+              }}
+              onClick={() => {
+                setGroupId(2);
+              }}
             >
               Beverages
             </Button>
@@ -112,10 +161,12 @@ export const ProductList = (props: any) => {
               w={"8em"}
               size={"sm"}
               borderRadius={"0.5em"}
+              cursor={"pointer"}
               onChange={(e) => {
                 setSortField("product_name");
                 setSortOrder(e.target.value);
               }}
+              
             >
               <option value={"asc"}>Name A-Z</option>
               <option value={"desc"}>Name Z-A</option>
@@ -124,6 +175,7 @@ export const ProductList = (props: any) => {
               w={"8em"}
               size={"sm"}
               borderRadius={"0.5em"}
+              cursor={"pointer"}
               onChange={(e) => {
                 setSortField("product_price");
                 setSortOrder(e.target.value);
@@ -136,10 +188,7 @@ export const ProductList = (props: any) => {
         </HStack>
         <Spacer />
         <InputGroup>
-          <InputLeftElement
-            color={"#6D6D6D"}
-            pointerEvents="none"
-          >
+          <InputLeftElement color={"#6D6D6D"} pointerEvents="none">
             <IoIosSearch />
           </InputLeftElement>
           <Input
@@ -148,9 +197,9 @@ export const ProductList = (props: any) => {
             bg={"#EEF1F2"}
             border={"none"}
             focusBorderColor={"transparent"}
-            onChange={(event) =>
-              setSearch(event.target.value)
-            }
+            onChange={(event) => setSearch(event.target.value)}
+            boxShadow={"md"}
+            _focus={{ boxShadow: "md" }}
           />
         </InputGroup>
         <Spacer />
@@ -159,7 +208,7 @@ export const ProductList = (props: any) => {
           gridTemplateColumns={"repeat(3, 1fr)"}
           h={"20em"}
           overflow={"auto"}
-          p={"2em 0"}
+          p={"2em .5em"}
           sx={{
             "&::-webkit-scrollbar": {
               display: "none",
@@ -171,9 +220,7 @@ export const ProductList = (props: any) => {
               if (search === "") {
                 return el;
               } else if (
-                el.product_name
-                  .toLowerCase()
-                  .includes(search.toLowerCase())
+                el.product_name.toLowerCase().includes(search.toLowerCase())
               ) {
                 return el;
               }
@@ -197,26 +244,19 @@ export const ProductList = (props: any) => {
           p={".875em"}
           borderRadius={"1em"}
         >
-          <Flex
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
+          <Flex justifyContent={"center"} alignItems={"center"}>
             <HStack spacing={"2.5em"} fontWeight={"bold"}>
               <Text>Page</Text>
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
+                  setPage(Number((e.target as HTMLInputElement).value));
+                  // setPageSize(
+                  //   Number(
+                  //     (e.target as HTMLInputElement).value
+                  //   ) * 10
+                  // );
                 }}
                 variant={"link"}
                 value={1}
@@ -227,16 +267,12 @@ export const ProductList = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
+                  setPage(Number((e.target as HTMLInputElement).value));
+                  // setPageSize(
+                  //   Number(
+                  //     (e.target as HTMLInputElement).value
+                  //   ) * 10
+                  // );
                 }}
                 variant={"link"}
                 value={2}
@@ -247,16 +283,12 @@ export const ProductList = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
+                  setPage(Number((e.target as HTMLInputElement).value));
+                  // setPageSize(
+                  //   Number(
+                  //     (e.target as HTMLInputElement).value
+                  //   ) * 10
+                  // );
                 }}
                 variant={"link"}
                 value={3}
@@ -267,16 +299,12 @@ export const ProductList = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
+                  setPage(Number((e.target as HTMLInputElement).value));
+                  // setPageSize(
+                  //   Number(
+                  //     (e.target as HTMLInputElement).value
+                  //   ) * 10
+                  // );
                 }}
                 variant={"link"}
                 value={4}
@@ -287,16 +315,12 @@ export const ProductList = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
+                  setPage(Number((e.target as HTMLInputElement).value));
+                  // setPageSize(
+                  //   Number(
+                  //     (e.target as HTMLInputElement).value
+                  //   ) * 10
+                  // );
                 }}
                 variant={"link"}
                 value={5}
@@ -316,16 +340,12 @@ export const ProductList = (props: any) => {
                 focusBorderColor={"transparent"}
                 p={".5em"}
                 onChange={(e) => {
-                  setPage(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
+                  setPage(Number((e.target as HTMLInputElement).value));
+                  // setPageSize(
+                  //   Number(
+                  //     (e.target as HTMLInputElement).value
+                  //   ) * 10
+                  // );
                 }}
               />
             </form>

@@ -24,7 +24,7 @@ export default function SideBar() {
       top={"0"}
       w={"100%"}
       h={"100%"}
-      bgColor={"#FAFAFA"}
+      bgColor={"#ED1C24"}
       p={"3em 1em 1em 1em"}
       spacing={"3.75em"}
     >
@@ -41,9 +41,10 @@ export default function SideBar() {
           h={"2.5em"}
           display={"flex"}
           flexDir={"row"}
-          _focusVisible={{ color: "red" }}
-          _hover={{ bgColor: "red.50" }}
           borderRadius={"0.5em"}
+          transition={"transform .3s"}
+          _hover={{ bgColor: "#F99B2A", boxShadow: "lg",transform: "scale(1.05)" }}
+
         >
           <HStack
             spacing={"1em"}
@@ -53,16 +54,18 @@ export default function SideBar() {
               setLogout(false);
               setOrder(!order);
             }}
-            bgColor={order ? "red.100" : "transparent"}
+            
+            boxShadow={order ? "lg" : "none"}
+            bgColor={order ? "#F99B2A" : "transparent"}
             w={"100%"}
             borderRadius={".5em"}
             p={".65em"}
             cursor={"pointer"}
           >
-            <Box color={order ? "red" : "black"}>
+            <Box color={"white"}>
               <PiBasketFill />
             </Box>
-            <Box color={order ? "red" : "black"}>
+            <Box color={"white"}>
               <Link to={""}>
                 <Text as={order ? "b" : "b"}>Order</Text>
               </Link>
@@ -74,9 +77,9 @@ export default function SideBar() {
           h={"2.5em"}
           display={"flex"}
           flexDir={"row"}
-          _focusVisible={{ color: "red" }}
-          _hover={{ bgColor: "red.50" }}
           borderRadius={"0.5em"}
+          transition={"transform .3s"}
+          _hover={{ bgColor: "#F99B2A", boxShadow: "lg",transform: "scale(1.05)" }}
         >
           <HStack
             spacing={"1em"}
@@ -86,18 +89,19 @@ export default function SideBar() {
               setLogout(false);
               setTransaction(!transaction);
             }}
+            boxShadow={transaction ? "lg" : "none"}
             bgColor={
-              transaction ? "red.100" : "transparent"
+              transaction ? "#F99B2A" : "transparent"
             }
             w={"100%"}
             borderRadius={".5em"}
             p={".65em"}
             cursor={"pointer"}
           >
-            <Box color={transaction ? "red" : "black"}>
+            <Box color={"white"}>
               <PiCalculatorFill />
             </Box>
-            <Box color={transaction ? "red" : "black"}>
+            <Box color={"white"}>
               <Link to={"/admin/product"}>
                 <Text as={transaction ? "b" : "b"}>
                   Product
@@ -112,8 +116,9 @@ export default function SideBar() {
           display={"flex"}
           flexDir={"row"}
           _focusVisible={{ color: "red" }}
-          _hover={{ bgColor: "red.50" }}
           borderRadius={"0.5em"}
+          transition={"transform .3s"}
+          _hover={{ bgColor: "#F99B2A", boxShadow: "lg",transform: "scale(1.05)" }}
         >
           <HStack
             spacing={"1em"}
@@ -123,16 +128,17 @@ export default function SideBar() {
               setLogout(false);
               setInventory(!inventory);
             }}
-            bgColor={inventory ? "red.100" : "transparent"}
+            boxShadow={inventory ? "lg" : "none"}
+            bgColor={inventory ? "#F99B2A" : "transparent"}
             w={"100%"}
             borderRadius={".5em"}
             p={".65em"}
             cursor={"pointer"}
           >
-            <Box color={inventory ? "red" : "black"}>
+            <Box color={"white"}>
               <PiNotepadFill />
             </Box>
-            <Box color={inventory ? "red" : "black"}>
+            <Box color={"white"}>
               <Link to={""}>
                 <Text as={inventory ? "b" : "b"}>
                   Employee
@@ -148,8 +154,10 @@ export default function SideBar() {
         display={"flex"}
         flexDir={"row"}
         _focusVisible={{ color: "red" }}
-        _hover={{ bgColor: "red.50" }}
+        
         borderRadius={"0.5em"}
+        transition={"transform .3s"}
+        _hover={{ bgColor: "#F99B2A", boxShadow: "lg",transform: "scale(1.05)" }}
       >
         <HStack
           spacing={"1em"}
@@ -159,16 +167,17 @@ export default function SideBar() {
             setInventory(false);
             setLogout(!logout);
           }}
-          bgColor={logout ? "red.100" : "transparent"}
+          bgColor={logout ? "#F99B2A" : "transparent"}
+          boxShadow={logout ? "lg" : "none"}
           w={"100%"}
           borderRadius={".5em"}
           p={".65em"}
           cursor={"pointer"}
         >
-          <Box color={logout ? "red" : "black"}>
+          <Box color={"white"}>
             <IoLogOut />
           </Box>
-          <Box color={logout ? "red" : "black"}>
+          <Box color={"white"}>
             <Link to={""}>
               <Text as={logout ? "b" : "b"}>Log Out</Text>
             </Link>
