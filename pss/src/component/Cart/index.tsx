@@ -116,10 +116,13 @@ export default function Cart(props: any) {
           leftIcon={<BsCartPlusFill />}
           w={"50%"}
           borderRadius={"0.5em"}
-          colorScheme="red"
+          bgColor={"#ED1C24"}
           fontWeight={"bold"}
           transition="transform .3s"
-          _hover={{ transform: "scale(1.05)" }}
+          _hover={{ transform: "scale(1.05)", boxShadow: "lg", bgColor: "#F99B2A" }}
+          color={"white"}
+          _active={{bgColor: "#ED1C24"}}
+
         >
           Add to Cart
         </Button>
@@ -128,11 +131,13 @@ export default function Cart(props: any) {
           leftIcon={<FaMoneyBillWave />}
           w={"50%"}
           borderRadius={"0.5em"}
-          colorScheme="red"
           fontWeight={"bold"}
           onClick={onOpen}
           transition="transform .3s"
-          _hover={{ transform: "scale(1.05)" }}
+          _hover={{ transform: "scale(1.05)",boxShadow: "lg", bgColor: "#F99B2A" }}
+          bgColor={"#ED1C24"}
+          color={"white"}
+          _active={{bgColor: "#ED1C24"}}
         >
           Payment
         </Button>
@@ -251,7 +256,7 @@ export default function Cart(props: any) {
                     border={wallet ? "solid #F99B2A" : "solid #6D6D6D"}
                     boxShadow={"lg"}
                     transition={"transform .3s"}
-                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)" }}
+                    _hover={{ bgColor: "orange.100", transform: "scale(1.05)",  }}
                   >
                     <VStack
                       spacing={"0"}
@@ -289,11 +294,13 @@ export default function Cart(props: any) {
                   leftIcon={<FaCheckCircle />}
                   type={"submit"}
                   onClick={onClose}
-                  colorScheme={"red"}
                   w={"20em"}
                   fontWeight={"bold"}
                   transition="transform .3s"
-                  _hover={{ transform: "scale(1.05)" }}
+                  _hover={{ transform: "scale(1.05)", boxShadow: "lg", bgColor: "#F99B2A" }}
+                  _active={{bgColor: "#ED1C24"}}
+                  bgColor={"#ED1C24"}
+          color={"white"}
                 >
                   Process Order
                 </Button>

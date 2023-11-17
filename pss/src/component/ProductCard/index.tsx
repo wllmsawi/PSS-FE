@@ -31,6 +31,7 @@ export const ProductCard = (props: any) => {
       onClick={onOpen}
       transition="transform .3s"
       _hover={{ transform: "scale(1.05)" }}
+      cursor={"pointer"}
     >
       <Box bgColor={"gray.300"} h={"50%"}>
         {/* <Image src="" /> */}
@@ -44,7 +45,7 @@ export const ProductCard = (props: any) => {
         <Text color={"#ED1C24"} fontWeight={"bold"}>
           {props.product_name}
         </Text>
-        <Text color={"#F99B2A"} fontWeight={"bold"}>
+        <Text color={"#F99B2A"} fontWeight={"500"}>
           {props.product_price}
         </Text>
         <Modal isOpen={isOpen} onClose={onClose} size={"lg"} isCentered>
@@ -103,6 +104,7 @@ export const ProductCard = (props: any) => {
                   leftIcon={<BsCartPlusFill />}
                   type={"submit"}
                   color={"#6D6D6D"}
+                  _hover={{boxShadow:"lg", transform: "scale(1.05)"}}
                   onClick={async () => {
                     const test = {
                       id: props.id,
