@@ -23,7 +23,8 @@ export const ProductList = (props: any) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [sortField, setSortField] = useState("product_name");
+  const [sortField, setSortField] =
+    useState("product_name");
   const [search, setSearch] = useState("");
   const fetchProduct = async (): Promise<any> => {
     try {
@@ -40,7 +41,12 @@ export const ProductList = (props: any) => {
   }, [page, pageSize, sortOrder, sortField]);
 
   return (
-    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
+    <Box
+      bgColor={"#FFFFFF"}
+      h={"100%"}
+      borderRadius={"1.5em"}
+      p={"1.5em"}
+    >
       <Flex flexDir={"column"} h={"100%"}>
         <HStack spacing={"1.875em"}>
           <Link to={""}>Kitchen</Link>
@@ -130,7 +136,10 @@ export const ProductList = (props: any) => {
         </HStack>
         <Spacer />
         <InputGroup>
-          <InputLeftElement color={"#6D6D6D"} pointerEvents="none">
+          <InputLeftElement
+            color={"#6D6D6D"}
+            pointerEvents="none"
+          >
             <IoIosSearch />
           </InputLeftElement>
           <Input
@@ -139,7 +148,9 @@ export const ProductList = (props: any) => {
             bg={"#EEF1F2"}
             border={"none"}
             focusBorderColor={"transparent"}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) =>
+              setSearch(event.target.value)
+            }
           />
         </InputGroup>
         <Spacer />
@@ -160,7 +171,9 @@ export const ProductList = (props: any) => {
               if (search === "") {
                 return el;
               } else if (
-                el.product_name.toLowerCase().includes(search.toLowerCase())
+                el.product_name
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
               ) {
                 return el;
               }
@@ -184,17 +197,26 @@ export const ProductList = (props: any) => {
           p={".875em"}
           borderRadius={"1em"}
         >
-          <Flex justifyContent={"center"} alignItems={"center"}>
+          <Flex
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
             <HStack spacing={"2.5em"} fontWeight={"bold"}>
               <Text>Page</Text>
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number((e.target as HTMLInputElement).value) * 10
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
+                  setPageSize(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    ) * 10
+                  );
                 }}
                 variant={"link"}
                 value={1}
@@ -205,10 +227,16 @@ export const ProductList = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number((e.target as HTMLInputElement).value)
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
+                  setPageSize(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    ) * 10
+                  );
                 }}
                 variant={"link"}
                 value={2}
@@ -219,10 +247,16 @@ export const ProductList = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number((e.target as HTMLInputElement).value)
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
+                  setPageSize(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    ) * 10
+                  );
                 }}
                 variant={"link"}
                 value={3}
@@ -233,10 +267,16 @@ export const ProductList = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number((e.target as HTMLInputElement).value)
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
+                  setPageSize(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    ) * 10
+                  );
                 }}
                 variant={"link"}
                 value={4}
@@ -247,10 +287,16 @@ export const ProductList = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number((e.target as HTMLInputElement).value)
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
+                  setPageSize(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    ) * 10
+                  );
                 }}
                 variant={"link"}
                 value={5}
@@ -270,8 +316,16 @@ export const ProductList = (props: any) => {
                 focusBorderColor={"transparent"}
                 p={".5em"}
                 onChange={(e) => {
-                  setPage(Number((e.target as HTMLInputElement).value));
-                  setPageSize(10);
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
+                  setPageSize(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    ) * 10
+                  );
                 }}
               />
             </form>
