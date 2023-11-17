@@ -18,8 +18,6 @@ export default function SideBar() {
   const [transaction, setTransaction] = useState(false);
   const [inventory, setInventory] = useState(false);
   const [logout, setLogout] = useState(false);
-  const { link } = useParams();
-  console.log("link", link);
   return (
     <VStack
       top={"0"}

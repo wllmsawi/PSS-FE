@@ -22,7 +22,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
-import esKopiSusuGulaAren from "../../../../../../PSS/src/public/images/product/product_2023_10_13_es_kopi_susu_gula_aren.jpg";
 import { EditProductModal } from "./component/EditProductModal";
 import { CreateProductModal } from "./component/CreateProductModal";
 
@@ -42,8 +41,10 @@ export const AdminProductList = () => {
   const [groupId, setGroupId] = useState(1);
   const ROUTE: string = import.meta.env
     .VITE_APP_API_BASE_URL;
-  console.log(ROUTE);
-
+  console.log(
+    "----",
+    `${import.meta.env.VITE_APP_API_IMAGE_URL}/product`
+  );
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
@@ -217,7 +218,6 @@ export const AdminProductList = () => {
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   SKU
                 </Th>
-
                 <Th color={"#FEFEFE"} textAlign={"center"}>
                   Category
                 </Th>
@@ -228,7 +228,10 @@ export const AdminProductList = () => {
                   Unit
                 </Th>
                 <Th textAlign={"center"}>
-                  <CreateProductModal />
+                  <CreateProductModal
+                    group={group}
+                    category={category}
+                  />
                 </Th>
               </Tr>
             </Thead>
@@ -251,7 +254,10 @@ export const AdminProductList = () => {
                           alignItems={"center"}
                         >
                           <Image
-                            src={esKopiSusuGulaAren}
+                            src={`${
+                              import.meta.env
+                                .VITE_APP_API_IMAGE_URL
+                            }/product/${el?.product_image}`}
                             maxH={"3em"}
                             objectFit={"contain"}
                           />
@@ -280,7 +286,11 @@ export const AdminProductList = () => {
                       </Td>
                       <Td textAlign={"center"}>
                         <Link to={""}>
-                          <EditProductModal {...el} />
+                          <EditProductModal
+                            {...el}
+                            group={group}
+                            category={category}
+                          />
                         </Link>
                       </Td>
                     </Tr>

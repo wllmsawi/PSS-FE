@@ -4,7 +4,6 @@ import { NavBar } from "../../component/NavBar";
 import { useState } from "react";
 
 export const AdminView = (props: any) => {
-  console.log("props", props);
   const [day, setDay] = useState("");
   return (
     <Grid
