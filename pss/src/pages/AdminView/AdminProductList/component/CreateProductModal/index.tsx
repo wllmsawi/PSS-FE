@@ -17,7 +17,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
-export const CreateProductModal = (props: any) => {
+export const CreateProductModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [fieldImage, setFieldImage] = useState<
     any | string | null
@@ -157,7 +157,11 @@ export const CreateProductModal = (props: any) => {
                     name="product_image"
                     size="lg"
                     onChange={(event) =>
-                      setFieldImage(event?.target?.files[0])
+                      setFieldImage(
+                        event?.target?.files
+                          ? event?.target?.files[0]
+                          : null
+                      )
                     }
                   />
                 </InputGroup>

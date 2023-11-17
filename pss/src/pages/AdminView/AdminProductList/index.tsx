@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
   Spacer,
   Table,
   TableContainer,
@@ -20,6 +21,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
+import { Link } from "react-router-dom";
 import esKopiSusuGulaAren from "../../../../../../PSS/src/public/images/product/product_2023_10_13_es_kopi_susu_gula_aren.jpg";
 import { EditProductModal } from "./component/EditProductModal";
 import { CreateProductModal } from "./component/CreateProductModal";
@@ -34,6 +36,10 @@ export const AdminProductList = () => {
   const [branchId, setBranchId] = useState(1);
   const [gte, setGte] = useState(0);
   const [lte, setLte] = useState(100);
+  const [category, setCategory] = useState<any>([]);
+  const [catId, setCatId] = useState(1);
+  const [group, setGroup] = useState<any>([]);
+  const [groupId, setGroupId] = useState(1);
   const ROUTE: string = import.meta.env
     .VITE_APP_API_BASE_URL;
   console.log(ROUTE);
@@ -41,7 +47,7 @@ export const AdminProductList = () => {
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}`
+        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -53,15 +59,39 @@ export const AdminProductList = () => {
       const res = await axios.get(
         `${ROUTE}/category/category`
       );
+      console.log(res);
       setCategory(res?.data?.data);
     } catch (err) {
       throw err;
     }
   };
 
+  const fetchGroup = async () => {
+    try {
+      const res = await axios.get(
+        `${ROUTE}/category/group`
+      );
+      setGroup(res?.data?.data);
+    } catch (err) {
+      throw err;
+    }
+  };
   useEffect(() => {
     fetchProduct();
-  }, [page, pageSize]);
+    fetchCategory();
+    fetchGroup();
+    setBranchId(1);
+    setGte(0);
+    setLte(100);
+  }, [
+    page,
+    pageSize,
+    sortField,
+    sortOrder,
+    catId,
+    groupId,
+  ]);
+
   return (
     <Box
       bgColor={"#FFFFFF"}
@@ -110,9 +140,9 @@ export const AdminProductList = () => {
                 setCatId(Number(e.target.value));
               }}
             >
-              {category?.map((el: any, index: any) => {
+              {category?.map((el: any) => {
                 return (
-                  <option value={el?.id} key={index}>
+                  <option value={el?.id}>
                     {el.product_category_name}
                   </option>
                 );
@@ -126,9 +156,9 @@ export const AdminProductList = () => {
                 setGroupId(Number(e.target.value));
               }}
             >
-              {group?.map((el: any, index: any) => {
+              {group?.map((el: any) => {
                 return (
-                  <option value={el?.id} key={index}>
+                  <option value={el?.id}>
                     {el?.product_group_name}
                   </option>
                 );
@@ -202,46 +232,58 @@ export const AdminProductList = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {product.map((el) => {
+              {product.map((el, index) => {
                 return (
-                  <Tr p={".875em"} bgColor={"#FAFAFA"}>
-                    <Td
-                      textAlign={"center"}
-                      bgColor={"green.00"}
+                  <>
+                    <Tr
+                      cursor={"pointer"}
+                      key={index}
+                      p={".875em"}
+                      bgColor={"#FAFAFA"}
                     >
-                      <Flex
-                        justifyContent={"center"}
-                        alignItems={"center"}
+                      <Td
+                        textAlign={"center"}
+                        bgColor={"green.00"}
                       >
-                        <Image
-                          src={esKopiSusuGulaAren}
-                          maxH={"3em"}
-                          objectFit={"contain"}
-                        />
-                      </Flex>
-                    </Td>
-                    <Td textAlign={"center"}>
-                      {el?.product_name}
-                    </Td>
-                    <Td
-                      textAlign={"center"}
-                    >{`PSS-CK-${el?.id}`}</Td>
-                    <Td textAlign={"center"}>
-                      {
-                        el?.product_category
-                          ?.product_category_name
-                      }
-                    </Td>
-                    <Td textAlign={"center"}>
-                      {
-                        el?.product_group
-                          ?.product_group_name
-                      }
-                    </Td>
-                    <Td textAlign={"center"}>
-                      Pieces(pcs)
-                    </Td>
-                  </Tr>
+                        <Flex
+                          justifyContent={"center"}
+                          alignItems={"center"}
+                        >
+                          <Image
+                            src={esKopiSusuGulaAren}
+                            maxH={"3em"}
+                            objectFit={"contain"}
+                          />
+                        </Flex>
+                      </Td>
+                      <Td textAlign={"center"}>
+                        {el?.product_name}
+                      </Td>
+                      <Td
+                        textAlign={"center"}
+                      >{`PSS-CK-${el?.id}`}</Td>
+                      <Td textAlign={"center"}>
+                        {
+                          el?.product_category
+                            ?.product_category_name
+                        }
+                      </Td>
+                      <Td textAlign={"center"}>
+                        {
+                          el?.product_group
+                            ?.product_group_name
+                        }
+                      </Td>
+                      <Td textAlign={"center"}>
+                        Pieces(pcs)
+                      </Td>
+                      <Td textAlign={"center"}>
+                        <Link to={""}>
+                          <EditProductModal {...el} />
+                        </Link>
+                      </Td>
+                    </Tr>
+                  </>
                 );
               })}
             </Tbody>
