@@ -49,6 +49,7 @@ export const EditProductModal = (props: any) => {
                   ? "Active"
                   : "Inactive"}
               </Text>
+              <Text>Ngepet</Text>
             </Box>
           </ModalBody>
         </ModalContent>

@@ -24,6 +24,7 @@ import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 import esKopiSusuGulaAren from "../../../../../../PSS/src/public/images/product/product_2023_10_13_es_kopi_susu_gula_aren.jpg";
 import { EditProductModal } from "./component/EditProductModal";
+import { CreateProductModal } from "./component/CreateProductModal";
 
 export const AdminProductList = () => {
   const [product, setProduct] = useState<any[]>([]);
@@ -225,13 +226,7 @@ export const AdminProductList = () => {
                   Unit
                 </Th>
                 <Th textAlign={"center"}>
-                  <Button
-                    variant={"link"}
-                    color={"#FEFEFE"}
-                    fontSize={"1em"}
-                  >
-                    CREATE PRODUCT
-                  </Button>
+                  <CreateProductModal />
                 </Th>
               </Tr>
             </Thead>
