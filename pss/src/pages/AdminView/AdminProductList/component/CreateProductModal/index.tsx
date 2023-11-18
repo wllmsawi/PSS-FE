@@ -141,13 +141,18 @@ export const CreateProductModal = (props: any) => {
                       }}
                     >
                       <option>Select Category</option>
-                      {props?.group?.map((el: any) => {
-                        return (
-                          <option value={el?.id}>
-                            {el?.product_group_name}
-                          </option>
-                        );
-                      })}
+                      {props?.group?.map(
+                        (el: any, index: number) => {
+                          return (
+                            <option
+                              value={el?.id}
+                              key={index}
+                            >
+                              {el?.product_group_name}
+                            </option>
+                          );
+                        }
+                      )}
                     </Select>
                     <FormLabel htmlFor="product_category_id">
                       Product Category
@@ -159,13 +164,18 @@ export const CreateProductModal = (props: any) => {
                       }}
                     >
                       <option>Select Group</option>
-                      {props?.category?.map((el: any) => {
-                        return (
-                          <option value={el?.id}>
-                            {el.product_category_name}
-                          </option>
-                        );
-                      })}
+                      {props?.category?.map(
+                        (el: any, index: number) => {
+                          return (
+                            <option
+                              value={el?.id}
+                              key={index}
+                            >
+                              {el.product_category_name}
+                            </option>
+                          );
+                        }
+                      )}
                     </Select>
                     <FormLabel htmlFor="product_price">
                       Product Price

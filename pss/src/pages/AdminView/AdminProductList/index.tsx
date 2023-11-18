@@ -41,26 +41,32 @@ export const AdminProductList = () => {
   const [groupId, setGroupId] = useState(1);
   const ROUTE: string = import.meta.env
     .VITE_APP_API_BASE_URL;
-  console.log(
-    "----",
-    `${import.meta.env.VITE_APP_API_IMAGE_URL}/product`
-  );
+  console.log("----");
+  console.log(page);
+  console.log(pageSize);
+  console.log(sortOrder);
+  console.log(sortField);
+  console.log(branchId);
+  console.log(gte);
+  console.log(lte);
+  console.log("-----");
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
         `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
       );
+      console.log(res);
       setProduct(res?.data?.result);
     } catch (err) {
       throw err;
     }
   };
+
   const fetchCategory = async (): Promise<any> => {
     try {
       const res = await axios.get(
         `${ROUTE}/category/category`
       );
-      console.log(res);
       setCategory(res?.data?.data);
     } catch (err) {
       throw err;
@@ -78,24 +84,24 @@ export const AdminProductList = () => {
     }
   };
   useEffect(() => {
+    fetchGroup();
     fetchProduct();
     fetchCategory();
-    fetchGroup();
-    setBranchId(1);
-    setGte(0);
-    setLte(100);
   }, [
     page,
     pageSize,
     sortField,
     sortOrder,
-    catId,
-    groupId,
-    group,
-    setGroup,
-    setCatId,
+    // catId,
+    // groupId,
+    // group,
+    // setGroup,
+    // setCatId,
+    // product,
   ]);
-
+  console.log("GROUP", group);
+  console.log("CATEGORY", category);
+  console.log("PRODUCT", product);
   return (
     <Box
       bgColor={"#FFFFFF"}
@@ -144,9 +150,9 @@ export const AdminProductList = () => {
                 setCatId(Number(e.target.value));
               }}
             >
-              {category?.map((el: any) => {
+              {category?.map((el: any, index: number) => {
                 return (
-                  <option value={el?.id}>
+                  <option value={el?.id} key={index}>
                     {el.product_category_name}
                   </option>
                 );
@@ -160,9 +166,9 @@ export const AdminProductList = () => {
                 setGroupId(Number(e.target.value));
               }}
             >
-              {group?.map((el: any) => {
+              {group?.map((el: any, index: number) => {
                 return (
-                  <option value={el?.id}>
+                  <option value={el?.id} key={index}>
                     {el?.product_group_name}
                   </option>
                 );
