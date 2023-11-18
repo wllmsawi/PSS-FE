@@ -11,7 +11,7 @@ export const AdminView = (props: any) => {
         "nav header"
         "nav main"
         "nav main"`}
-      gridTemplateColumns={"1fr 3fr"}
+      gridTemplateColumns={"14.75em 3fr"}
       gridTemplateRows={"3em 1fr 3em"}
       h={"100vh"}
       maxW={"100vw"}

@@ -43,8 +43,11 @@ export default function SideBar() {
           flexDir={"row"}
           borderRadius={"0.5em"}
           transition={"transform .3s"}
-          _hover={{ bgColor: "#F99B2A", boxShadow: "lg",transform: "scale(1.05)" }}
-
+          _hover={{
+            bgColor: "#F99B2A",
+            boxShadow: "lg",
+            transform: "scale(1.05)",
+          }}
         >
           <HStack
             spacing={"1em"}
@@ -54,7 +57,6 @@ export default function SideBar() {
               setLogout(false);
               setOrder(!order);
             }}
-            
             boxShadow={order ? "lg" : "none"}
             bgColor={order ? "#F99B2A" : "transparent"}
             w={"100%"}
@@ -79,7 +81,11 @@ export default function SideBar() {
           flexDir={"row"}
           borderRadius={"0.5em"}
           transition={"transform .3s"}
-          _hover={{ bgColor: "#F99B2A", boxShadow: "lg",transform: "scale(1.05)" }}
+          _hover={{
+            bgColor: "#F99B2A",
+            boxShadow: "lg",
+            transform: "scale(1.05)",
+          }}
         >
           <HStack
             spacing={"1em"}
@@ -118,7 +124,11 @@ export default function SideBar() {
           _focusVisible={{ color: "red" }}
           borderRadius={"0.5em"}
           transition={"transform .3s"}
-          _hover={{ bgColor: "#F99B2A", boxShadow: "lg",transform: "scale(1.05)" }}
+          _hover={{
+            bgColor: "#F99B2A",
+            boxShadow: "lg",
+            transform: "scale(1.05)",
+          }}
         >
           <HStack
             spacing={"1em"}
@@ -154,10 +164,13 @@ export default function SideBar() {
         display={"flex"}
         flexDir={"row"}
         _focusVisible={{ color: "red" }}
-        
         borderRadius={"0.5em"}
         transition={"transform .3s"}
-        _hover={{ bgColor: "#F99B2A", boxShadow: "lg",transform: "scale(1.05)" }}
+        _hover={{
+          bgColor: "#F99B2A",
+          boxShadow: "lg",
+          transform: "scale(1.05)",
+        }}
       >
         <HStack
           spacing={"1em"}

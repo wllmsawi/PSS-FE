@@ -174,9 +174,7 @@ export const EditProductModal = (props: any) => {
                     <FormLabel htmlFor="product_name">
                       Product Name
                     </FormLabel>
-                    {/* <Text fontWeight={"bold"}>
-                      {props?.product_name}
-                    </Text> */}
+
                     <InputGroup>
                       <Input
                         h={"2em"}
@@ -191,12 +189,7 @@ export const EditProductModal = (props: any) => {
                     <FormLabel htmlFor="product_group_id">
                       Product Group
                     </FormLabel>
-                    {/* <Text fontWeight={"bold"}>
-                      {
-                        props?.product_group
-                          ?.product_group_name
-                      }
-                    </Text> */}
+
                     <Select
                       borderRadius={"0.5em"}
                       onChange={(e) => {
@@ -214,12 +207,7 @@ export const EditProductModal = (props: any) => {
                     <FormLabel htmlFor="product_category_id">
                       Product Category
                     </FormLabel>
-                    {/* <Text fontWeight={"bold"}>
-                      {
-                        props?.product_category
-                          ?.product_category_name
-                      }
-                    </Text> */}
+
                     <Select
                       borderRadius={"0.5em"}
                       onChange={(e) => {
@@ -237,9 +225,7 @@ export const EditProductModal = (props: any) => {
                     <FormLabel htmlFor="product_price">
                       Product Price
                     </FormLabel>
-                    {/* <Text fontWeight={"bold"}>
-                      {props?.product_price}
-                    </Text> */}
+
                     <InputGroup>
                       <Input
                         h={"2em"}
@@ -254,9 +240,7 @@ export const EditProductModal = (props: any) => {
                     <FormLabel htmlFor="product_description">
                       Product Description
                     </FormLabel>
-                    {/* <Text fontWeight={"bold"}>
-                      {props?.product_description}
-                    </Text> */}
+
                     <InputGroup>
                       <Textarea
                         h={"2em"}
