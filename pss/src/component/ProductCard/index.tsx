@@ -51,8 +51,9 @@ export const ProductCard = (props: any) => {
   };
   return (
     <Box
-      h={"264px"}
-      boxShadow={"lg"}
+      h={"280px"}
+      w={"200px"}
+      boxShadow={"md"}
       borderRadius={"1em"}
       overflow={"hidden"}
       onClick={onOpen}
@@ -60,18 +61,20 @@ export const ProductCard = (props: any) => {
       _hover={{ transform: "scale(1.05)" }}
       cursor={"pointer"}
     >
-      <Box bgColor={"gray.300"} h={"50%"}></Box>
+      <Box bgColor={"gray.300"} h={"170px"} w={"200px"} overflow={"hidden"}>
+        <Image src={product1} boxSize={"100%"} />
+      </Box>
       <Flex
         h={"50%"}
         flexDir={"column"}
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <Text color={"#ED1C24"} fontWeight={"bold"}>
+        <Text color={"#ED1C24"} fontWeight={"bold"} fontSize={"md"}>
           {props.product_name}
         </Text>
-        <Text color={"#F99B2A"} fontWeight={"500"}>
-          {props.product_price}
+        <Text color={"#F99B2A"} fontWeight={"500"} fontSize={"sm"}>
+          Rp  {props.product_price}
         </Text>
         <Modal isOpen={isOpen} onClose={onClose} size={"lg"} isCentered>
           <ModalOverlay />
@@ -79,17 +82,15 @@ export const ProductCard = (props: any) => {
             <ModalCloseButton />
             <ModalBody>
               <VStack p={"1.5em"}>
-                <Image
-                  src={product1}
-                  boxSize={"20emem"}
-                  borderRadius={".5em"}
-                />
-                <Text fontWeight={"bold"} color={"red"}>
+                <Image src={product1} boxSize={"20em"} borderRadius={".5em"} />
+                <Text fontWeight={"bold"} color={"red"} fontSize={"xl"}>
                   {props.product_name}
                 </Text>
-                <Text fontWeight={"bold"} color={"orange"}>
+                <Text>{props.product_description}</Text>
+                <Text fontWeight={"500"} color={"orange"}>
                   {props.product_price}
                 </Text>
+
                 <HStack>
                   <Button
                     size={"md"}

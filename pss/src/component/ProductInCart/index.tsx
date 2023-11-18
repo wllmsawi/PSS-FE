@@ -14,7 +14,7 @@ export default function ProductInCart(props: any) {
   );
   useEffect(() => {
     setTotalPPrice(props.qty * props.product_price);
-  }, [totalPPrice, setTotalPPrice, props.qty]);
+  }, [totalPPrice, setTotalPPrice, props.qty, count, increment, decrement]);
 
   const plus = (id: number) => {
     props?.setCart(
@@ -50,17 +50,15 @@ export default function ProductInCart(props: any) {
     );
     setTotalPPrice(totalPPrice - props.product_price);
     decrement();
-    props.setTotal(props.total - props.product_price);
+    props?.setTotal(props.total - props.product_price);
   };
 
   const handleDelete = (id: number) => {
-    props?.setCart(
-      props?.cart.filter((el : any) => el.id !== id)
-    );
+    props?.setCart(props?.cart.filter((el: any) => el.id !== id));
   };
 
   return (
-    <HStack>
+    <HStack boxShadow={"sm"} borderRadius={"0.5em"}>
       <Box>
         <Image src={product1} borderRadius={"0.5em"} boxSize={"5em"} />
       </Box>
@@ -98,9 +96,9 @@ export default function ProductInCart(props: any) {
             size={"md"}
             variant={"ghost"}
             onClick={() => {
-              handleDelete(props?.id)
-              setTotalPPrice(0)
-              props.setTotal(0)
+              handleDelete(props?.id);
+              setTotalPPrice(0);
+              props.setTotal(0);
             }}
           />
         </HStack>

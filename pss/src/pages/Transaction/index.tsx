@@ -28,7 +28,7 @@ export default function Transaction() {
       "nav product cart"
       "nav product cart"`}
       gridTemplateRows={"3em 1fr 3em"}
-      gridTemplateColumns={"1fr 3fr 2fr"}
+      gridTemplateColumns={"14.75em    3fr 2fr"}
       h={"100vh"}
       maxW={"100vw"}
       gap={".5em"}
@@ -59,7 +59,7 @@ export default function Transaction() {
           totalPpn={totalPpn}
           setTotalPpn={setTotalPpn}
           ppn={ppn}
-          setPpn= {setPpn}
+          setPpn={setPpn}
           diskon={diskon}
         />
       </GridItem>

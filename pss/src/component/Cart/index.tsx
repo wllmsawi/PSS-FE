@@ -49,6 +49,8 @@ export default function Cart(props: any) {
       p={"1.5em"}
       borderRadius={"1.5em"}
       align={"stretch"}
+      boxShadow={"inner"}
+      
     >
       <VStack spacing={"0.5em"}>
         <Text fontWeight={"700"} fontSize={"large"}>
@@ -76,7 +78,7 @@ export default function Cart(props: any) {
           },
         }}
       >
-        <Grid gap={"1em"}>
+        <Grid gap={"1em"} p={".5em"} borderRadius={".5em"}>
           {props?.cart?.map((el: any, index: any) => {
             return (
               <ProductInCart

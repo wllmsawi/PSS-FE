@@ -21,14 +21,14 @@ export const ProductList = (props: any) => {
   const [gte, setGte] = useState(0);
   const [lte, setLte] = useState(100);
   const [category, setCategory] = useState<any>([]);
-  const [catId, setCatId] = useState(1);
+  const [catId, setCatId] = useState(0);
   const [group, setGroup] = useState<any>([]);
-  const [groupId, setGroupId] = useState(1);
+  const [groupId, setGroupId] = useState(0);
   const [branchId, setBranchId] = useState(1);
   const [product, setProduct] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("");
   const [sortField, setSortField] = useState("product_name");
   const [search, setSearch] = useState("");
   const ROUTE: string = import.meta.env.VITE_APP_API_BASE_URL;
@@ -56,7 +56,7 @@ export const ProductList = (props: any) => {
   ]);
 
   return (
-    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
+    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"} boxShadow={"inner"}>
       <Flex flexDir={"column"} h={"100%"}>
         <HStack spacing={"1.875em"}>
           <Button
@@ -100,6 +100,9 @@ export const ProductList = (props: any) => {
                 bg: "#FFDAAD",
                 transform: "scale(1.06)",
                 boxShadow: "lg",
+              }}
+              onClick={() => {
+                setGroupId(0)
               }}
             >
               All
@@ -203,11 +206,13 @@ export const ProductList = (props: any) => {
         </InputGroup>
         <Spacer />
         <Grid
-          gap={"1em"}
+        borderRadius={"1em"}
+        boxShadow={"inner"}
+          gap={"1.5em"}
           gridTemplateColumns={"repeat(3, 1fr)"}
-          h={"20em"}
+          h={"24em"}
           overflow={"auto"}
-          p={"2em .5em"}
+          p={"1em .5em"}
           sx={{
             "&::-webkit-scrollbar": {
               display: "none",

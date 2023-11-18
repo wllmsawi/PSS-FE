@@ -6,12 +6,23 @@ import {
   Spacer,
   Text,
   VStack,
+  Modal,
+  ModalBody,
+  ModalOverlay,
+  ModalCloseButton,
+  ModalContent,
+  useDisclosure,
+  ModalHeader,
+  ModalFooter,
+  Button,
+  Center,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { RiNotification3Fill } from "react-icons/ri";
 import { BsCartFill } from "react-icons/bs";
 import budi from "./img/budi.jpg";
 export const NavBar = (props?: any | null) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const date = new Date();
   const days = [
     "Sunday",
@@ -72,7 +83,7 @@ export const NavBar = (props?: any | null) => {
         </Box>
 
         <Box borderRadius={"50%"} p={".5em"}>
-          <Box overflow={"hidden"}>
+          <Box overflow={"hidden"} onClick={onOpen}>
             <Image src={budi} borderRadius={"50%"} boxSize={"2em"} />
           </Box>
         </Box>
@@ -81,6 +92,23 @@ export const NavBar = (props?: any | null) => {
           <Text fontSize={".75em"}>Admin</Text>
         </VStack>
       </HStack>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <Center>
+            <Text fontWeight={"bold"} fontSize={"x-large"}>
+              Update Profile Picture
+            </Text>
+          </Center>
+          <ModalBody></ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 };
