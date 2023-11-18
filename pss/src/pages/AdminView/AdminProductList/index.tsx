@@ -91,6 +91,9 @@ export const AdminProductList = () => {
     sortOrder,
     catId,
     groupId,
+    group,
+    setGroup,
+    setCatId,
   ]);
 
   return (
