@@ -20,10 +20,10 @@ export const SidebarBox = (props: any) => {
       <HStack
         spacing={"1em"}
         onClick={() => {
-          props?.setInventory(false);
-          props?.setTransaction(false);
-          props?.setLogout(false);
-          props?.setOrder(!props?.order);
+          // props?.setInventory(false);
+          // props?.setTransaction(false);
+          // props?.setLogout(false);
+          // props?.setOrder(!props?.order);
         }}
         boxShadow={props?.order ? "lg" : "none"}
         bgColor={props?.order ? "#F99B2A" : "transparent"}
@@ -32,9 +32,7 @@ export const SidebarBox = (props: any) => {
         p={".65em"}
         cursor={"pointer"}
       >
-        <Box color={"white"}>
-          <PiBasketFill />
-        </Box>
+        <Box color={"white"}>{props?.icon}</Box>
         <Box color={"white"}>
           <Link to={props?.to}>
             <Text as={props?.order ? "b" : "b"}>

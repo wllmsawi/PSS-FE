@@ -7,6 +7,7 @@ import { ProductList } from "./component/ProductList";
 import { Text } from "@chakra-ui/react";
 import { Inventory } from "./pages/Inventory";
 import { AdminProductList } from "./pages/AdminView/AdminProductList";
+import { Category } from "./pages/AdminView/Category";
 
 function App() {
   return (
@@ -30,7 +31,10 @@ function App() {
         path="/admin/product"
         element={<AdminView view={<AdminProductList />} />}
       />
-
+      <Route
+        path="/admin/category"
+        element={<AdminView view={<Category />} />}
+      />
       <Route path="*" element={<ErrorPages />} />
     </Routes>
   );
