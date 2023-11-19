@@ -35,7 +35,9 @@ export const CreateCategoryModal = (props: any) => {
         product_category_name
       );
       const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_API_BASE_URL}/category`,
+        `${
+          import.meta.env.VITE_APP_API_BASE_URL
+        }/category/category`,
         formData
       );
       await onClose();
