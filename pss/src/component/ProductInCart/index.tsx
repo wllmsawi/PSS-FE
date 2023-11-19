@@ -8,7 +8,7 @@ import { Spacer } from "@chakra-ui/react";
 import useCounter from "../ProductCard/useCounter";
 import { useState, useEffect } from "react";
 export default function ProductInCart(props: any) {
-  const [count, increment, decrement] = useCounter(props.qty);
+  const [count, increment, decrement, reset] = useCounter(props.qty);
   const [totalPPrice, setTotalPPrice] = useState(
     props.product_price * props.qty
   );
@@ -30,9 +30,10 @@ export default function ProductInCart(props: any) {
         }
       })
     );
-    setTotalPPrice(props.qty * props.product_price);
+    props?.setTotalQty(props?.totalQty + 1);
+    setTotalPPrice(props?.qty * props?.product_price);
     increment();
-    props?.setTotal(props.total + props.product_price);
+    props?.setTotal(props?.total + props?.product_price);
   };
 
   const minus = (id: number) => {
@@ -48,13 +49,16 @@ export default function ProductInCart(props: any) {
         }
       })
     );
-    setTotalPPrice(totalPPrice - props.product_price);
+    props?.setTotalQty(props?.totalQty - 1);
+    setTotalPPrice(totalPPrice - props?.product_price);
     decrement();
-    props?.setTotal(props.total - props.product_price);
+    props?.setTotal(props?.total - props?.product_price);
   };
 
   const handleDelete = (id: number) => {
+    props?.setTotalQty(props?.totalQty - props?.qty);
     props?.setCart(props?.cart.filter((el: any) => el.id !== id));
+    // reset();
   };
 
   return (

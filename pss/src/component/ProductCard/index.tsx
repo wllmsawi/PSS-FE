@@ -30,11 +30,10 @@ export const ProductCard = (props: any) => {
       props?.cart?.map((el: any) => {
         if (el?.id === props?.id) {
           toast({
-            title: "Product Already Added!",
+            title: "Product Already Added",
             description: "Please Check the Cart",
             status: "warning",
             duration: 2000,
-            isClosable: true,
             position: "top-right",
           });
           throw new Error();
@@ -74,7 +73,7 @@ export const ProductCard = (props: any) => {
           {props.product_name}
         </Text>
         <Text color={"#F99B2A"} fontWeight={"500"} fontSize={"sm"}>
-          Rp  {props.product_price}
+          Rp {props.product_price}
         </Text>
         <Modal isOpen={isOpen} onClose={onClose} size={"lg"} isCentered>
           <ModalOverlay />
@@ -141,8 +140,11 @@ export const ProductCard = (props: any) => {
                     const check = checkExist();
                     if (check === false) {
                     } else {
-                      props.setCart([test, ...props.cart]);
-                      props.setTotal(props.total + count * props.product_price);
+                      props?.setTotalQty(props.totalQty + count);
+                      props?.setCart([test, ...props.cart]);
+                      props?.setTotal(
+                        props.total + count * props.product_price
+                      );
                       reset();
                     }
                     onClose();

@@ -92,7 +92,7 @@ export const NavBar = (props?: any | null) => {
           <Text fontSize={".75em"}>Admin</Text>
         </VStack>
       </HStack>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
@@ -103,7 +103,7 @@ export const NavBar = (props?: any | null) => {
           </Center>
           <ModalBody></ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button onClick={onClose}>
               Close
             </Button>
           </ModalFooter>

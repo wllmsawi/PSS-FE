@@ -12,6 +12,7 @@ export default function Transaction() {
   const [totalPpn, setTotalPpn] = useState(0);
   const [diskon, setDiskon] = useState(0);
   const [day, setDay] = useState("");
+  const [totalQty, setTotalQty] = useState(0)
 
   useEffect(() => {
     if (day === "Friday") {
@@ -48,6 +49,8 @@ export default function Transaction() {
           setCart={setCart}
           total={total}
           setTotal={setTotal}
+          totalQty={totalQty}
+          setTotalQty={setTotalQty}
         />
       </GridItem>
       <GridItem area={"cart"} p={"0 0 1em 0"}>
@@ -61,6 +64,8 @@ export default function Transaction() {
           ppn={ppn}
           setPpn={setPpn}
           diskon={diskon}
+          totalQty={totalQty}
+          setTotalQty={setTotalQty}
         />
       </GridItem>
     </Grid>

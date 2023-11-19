@@ -21,9 +21,9 @@ export const ProductList = (props: any) => {
   const [gte, setGte] = useState(0);
   const [lte, setLte] = useState(100);
   const [category, setCategory] = useState<any>([]);
-  const [catId, setCatId] = useState(0);
+  const [catId, setCatId] = useState(1);
   const [group, setGroup] = useState<any>([]);
-  const [groupId, setGroupId] = useState(0);
+  const [groupId, setGroupId] = useState(1);
   const [branchId, setBranchId] = useState(1);
   const [product, setProduct] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -37,6 +37,7 @@ export const ProductList = (props: any) => {
       const res = await axios.get(
         `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
       );
+      console.log("--Fetching--");
       setProduct(res?.data?.result);
     } catch (err) {
       throw err;
@@ -56,7 +57,13 @@ export const ProductList = (props: any) => {
   ]);
 
   return (
-    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"} boxShadow={"inner"}>
+    <Box
+      bgColor={"#FFFFFF"}
+      h={"100%"}
+      borderRadius={"1.5em"}
+      p={"1.5em"}
+      boxShadow={"inner"}
+    >
       <Flex flexDir={"column"} h={"100%"}>
         <HStack spacing={"1.875em"}>
           <Button
@@ -65,6 +72,7 @@ export const ProductList = (props: any) => {
             }}
             variant={"link"}
             _focus={{ color: "red", textDecoration: "underline" }}
+
           >
             Kitchen
           </Button>
@@ -102,8 +110,9 @@ export const ProductList = (props: any) => {
                 boxShadow: "lg",
               }}
               onClick={() => {
-                setGroupId(0)
+                setGroupId(0);
               }}
+
             >
               All
             </Button>
@@ -206,8 +215,8 @@ export const ProductList = (props: any) => {
         </InputGroup>
         <Spacer />
         <Grid
-        borderRadius={"1em"}
-        boxShadow={"inner"}
+          borderRadius={"1em"}
+          boxShadow={"inner"}
           gap={"1.5em"}
           gridTemplateColumns={"repeat(3, 1fr)"}
           h={"24em"}
@@ -238,6 +247,8 @@ export const ProductList = (props: any) => {
                 total={props.total}
                 setTotal={props.setTotal}
                 handlePlus={props.handlePlus}
+                totalQty={props.totalQty}
+                setTotalQty={props.setTotalQty}
               />
             ))}
         </Grid>
