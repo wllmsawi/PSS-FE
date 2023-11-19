@@ -14,7 +14,6 @@ const useCounter = (value: any) => {
   const reset = () => {
     setCount(1);
   };
-
   return [count, increment, decrement, reset];
 };
 

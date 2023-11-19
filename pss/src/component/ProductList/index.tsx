@@ -28,7 +28,7 @@ export const ProductList = (props: any) => {
   const [product, setProduct] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("");
   const [sortField, setSortField] = useState("product_name");
   const [search, setSearch] = useState("");
   const ROUTE: string = import.meta.env.VITE_APP_API_BASE_URL;
@@ -38,6 +38,7 @@ export const ProductList = (props: any) => {
       const res = await axios.get(
         `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
       );
+      console.log("--Fetching--");
       setProduct(res?.data?.result);
     } catch (err) {
       throw err;
@@ -58,7 +59,13 @@ export const ProductList = (props: any) => {
   ]);
 
   return (
-    <Box bgColor={"#FFFFFF"} h={"100%"} borderRadius={"1.5em"} p={"1.5em"}>
+    <Box
+      bgColor={"#FFFFFF"}
+      h={"100%"}
+      borderRadius={"1.5em"}
+      p={"1.5em"}
+      boxShadow={"inner"}
+    >
       <Flex flexDir={"column"} h={"100%"}>
         <HStack spacing={"1.875em"}>
           <Button
@@ -67,6 +74,7 @@ export const ProductList = (props: any) => {
             }}
             variant={"link"}
             _focus={{ color: "red", textDecoration: "underline" }}
+
           >
             Kitchen
           </Button>
@@ -103,6 +111,10 @@ export const ProductList = (props: any) => {
                 transform: "scale(1.06)",
                 boxShadow: "lg",
               }}
+              onClick={() => {
+                setGroupId(0);
+              }}
+
             >
               All
             </Button>
@@ -168,7 +180,6 @@ export const ProductList = (props: any) => {
                 setSortField("product_name");
                 setSortOrder(e.target.value);
               }}
-              
             >
               <option value={"asc"}>Name A-Z</option>
               <option value={"desc"}>Name Z-A</option>
@@ -206,11 +217,13 @@ export const ProductList = (props: any) => {
         </InputGroup>
         <Spacer />
         <Grid
-          gap={"1em"}
+          borderRadius={"1em"}
+          boxShadow={"inner"}
+          gap={"1.5em"}
           gridTemplateColumns={"repeat(3, 1fr)"}
-          h={"20em"}
+          h={"24em"}
           overflow={"auto"}
-          p={"2em .5em"}
+          p={"1em .5em"}
           sx={{
             "&::-webkit-scrollbar": {
               display: "none",
@@ -236,6 +249,8 @@ export const ProductList = (props: any) => {
                 total={props.total}
                 setTotal={props.setTotal}
                 handlePlus={props.handlePlus}
+                totalQty={props.totalQty}
+                setTotalQty={props.setTotalQty}
               />
             ))}
         </Grid>
