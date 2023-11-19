@@ -1,31 +1,29 @@
 import {
   Box,
-  Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Button,
   FormLabel,
-  InputGroup,
   Input,
+  InputGroup,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  Text,
   VStack,
-  Flex,
-  Spacer,
-  Select,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormik } from "formik";
-import { useState } from "react";
-import * as Yup from "yup";
 import { IoMdAdd } from "react-icons/io";
-export const CreateCategoryModal = (props: any) => {
+import * as Yup from "yup";
+
+export const EditCategoryModal = (props: any) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const createCategory = async (
+
+  const udpateCategory = async (
     product_category_name: string
   ) => {
     try {
@@ -34,10 +32,10 @@ export const CreateCategoryModal = (props: any) => {
       //   "product_category_name",
       //   product_category_name
       // );
-      const result = await axios.post(
+      const result = await axios.patch(
         `${
           import.meta.env.VITE_APP_API_BASE_URL
-        }/category/category`,
+        }/category/${props?.id}`,
         {
           product_category_name: product_category_name,
         }
@@ -52,28 +50,41 @@ export const CreateCategoryModal = (props: any) => {
       throw err;
     }
   };
+  const deleteCategory = async (id: number) => {
+    try {
+      const result = await axios.delete(
+        `${
+          import.meta.env.VITE_APP_API_BASE_URL
+        }/category/category/${props?.id}`
+      );
+      console.log(result);
+      await onClose();
+      toast({
+        title: "Delete Category Success",
+        status: "success",
+      });
+    } catch (err) {
+      throw err;
+    }
+  };
   const formik = useFormik({
     initialValues: {
-      product_category_name: "",
+      product_category_name: props?.product_category_name,
     },
     validationSchema: Yup.object({}),
     onSubmit: (values, actions) => {
-      createCategory(values.product_category_name);
+      udpateCategory(values.product_category_name);
       actions.resetForm();
     },
   });
   return (
     <Box>
       <Button
-        variant={"button"}
-        color={"unpureWhite.50"}
+        variant={"link"}
         fontSize={"1em"}
         onClick={onOpen}
-        fontWeight={"bold"}
-        bgColor={"red.400"}
       >
-        <IoMdAdd />
-        <Text>Add Category</Text>
+        <Text>Edit Category</Text>
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -104,6 +115,15 @@ export const CreateCategoryModal = (props: any) => {
                     alignSelf={"flex-end"}
                   >
                     Submit
+                  </Button>
+                  <Button
+                    w={"50%"}
+                    alignSelf={"flex-end"}
+                    onClick={() => {
+                      deleteCategory(props?.id);
+                    }}
+                  >
+                    Delete Category
                   </Button>
                 </VStack>
               </form>

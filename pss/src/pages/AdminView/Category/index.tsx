@@ -12,10 +12,10 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { EditProductModal } from "../AdminProductList/component/EditProductModal";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CreateCategoryModal } from "./component/CreateCategoryModal";
+import { EditCategoryModal } from "./component/EditCategoryModal";
 
 export const Category = (props: any) => {
   const [category, setCategory] = useState<any>([]);
@@ -98,7 +98,7 @@ export const Category = (props: any) => {
                         {el?.product_category_name}
                       </Td>
                       <Td textAlign={"center"}>
-                        <EditProductModal />
+                        <EditCategoryModal {...el} />
                       </Td>
                     </Tr>
                   );
