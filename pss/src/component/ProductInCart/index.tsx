@@ -8,14 +8,14 @@ import { Spacer } from "@chakra-ui/react";
 import useCounter from "../ProductCard/useCounter";
 import { useState, useEffect } from "react";
 export default function ProductInCart(props: any) {
-  const [count, increment, decrement] = useCounter(props.qty);
+  const [count, increment, decrement, reset] = useCounter(props.qty);
   const [totalPPrice, setTotalPPrice] = useState(
     props.product_price * props.qty
   );
   useEffect(() => {
     setTotalPPrice(props.qty * props.product_price);
-  }, [totalPPrice, setTotalPPrice, props.qty]);
-  console.log("PIC", props);
+  }, [totalPPrice, setTotalPPrice, props.qty, count, increment, decrement]);
+
   const plus = (id: number) => {
     props?.setCart(
       props?.cart.map((el: any) => {
@@ -30,18 +30,39 @@ export default function ProductInCart(props: any) {
         }
       })
     );
-    setTotalPPrice(props.qty * props.product_price);
+    props?.setTotalQty(props?.totalQty + 1);
+    setTotalPPrice(props?.qty * props?.product_price);
     increment();
-    props?.setTotal(props.total + props.product_price);
+    props?.setTotal(props?.total + props?.product_price);
   };
 
-  const minus = () => {
+  const minus = (id: number) => {
+    props?.setCart(
+      props?.cart.map((el: any) => {
+        if (el?.id === id) {
+          return {
+            ...el,
+            qty: el.qty - 1,
+          };
+        } else {
+          return el;
+        }
+      })
+    );
+    props?.setTotalQty(props?.totalQty - 1);
+    setTotalPPrice(totalPPrice - props?.product_price);
     decrement();
-    props.setTotal(props.total - props.product_price);
+    props?.setTotal(props?.total - props?.product_price);
+  };
+
+  const handleDelete = (id: number) => {
+    props?.setTotalQty(props?.totalQty - props?.qty);
+    props?.setCart(props?.cart.filter((el: any) => el.id !== id));
+    // reset();
   };
 
   return (
-    <HStack>
+    <HStack boxShadow={"sm"} borderRadius={"0.5em"}>
       <Box>
         <Image src={product1} borderRadius={"0.5em"} boxSize={"5em"} />
       </Box>
@@ -61,7 +82,7 @@ export default function ProductInCart(props: any) {
             variant={"ghost"}
             size={"md"}
             onClick={() => {
-              count > 1 ? minus() : null;
+              count > 1 ? minus(props?.id) : null;
             }}
           />
           <IconButton
@@ -78,6 +99,11 @@ export default function ProductInCart(props: any) {
             icon={<MdDelete />}
             size={"md"}
             variant={"ghost"}
+            onClick={() => {
+              handleDelete(props?.id);
+              setTotalPPrice(0);
+              props.setTotal(0);
+            }}
           />
         </HStack>
       </VStack>

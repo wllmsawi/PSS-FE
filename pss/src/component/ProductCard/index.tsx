@@ -13,6 +13,7 @@ import {
   Text,
   VStack,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import useCounter from "./useCounter";
@@ -22,13 +23,19 @@ import { BsCartPlusFill } from "react-icons/bs";
 export const ProductCard = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, increment, decrement, reset] = useCounter(1);
-  console.log("COUNT", count);
+  const toast = useToast();
   const checkExist = () => {
     let condition;
     try {
       props?.cart?.map((el: any) => {
         if (el?.id === props?.id) {
-          alert("PRODUCT SUDAH ADA");
+          toast({
+            title: "Product Already Added",
+            description: "Please Check the Cart",
+            status: "warning",
+            duration: 2000,
+            position: "top-right",
+          });
           throw new Error();
         } else {
           condition = true;
@@ -43,8 +50,9 @@ export const ProductCard = (props: any) => {
   };
   return (
     <Box
-      h={"264px"}
-      boxShadow={"lg"}
+      h={"280px"}
+      w={"200px"}
+      boxShadow={"md"}
       borderRadius={"1em"}
       overflow={"hidden"}
       onClick={onOpen}
@@ -52,18 +60,20 @@ export const ProductCard = (props: any) => {
       _hover={{ transform: "scale(1.05)" }}
       cursor={"pointer"}
     >
-      <Box bgColor={"gray.300"} h={"50%"}></Box>
+      <Box bgColor={"gray.300"} h={"170px"} w={"200px"} overflow={"hidden"}>
+        <Image src={product1} boxSize={"100%"} />
+      </Box>
       <Flex
         h={"50%"}
         flexDir={"column"}
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <Text color={"#ED1C24"} fontWeight={"bold"}>
+        <Text color={"#ED1C24"} fontWeight={"bold"} fontSize={"md"}>
           {props.product_name}
         </Text>
-        <Text color={"#F99B2A"} fontWeight={"500"}>
-          {props.product_price}
+        <Text color={"#F99B2A"} fontWeight={"500"} fontSize={"sm"}>
+          Rp {props.product_price}
         </Text>
         <Modal isOpen={isOpen} onClose={onClose} size={"lg"} isCentered>
           <ModalOverlay />
@@ -71,23 +81,21 @@ export const ProductCard = (props: any) => {
             <ModalCloseButton />
             <ModalBody>
               <VStack p={"1.5em"}>
-                <Image
-                  src={product1}
-                  boxSize={"20emem"}
-                  borderRadius={".5em"}
-                />
-                <Text fontWeight={"bold"} color={"red"}>
+                <Image src={product1} boxSize={"20em"} borderRadius={".5em"} />
+                <Text fontWeight={"bold"} color={"red"} fontSize={"xl"}>
                   {props.product_name}
                 </Text>
-                <Text fontWeight={"bold"} color={"orange"}>
+                <Text>{props.product_description}</Text>
+                <Text fontWeight={"500"} color={"orange"}>
                   {props.product_price}
                 </Text>
+
                 <HStack>
                   <Button
                     size={"md"}
                     bgColor={"transparent"}
                     _hover={{ bgColor: "transparent" }}
-                    _active={{ bgColor: "lightgrey" }}
+                    _active={{ bgColor: "transparent" }}
                     fontSize={"xl"}
                     color={"#ED1C24"}
                     onClick={() => {
@@ -103,7 +111,7 @@ export const ProductCard = (props: any) => {
                     size={"md"}
                     bgColor={"transparent"}
                     _hover={{ bgColor: "transparent" }}
-                    _active={{ bgColor: "lightgrey" }}
+                    _active={{ bgColor: "transparent" }}
                     fontSize={"xl"}
                     color={"#ED1C24"}
                     onClick={() => {
@@ -132,10 +140,14 @@ export const ProductCard = (props: any) => {
                     const check = checkExist();
                     if (check === false) {
                     } else {
-                      props.setCart([test, ...props.cart]);
-                      props.setTotal(props.total + count * props.product_price);
+                      props?.setTotalQty(props.totalQty + count);
+                      props?.setCart([test, ...props.cart]);
+                      props?.setTotal(
+                        props.total + count * props.product_price
+                      );
                       reset();
                     }
+                    onClose();
                   }}
                   w={"15em"}
                 >

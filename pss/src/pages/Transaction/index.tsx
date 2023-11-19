@@ -12,6 +12,7 @@ export default function Transaction() {
   const [totalPpn, setTotalPpn] = useState(0);
   const [diskon, setDiskon] = useState(0);
   const [day, setDay] = useState("");
+  const [totalQty, setTotalQty] = useState(0)
 
   useEffect(() => {
     if (day === "Friday") {
@@ -28,7 +29,7 @@ export default function Transaction() {
       "nav product cart"
       "nav product cart"`}
       gridTemplateRows={"3em 1fr 3em"}
-      gridTemplateColumns={"1fr 3fr 2fr"}
+      gridTemplateColumns={"14.75em    3fr 2fr"}
       h={"100vh"}
       maxW={"100vw"}
       gap={".5em"}
@@ -48,6 +49,8 @@ export default function Transaction() {
           setCart={setCart}
           total={total}
           setTotal={setTotal}
+          totalQty={totalQty}
+          setTotalQty={setTotalQty}
         />
       </GridItem>
       <GridItem area={"cart"} p={"0 0 1em 0"}>
@@ -59,7 +62,10 @@ export default function Transaction() {
           totalPpn={totalPpn}
           setTotalPpn={setTotalPpn}
           ppn={ppn}
+          setPpn={setPpn}
           diskon={diskon}
+          totalQty={totalQty}
+          setTotalQty={setTotalQty}
         />
       </GridItem>
     </Grid>

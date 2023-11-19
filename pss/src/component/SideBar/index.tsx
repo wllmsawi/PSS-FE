@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function SideBar() {
-  const [order, setOrder] = useState(false);
+  const [order, setOrder] = useState(true);
   const [transaction, setTransaction] = useState(false);
   const [inventory, setInventory] = useState(false);
   const [logout, setLogout] = useState(false);
