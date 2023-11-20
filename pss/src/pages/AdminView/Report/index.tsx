@@ -1,8 +1,10 @@
 import {
   Box,
   Button,
+  Divider,
   Flex,
   HStack,
+  IconButton,
   Image,
   Input,
   InputGroup,
@@ -17,15 +19,48 @@ import {
   Th,
   Thead,
   Tr,
+  VStack,
 } from "@chakra-ui/react";
 import { CreateCategoryModal } from "../Category/component/CreateCategoryModal";
 import { CreateProductModal } from "../AdminProductList/component/CreateProductModal";
 import { Link } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
-import { FaAngleRight } from "react-icons/fa";
+import {
+  FaAngleRight,
+  FaChevronDown,
+  FaChevronUp,
+} from "react-icons/fa";
 import { EditProductModal } from "../AdminProductList/component/EditProductModal";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import * as toRupiah from "@develoka/angka-rupiah-js";
+import ProductInCart from "../../../component/ProductInCart";
 export const Report = (props: any) => {
+  const [transaction, setTransaction] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  const fetchTransactions = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/transaction?page=${page}&pageSize=${pageSize}&startDate=2023-11-01&endDate=2023-11-30`
+      );
+      setTransaction(res?.data?.data);
+    } catch (err) {
+      throw err;
+    }
+  };
+  const [show, setShow] = useState<any>({});
+  const toggleShow = (id: number) => () => {
+    setShow((set: any) => ({
+      ...set,
+      [id]: !set[id],
+    }));
+  };
+  console.log("SHOW", show);
+  useEffect(() => {
+    fetchTransactions();
+  }, [page, pageSize]);
   return (
     <Flex
       h={"100%"}
@@ -145,64 +180,193 @@ export const Report = (props: any) => {
                   color={"#6D6D6D"}
                   fontWeight={"500"}
                 >
-                  {props?.product?.map(
+                  {transaction?.map(
                     (el: any, index: number) => {
                       return (
-                        <Tr
-                          cursor={"pointer"}
-                          key={index}
-                          p={".875em"}
-                          bgColor={"#FAFAFA"}
-                        >
-                          <Td textAlign={"center"}>
-                            <Flex
-                              justifyContent={"center"}
-                              alignItems={"center"}
+                        <>
+                          <Tr
+                            cursor={"pointer"}
+                            key={index}
+                            p={".875em"}
+                            bgColor={"#FAFAFA"}
+                          >
+                            <Td textAlign={"center"}>
+                              {`PSS-CK-${el?.id}`}
+                            </Td>
+                            <Td textAlign={"center"}>
+                              {el?.customer_name
+                                ? el?.customer_name
+                                : "Customer"}
+                            </Td>
+                            <Td textAlign={"center"}>
+                              {`${
+                                (el?.date).split("T")[0]
+                              }`}
+                            </Td>
+                            <Td textAlign={"center"}>
+                              {
+                                el?.payment_method
+                                  ?.method_name
+                              }
+                            </Td>
+                            <Td textAlign={"center"}>
+                              {toRupiah(el?.payment_amount)}
+                            </Td>
+                            <Td textAlign={"center"}>
+                              {
+                                (el?.user?.full_name).split(
+                                  " "
+                                )[0]
+                              }
+                            </Td>
+                            <Td
+                              textAlign={"center"}
+                              onClick={toggleShow(el?.id)}
                             >
-                              <Image
-                                src={`${
-                                  import.meta.env
-                                    .VITE_APP_API_IMAGE_URL
-                                }/product/${
-                                  el?.product_image
-                                }`}
-                                maxH={"3em"}
-                                objectFit={"contain"}
-                              />
-                            </Flex>
-                          </Td>
-                          <Td textAlign={"center"}>
-                            {el?.product_name}
-                          </Td>
-                          <Td
-                            textAlign={"center"}
-                          >{`PSS-CK-${el?.id}`}</Td>
-                          <Td textAlign={"center"}>
-                            {
-                              el?.product_category
-                                ?.product_category_name
+                              <Flex align={"center"}>
+                                <Text color={"#F99B2A"}>
+                                  Details
+                                </Text>
+                                <IconButton
+                                  aria-label=""
+                                  bg={"transparent"}
+                                  color={"#F99B2A"}
+                                  size={"sm"}
+                                  _hover={{
+                                    bg: "transparent",
+                                  }}
+                                  icon={
+                                    show[el?.id] ? (
+                                      <FaChevronUp />
+                                    ) : (
+                                      <FaChevronDown />
+                                    )
+                                  }
+                                />
+                              </Flex>
+                            </Td>
+                          </Tr>
+                          <Tr
+                            display={
+                              show[el?.id] ? "" : "none"
                             }
-                          </Td>
-                          <Td textAlign={"center"}>
-                            {
-                              el?.product_group
-                                ?.product_group_name
-                            }
-                          </Td>
-                          <Td textAlign={"center"}>
-                            Pieces(pcs)
-                          </Td>
-                          <Td textAlign={"center"}>
-                            <Link to={""}>
-                              <EditProductModal
-                              // {...el}
-                              // product_status={status}
-                              // group={group}
-                              // category={category}
-                              />
-                            </Link>
-                          </Td>
-                        </Tr>
+                          >
+                            <Td
+                              colSpan={7}
+                              color={"#1C1D21"}
+                            >
+                              <Flex w={"100%"}>
+                                <Box w={"50%"} h={"100%"}>
+                                  <VStack align={"stretch"}>
+                                    <Text>Item</Text>
+                                    {el?.transaction_detail.map(
+                                      (el: any) => {
+                                        return (
+                                          <Box w={"100%"}>
+                                            <ProductInCart
+                                              display={
+                                                "none"
+                                              }
+                                              product_name={
+                                                el?.product
+                                                  ?.product_name
+                                              }
+                                              qty={1}
+                                              product_price={
+                                                el?.product
+                                                  ?.product_price
+                                              }
+                                              image={
+                                                el?.product
+                                                  ?.product_image
+                                              }
+                                            />
+                                          </Box>
+                                        );
+                                      }
+                                    )}
+                                  </VStack>
+                                </Box>
+                                <Spacer m={"0 .5em"} />
+                                <Box w={"50%"}>
+                                  <VStack
+                                    flexDir={"column"}
+                                    align={"stretch"}
+                                  >
+                                    <Divider
+                                      borderColor={"black"}
+                                      borderWidth={"1px"}
+                                    />
+                                    <Flex>
+                                      <Text
+                                        fontWeight={"500"}
+                                      >
+                                        Total Sales
+                                      </Text>
+                                      <Spacer />
+                                      <Text
+                                        fontWeight={"500"}
+                                      >
+                                        {toRupiah(
+                                          el?.total_price_ppn
+                                        )}
+                                      </Text>
+                                    </Flex>
+                                    <Flex>
+                                      <Text
+                                        fontWeight={"500"}
+                                      >
+                                        Total Diskon
+                                      </Text>
+                                      <Spacer />
+                                      <Text
+                                        fontWeight={"500"}
+                                      >
+                                        {el?.diskon
+                                          ? ""
+                                          : toRupiah("0")}
+                                      </Text>
+                                    </Flex>
+                                    <Flex>
+                                      <Text>DPP</Text>
+                                      <Spacer />
+                                      <Text>
+                                        {toRupiah(
+                                          el?.total_price
+                                        )}
+                                      </Text>
+                                    </Flex>
+                                    <Flex>
+                                      <Text>PPN</Text>
+                                      <Spacer />
+                                      <Text>
+                                        {toRupiah(
+                                          el?.total_price_ppn -
+                                            el?.total_price
+                                        )}
+                                      </Text>
+                                    </Flex>
+                                    <Divider
+                                      borderColor={"black"}
+                                      borderWidth={"1px"}
+                                    />
+                                    <Flex
+                                      fontWeight={"bold"}
+                                    >
+                                      <Text>Total</Text>
+                                      <Spacer />
+                                      <Text>
+                                        {toRupiah(
+                                          el?.total_price_ppn
+                                        )}
+                                      </Text>
+                                    </Flex>
+                                  </VStack>
+                                </Box>
+                              </Flex>
+                            </Td>
+                          </Tr>
+                        </>
                       );
                     }
                   )}
@@ -225,11 +389,11 @@ export const Report = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  // setPage(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   )
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
                 }}
                 variant={"link"}
                 value={1}
@@ -240,11 +404,11 @@ export const Report = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  // setPage(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   )
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
                 }}
                 variant={"link"}
                 value={2}
@@ -256,11 +420,11 @@ export const Report = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  // setPage(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   )
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
                 }}
                 variant={"link"}
                 value={3}
@@ -272,11 +436,11 @@ export const Report = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  // setPage(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   )
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
                 }}
                 variant={"link"}
                 value={4}
@@ -288,11 +452,11 @@ export const Report = (props: any) => {
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
-                  // setPage(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   )
-                  // );
+                  setPage(
+                    Number(
+                      (e.target as HTMLInputElement).value
+                    )
+                  );
                 }}
                 variant={"link"}
                 value={5}
@@ -302,8 +466,8 @@ export const Report = (props: any) => {
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
-                onClick={(e) => {
-                  // setPage(page + 1);
+                onClick={() => {
+                  setPage(page + 1);
                 }}
                 variant={"link"}
                 value={5}
@@ -333,16 +497,14 @@ export const Report = (props: any) => {
                     console.log("CHECK ENTER", e.code);
                     if (e.keyCode == 13) {
                       e.preventDefault();
-                      // setCatId(0);
-                      // setGroupId(0);
-                      // setPage(
-                      //   Number(
-                      //     (e.target as HTMLInputElement)
-                      //       .value
-                      //   )
-                      // );
+                      setPage(
+                        Number(
+                          (e.target as HTMLInputElement)
+                            .value
+                        )
+                      );
 
-                      // e.currentTarget.value = "";
+                      e.currentTarget.value = "";
                     }
                   }}
                 />
