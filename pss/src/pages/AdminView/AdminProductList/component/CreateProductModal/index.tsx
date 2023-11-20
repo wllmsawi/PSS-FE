@@ -22,6 +22,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { UploadImage } from "./component/UploadImage";
+import { IoMdAdd } from "react-icons/io";
 export const CreateProductModal = (props: any) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -30,12 +31,14 @@ export const CreateProductModal = (props: any) => {
   >(null);
   const [category, setCategory] = useState(0);
   const [group, setGroup] = useState(0);
+  const [status, setStatus] = useState(0);
   const createProduct = async (
     product_name: string,
     product_group_id: string,
     product_category_id: string,
     product_price: string,
-    product_description: string
+    product_description: string,
+    product_status_id: string
   ) => {
     try {
       let formData = new FormData();
@@ -51,6 +54,10 @@ export const CreateProductModal = (props: any) => {
         "product_description",
         product_description
       );
+      formData.append(
+        "product_status_id",
+        product_status_id
+      );
       const { data } = await axios.post(
         `${import.meta.env.VITE_APP_API_BASE_URL}/product`,
         formData
@@ -64,7 +71,6 @@ export const CreateProductModal = (props: any) => {
       throw err;
     }
   };
-
   const formik = useFormik({
     initialValues: {
       product_name: "",
@@ -73,6 +79,7 @@ export const CreateProductModal = (props: any) => {
       product_price: "",
       product_image: "",
       product_description: "",
+      product_status_id: "",
     },
     validationSchema: Yup.object({}),
     onSubmit: (values, actions) => {
@@ -81,7 +88,8 @@ export const CreateProductModal = (props: any) => {
         String(group),
         String(category),
         values.product_price,
-        values.product_description
+        values.product_description,
+        String(status)
       );
       actions.resetForm();
       setFieldImage("");
@@ -90,13 +98,15 @@ export const CreateProductModal = (props: any) => {
   return (
     <Box>
       <Button
-        variant={"link"}
-        color={"#FEFEFE"}
+        variant={"button"}
+        color={"unpureWhite.50"}
         fontSize={"1em"}
         onClick={onOpen}
         fontWeight={"bold"}
+        bgColor={"red.400"}
       >
-        <Text>CREATE PRODUCT</Text>
+        <IoMdAdd />
+        <Text>Add Product</Text>
       </Button>
       <Modal
         isOpen={isOpen}
@@ -104,7 +114,7 @@ export const CreateProductModal = (props: any) => {
         size={"custom"}
       >
         <ModalOverlay />
-        <ModalContent w={"50em"}>
+        <ModalContent w={"50em"} bg={"#FAFAFA"}>
           <ModalCloseButton />
           <ModalBody>
             <Flex>
@@ -119,83 +129,201 @@ export const CreateProductModal = (props: any) => {
                 <form onSubmit={formik.handleSubmit}>
                   <VStack align={"stretch"}>
                     <FormLabel htmlFor="product_name">
-                      Product Name
+                      Name
                     </FormLabel>
                     <InputGroup>
                       <Input
+                        border={"none"}
+                        focusBorderColor={"transparent"}
+                        bg={"#EEF1F2"}
                         type="text"
                         id="product_name"
                         name="product_name"
-                        size="lg"
+                        size="md"
                         value={formik.values.product_name}
                         onChange={formik.handleChange}
                       />
                     </InputGroup>
+                    <FormLabel htmlFor="product_name">
+                      <Text>SKU</Text>
+                      <Text
+                        color={"red.400"}
+                        fontSize={".75em"}
+                      >
+                        This generated automaticly
+                      </Text>
+                    </FormLabel>
+                    <InputGroup>
+                      <Input
+                        border={"none"}
+                        focusBorderColor={"transparent"}
+                        bg={"#EEF1F2"}
+                        type="text"
+                        id="product_name"
+                        name="product_name"
+                        size="md"
+                        placeholder={`PSS-CK-ID`}
+                        // isDisabled={true}
+                        pointerEvents={"none"}
+                      />
+                    </InputGroup>
                     <FormLabel htmlFor="product_group_id">
-                      Product Group
+                      Category
                     </FormLabel>
                     <Select
                       borderRadius={"0.5em"}
                       onChange={(e) => {
                         setGroup(Number(e.target.value));
                       }}
+                      size={"md"}
+                      bg={"#EEF1F2"}
+                      border={"none"}
+                      focusBorderColor={"transparent"}
                     >
                       <option>Select Category</option>
-                      {props?.group?.map((el: any) => {
-                        return (
-                          <option value={el?.id}>
-                            {el?.product_group_name}
-                          </option>
-                        );
-                      })}
+                      {props?.group?.map(
+                        (el: any, index: number) => {
+                          return (
+                            <option
+                              value={el?.id}
+                              key={index}
+                            >
+                              {el?.product_group_name}
+                            </option>
+                          );
+                        }
+                      )}
                     </Select>
                     <FormLabel htmlFor="product_category_id">
-                      Product Category
+                      Group
                     </FormLabel>
                     <Select
+                      border={"none"}
+                      focusBorderColor={"transparent"}
+                      bg={"#EEF1F2"}
                       borderRadius={"0.5em"}
                       onChange={(e) => {
                         setCategory(Number(e.target.value));
                       }}
+                      size={"md"}
                     >
                       <option>Select Group</option>
-                      {props?.category?.map((el: any) => {
-                        return (
-                          <option value={el?.id}>
-                            {el.product_category_name}
-                          </option>
-                        );
-                      })}
+                      {props?.category?.map(
+                        (el: any, index: number) => {
+                          return (
+                            <option
+                              value={el?.id}
+                              key={index}
+                            >
+                              {el.product_category_name}
+                            </option>
+                          );
+                        }
+                      )}
                     </Select>
                     <FormLabel htmlFor="product_price">
-                      Product Price
+                      <Text>Unit</Text>
+                      <Text
+                        color={"red.400"}
+                        fontSize={".75em"}
+                      >
+                        This generated automaticly
+                      </Text>
                     </FormLabel>
                     <InputGroup>
                       <Input
                         type="number"
                         id="product_price"
                         name="product_price"
-                        size="lg"
-                        value={formik.values.product_price}
-                        onChange={formik.handleChange}
+                        placeholder={`Pieces(pcs)`}
+                        bg={"#EEF1F2"}
+                        size={"md"}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
+                        pointerEvents={"none"}
                       />
                     </InputGroup>
-                    <FormLabel htmlFor="product_description">
-                      Product Description
+                    <FormLabel htmlFor="product_price">
+                      Price
                     </FormLabel>
                     <InputGroup>
                       <Input
-                        type="text"
+                        bg={"#EEF1F2"}
+                        size={"md"}
+                        type="number"
+                        id="product_price"
+                        name="product_price"
+                        value={formik.values.product_price}
+                        onChange={formik.handleChange}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
+                      />
+                    </InputGroup>
+                    <FormLabel htmlFor="product_description">
+                      Description
+                    </FormLabel>
+                    <InputGroup>
+                      <Input
                         id="product_description"
                         name="product_description"
-                        size="lg"
+                        bg={"#EEF1F2"}
+                        type="text"
+                        size="md"
                         value={
                           formik.values.product_description
                         }
                         onChange={formik.handleChange}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
                       />
                     </InputGroup>
+                    <FormLabel htmlFor="product_status_id">
+                      Status
+                    </FormLabel>
+                    <Select
+                      name={"product_status_id"}
+                      borderRadius={"0.5em"}
+                      onChange={(e) => {
+                        setStatus(Number(e.target.value));
+                      }}
+                      bg={"#EEF1F2"}
+                      border={"none"}
+                      focusBorderColor={"transparent"}
+                    >
+                      <option>Select Status</option>
+                      {props?.status?.map(
+                        (el: any, index: number) => {
+                          return (
+                            <option
+                              value={el?.id}
+                              key={index}
+                            >
+                              {el?.status_name}
+                            </option>
+                          );
+                        }
+                      )}
+                    </Select>
                     <Button
+                      p={"1em"}
+                      bg={"#EEF1F2"}
+                      size={"sm"}
+                      _hover={{
+                        bg: "#FFDAAD",
+                        color: "#F99B2A",
+                        boxShadow: "lg",
+                        transform: "scale(1.05)",
+                      }}
+                      _active={{
+                        bg: "#FFDAAD",
+                        color: "#F99B2A",
+                      }}
+                      _focus={{
+                        bg: "#FFDAAD",
+                        transform: "scale(1.06)",
+                        boxShadow: "lg",
+                      }}
+                      color={"#6D6D6D"}
                       type="submit"
                       w={"50%"}
                       alignSelf={"flex-end"}

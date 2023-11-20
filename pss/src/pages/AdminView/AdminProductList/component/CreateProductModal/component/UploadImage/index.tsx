@@ -6,7 +6,9 @@ import {
   Stack,
   Text,
   Image,
+  IconButton,
 } from "@chakra-ui/react";
+import { MdOutlineFileUpload } from "react-icons/md";
 export const UploadImage = (props: any) => {
   function handleChange(e: any) {
     props?.setFieldImage(e.target.files[0]);
@@ -43,27 +45,17 @@ export const UploadImage = (props: any) => {
                 justify="center"
                 spacing="4"
               >
-                <Stack
-                  p="8"
-                  textAlign="center"
-                  spacing="1"
-                  style={
-                    props?.fieldImage
-                      ? { display: "none" }
-                      : { display: "block" }
-                  }
-                >
-                  <Heading
-                    fontSize="lg"
-                    color="white"
-                    fontWeight="bold"
-                  >
-                    Drop images here
-                  </Heading>
-                  <Text fontWeight="light">
-                    or click to upload
-                  </Text>
-                </Stack>
+                <IconButton
+                  aria-label="Call Segun"
+                  size={"lg"}
+                  fontSize={"2em"}
+                  icon={<MdOutlineFileUpload />}
+                  bgColor={"transparent"}
+                  color={"red.400"}
+                />
+                <Text fontWeight="bold" color={"red.400"}>
+                  Add Image
+                </Text>
               </Stack>
             </Box>
             <Input
