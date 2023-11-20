@@ -115,7 +115,7 @@ export const NavBar = (props?: any | null) => {
         <Box borderRadius={"50%"} p={".5em"}>
           <Box overflow={"hidden"} onClick={onOpen}>
             <Image
-              src={`${import.meta.env.VITE_APP_API_IMAGE_URL}/avatar/image`}
+              src={`${import.meta.env.VITE_APP_API_IMAGE_URL}/profile/product_2023_10_19_logo ratan.png`}
               borderRadius={"50%"}
               boxSize={"2em"}
             />
