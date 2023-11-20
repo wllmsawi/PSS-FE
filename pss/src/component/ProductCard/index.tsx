@@ -25,7 +25,7 @@ export const ProductCard = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, increment, decrement, reset] = useCounter(1);
   const toast = useToast();
-  console.log("image", props.product_image);
+  console.log("image", props.stock);
 
   const checkExist = () => {
     let condition;

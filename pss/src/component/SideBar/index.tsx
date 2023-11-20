@@ -10,10 +10,11 @@ import { PiBasketFill } from "react-icons/pi";
 import { PiCalculatorFill } from "react-icons/pi";
 import { PiNotepadFill } from "react-icons/pi";
 import { IoLogOut } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function SideBar() {
+  const navigate = useNavigate()
   const [order, setOrder] = useState(true);
   const [transaction, setTransaction] = useState(false);
   const [inventory, setInventory] = useState(false);
@@ -56,6 +57,7 @@ export default function SideBar() {
               setTransaction(false);
               setLogout(false);
               setOrder(!order);
+              navigate("")
             }}
             boxShadow={order ? "lg" : "none"}
             bgColor={order ? "#F99B2A" : "transparent"}
@@ -68,9 +70,7 @@ export default function SideBar() {
               <PiBasketFill />
             </Box>
             <Box color={"white"}>
-              <Link to={""}>
                 <Text as={order ? "b" : "b"}>Order</Text>
-              </Link>
             </Box>
           </HStack>
         </Box>
@@ -94,6 +94,7 @@ export default function SideBar() {
               setInventory(false);
               setLogout(false);
               setTransaction(!transaction);
+              navigate("admin/product")
             }}
             boxShadow={transaction ? "lg" : "none"}
             bgColor={
@@ -108,11 +109,9 @@ export default function SideBar() {
               <PiCalculatorFill />
             </Box>
             <Box color={"white"}>
-              <Link to={"/admin/product"}>
                 <Text as={transaction ? "b" : "b"}>
                   Product
                 </Text>
-              </Link>
             </Box>
           </HStack>
         </Box>

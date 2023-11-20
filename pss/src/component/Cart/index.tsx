@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/layout";
 import ProductInCart from "../ProductInCart";
 import { Button } from "@chakra-ui/button";
-import { FaMoneyBillWave } from "react-icons/fa";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import {
   Modal,
@@ -150,7 +149,7 @@ export default function Cart(props: any) {
           toast({
             title: "Transaction Done!",
             description: "Thank You So Much!",
-            status: "success",
+            status: "error",
             duration: 4000,
             position: "top-right",
           }),
@@ -229,9 +228,9 @@ export default function Cart(props: any) {
           <Text fontWeight={"500"}>{toRupiah(props.total)}</Text>
         </Flex>
         <Flex>
-          <Text fontWeight={"500"}>Total Diskon</Text>
+          <Text fontWeight={"500"}>Discount</Text>
           <Spacer />
-          <Text fontWeight={"500"}>{toRupiah(props.diskon)}</Text>
+          <Text fontWeight={"500"}>-{toRupiah(props.diskon)}</Text>
         </Flex>
         <Flex>
           <Text>PPN</Text>
