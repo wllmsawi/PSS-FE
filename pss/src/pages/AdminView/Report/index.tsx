@@ -26,6 +26,7 @@ import { CreateProductModal } from "../AdminProductList/component/CreateProductM
 import { Link } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import {
+  FaAngleLeft,
   FaAngleRight,
   FaChevronDown,
   FaChevronUp,
@@ -39,7 +40,36 @@ export const Report = (props: any) => {
   const [transaction, setTransaction] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-
+  const date = new Date();
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  console.log(
+    "TODAY",
+    `${date.getDate()}-${
+      months[date.getMonth()]
+    }-${date.getFullYear()}`
+  );
   const fetchTransactions = async () => {
     try {
       const res = await axios.get(
@@ -82,14 +112,24 @@ export const Report = (props: any) => {
         >
           <Spacer m={".3em"} />
           <Flex w={"100%"}>
-            <Input
-              w={"10em"}
-              size="md"
-              type="date"
-              onChange={(e) => {
-                console.log(e.target.value);
-              }}
-            />
+            <Flex align={"center"}>
+              <FaAngleLeft />
+              <Input
+                color={"#6D6D6D"}
+                w={"11em"}
+                size="md"
+                type="text"
+                textAlign={"center"}
+                placeholder={`${date.getDate()}-${
+                  months[date.getMonth()]
+                }-${date.getFullYear()}`}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                }}
+                border={"none"}
+              />
+              <FaAngleRight />
+            </Flex>
             <Spacer />
             <InputGroup w={"11em"}>
               <InputLeftElement

@@ -31,7 +31,9 @@ import axios from "axios";
 
 export const NavBar = (props?: any | null) => {
   const toast = useToast();
-  const [fieldImage, setFieldImage] = useState<any | string | null>(null);
+  const [fieldImage, setFieldImage] = useState<
+    any | string | null
+  >(null);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const date = new Date();
   const days = [
@@ -80,7 +82,9 @@ export const NavBar = (props?: any | null) => {
       let formData = new FormData();
       formData.append("image", fieldImage);
       const { data } = await axios.patch(
-        `${import.meta.env.VITE_APP_API_BASE_URL}/profile/1`,
+        `${
+          import.meta.env.VITE_APP_API_BASE_URL
+        }/profile/1`,
         formData
       );
       toast({
@@ -113,19 +117,35 @@ export const NavBar = (props?: any | null) => {
       </HStack>
       <Spacer />
       <HStack spacing={"1em"}>
-        <Box borderRadius={"50%"} bgColor={"#FAFAFA"} p={".5em"}>
+        <Box
+          borderRadius={"50%"}
+          bgColor={"#FAFAFA"}
+          p={".5em"}
+        >
           <BsCartFill />
         </Box>
-        <Box borderRadius={"50%"} bgColor={"#FAFAFA"} p={".5em"}>
+        <Box
+          borderRadius={"50%"}
+          bgColor={"#FAFAFA"}
+          p={".5em"}
+        >
           <RiNotification3Fill />
         </Box>
 
         <Box borderRadius={"50%"} p={".5em"}>
           <Box overflow={"hidden"} onClick={onOpen}>
-            <Image src={budi} borderRadius={"50%"} boxSize={"2em"} />
+            <Image
+              src={budi}
+              borderRadius={"50%"}
+              boxSize={"2em"}
+            />
           </Box>
         </Box>
-        <VStack spacing={"0"} align={"flex-start"} lineHeight={"1"}>
+        <VStack
+          spacing={"0"}
+          align={"flex-start"}
+          lineHeight={"1"}
+        >
           <Text fontWeight={"bold"}>Budi</Text>
           <Text fontSize={".75em"}>Admin</Text>
         </VStack>
@@ -133,20 +153,30 @@ export const NavBar = (props?: any | null) => {
       <Modal isOpen={isOpen} onClose={onClose} size={"lg"}>
         <ModalOverlay />
         <ModalContent>
-          <ModalCloseButton onClick={() => setFieldImage("")} />
+          <ModalCloseButton
+            onClick={() => setFieldImage("")}
+          />
           <Center>
-            <Text fontWeight={"bold"} fontSize={"x-large"} p={"1em"}>
+            <Text
+              fontWeight={"bold"}
+              fontSize={"x-large"}
+              p={"1em"}
+            >
               Update Profile Picture
             </Text>
           </Center>
           <ModalBody p={"2em"}>
-          <Center>
-            <Text fontSize={"sm"} fontWeight={"light"}>
-              File type allowed are .jpg .png .jpeg .gif
-            </Text>
-          </Center>
             <Center>
-              <Box w={"15em"} boxShadow={"lg"} borderRadius={".5em"}>
+              <Text fontSize={"sm"} fontWeight={"light"}>
+                File type allowed are .jpg .png .jpeg .gif
+              </Text>
+            </Center>
+            <Center>
+              <Box
+                w={"15em"}
+                boxShadow={"lg"}
+                borderRadius={".5em"}
+              >
                 <AspectRatio ratio={1 / 1}>
                   <Box
                     borderWidth={"0.15em"}
@@ -155,7 +185,11 @@ export const NavBar = (props?: any | null) => {
                     role={"group"}
                     borderRadius={".5em"}
                   >
-                    <Box position="relative" height="100%" width="100%">
+                    <Box
+                      position="relative"
+                      height="100%"
+                      width="100%"
+                    >
                       <Box
                         position="absolute"
                         top="0"
@@ -183,10 +217,16 @@ export const NavBar = (props?: any | null) => {
                                 : { display: "block" }
                             }
                           >
-                            <Text fontSize="md" color="black" fontWeight="500">
+                            <Text
+                              fontSize="md"
+                              color="black"
+                              fontWeight="500"
+                            >
                               Drop images here
                             </Text>
-                            <Text fontWeight="light">click to upload</Text>
+                            <Text fontWeight="light">
+                              click to upload
+                            </Text>
                           </Stack>
                         </Stack>
                       </Box>
@@ -207,7 +247,13 @@ export const NavBar = (props?: any | null) => {
                       <Image
                         w={"100%"}
                         transform={"scale(1.1)"}
-                        src={fieldImage ? URL.createObjectURL(fieldImage) : ""}
+                        src={
+                          fieldImage
+                            ? URL.createObjectURL(
+                                fieldImage
+                              )
+                            : ""
+                        }
                       />
                     </Box>
                   </Box>
@@ -230,7 +276,7 @@ export const NavBar = (props?: any | null) => {
               </Box>
             </Center>
           </ModalBody>
-          
+
           <Box p={"1em"}>
             <Center>
               <Button
