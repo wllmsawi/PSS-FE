@@ -79,6 +79,7 @@ export const EditProductModal = (props: any) => {
           product_status_id: product_status_id,
         }
       );
+
       // await toast({
       //   title: `Loading`,
       //   status: "loading",
@@ -148,11 +149,11 @@ export const EditProductModal = (props: any) => {
     <Box>
       <Button
         variant={"link"}
-        fontSize={".75em"}
+        fontSize={"1em"}
         onClick={onOpen}
-        fontWeight={"bold"}
+        fontWeight={"500"}
       >
-        <Text>EDIT PRODUCT</Text>
+        <Text>Edit Product</Text>
       </Button>
       <Modal
         isOpen={isOpen}

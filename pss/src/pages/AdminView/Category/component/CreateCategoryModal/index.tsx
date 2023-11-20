@@ -88,14 +88,17 @@ export const CreateCategoryModal = (props: any) => {
                   </FormLabel>
                   <InputGroup>
                     <Input
-                      type="text"
                       id="product_category_name"
                       name="product_category_name"
-                      size="lg"
                       value={
                         formik.values.product_category_name
                       }
                       onChange={formik.handleChange}
+                      bg={"#EEF1F2"}
+                      type="text"
+                      size="md"
+                      border={"none"}
+                      focusBorderColor={"transparent"}
                     />
                   </InputGroup>
                   <Button
@@ -118,7 +121,6 @@ export const CreateCategoryModal = (props: any) => {
                       boxShadow: "lg",
                     }}
                     color={"#6D6D6D"}
-                    w={"50%"}
                     type="submit"
                     alignSelf={"flex-end"}
                   >

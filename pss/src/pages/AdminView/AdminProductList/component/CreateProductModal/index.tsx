@@ -264,10 +264,10 @@ export const CreateProductModal = (props: any) => {
                     </FormLabel>
                     <InputGroup>
                       <Input
-                        bg={"#EEF1F2"}
-                        type="text"
                         id="product_description"
                         name="product_description"
+                        bg={"#EEF1F2"}
+                        type="text"
                         size="md"
                         value={
                           formik.values.product_description

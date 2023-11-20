@@ -43,13 +43,13 @@ export const AdminProductList = () => {
   const [groupId, setGroupId] = useState(1);
   const [status, setStatus] = useState<any>([]);
   const [statId, setStatId] = useState(1);
-
+  const [searchName, setSearchName] = useState("");
   const ROUTE: string = import.meta.env
     .VITE_APP_API_BASE_URL;
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
+        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}&product_name=${searchName}`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -102,6 +102,8 @@ export const AdminProductList = () => {
     sortOrder,
     setGroupId,
     setCatId,
+    setSearchName,
+    searchName,
   ]);
 
   useEffect(() => {
@@ -197,6 +199,7 @@ export const AdminProductList = () => {
                   onClick={() => {
                     setGroupId(0);
                     setCatId(0);
+                    setSearchName("");
                   }}
                 >
                   All
@@ -335,6 +338,17 @@ export const AdminProductList = () => {
                 bg={"#EEF1F2"}
                 border={"none"}
                 focusBorderColor={"transparent"}
+                onKeyDown={(e: any) => {
+                  if (e.keyCode == 13) {
+                    // e.preventDefault();
+                    setSearchName(
+                      String(
+                        (e.target as HTMLInputElement).value
+                      )
+                    );
+                    e.currentTarget.value = "";
+                  }
+                }}
               />
             </InputGroup>
           </Flex>
@@ -589,16 +603,23 @@ export const AdminProductList = () => {
                   fontWeight={"500"}
                   focusBorderColor={"transparent"}
                   p={".5em"}
+                  onChange={() => {
+                    setCatId(0);
+                    setGroupId(0);
+                  }}
                   onKeyDown={(e: any) => {
                     console.log("CHECK ENTER", e.code);
                     if (e.keyCode == 13) {
                       e.preventDefault();
+                      setCatId(0);
+                      setGroupId(0);
                       setPage(
                         Number(
                           (e.target as HTMLInputElement)
                             .value
                         )
                       );
+
                       e.currentTarget.value = "";
                     }
                   }}

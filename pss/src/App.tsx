@@ -8,6 +8,7 @@ import { Text } from "@chakra-ui/react";
 import { Inventory } from "./pages/Inventory";
 import { AdminProductList } from "./pages/AdminView/AdminProductList";
 import { Category } from "./pages/AdminView/Category";
+import { Report } from "./pages/AdminView/Report";
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="transaction" element={<Transaction />} />
       <Route path="/admin" element={<AdminView />} />
+      <Route
+        path="/admin/report"
+        element={<AdminView view={<Report />} />}
+      />
       <Route
         path="/admin/dashboard"
         element={<AdminView view={<ProductList />} />}

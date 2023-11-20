@@ -2,14 +2,10 @@ import {
   Box,
   Button,
   Flex,
-  HStack,
   Input,
   InputGroup,
   InputLeftElement,
-  Radio,
-  RadioGroup,
   Spacer,
-  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -39,7 +35,7 @@ export const Inventory = () => {
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_group_id=2&product_category_id=1`
+        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_group_id=2&product_category_id=1&product_name=`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -61,7 +57,6 @@ export const Inventory = () => {
     }
   });
 
-  console.log("filter", filter);
   return (
     <Box
       bgColor={"#FFFFFF"}

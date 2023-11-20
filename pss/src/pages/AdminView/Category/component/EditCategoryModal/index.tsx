@@ -99,25 +99,64 @@ export const EditCategoryModal = (props: any) => {
                   </FormLabel>
                   <InputGroup>
                     <Input
-                      type="text"
                       id="product_category_name"
                       name="product_category_name"
-                      size="lg"
                       value={
                         formik.values.product_category_name
                       }
                       onChange={formik.handleChange}
+                      bg={"#EEF1F2"}
+                      type="text"
+                      size="md"
+                      border={"none"}
+                      focusBorderColor={"transparent"}
                     />
                   </InputGroup>
                   <Button
+                    p={"1em"}
+                    bg={"#EEF1F2"}
+                    size={"sm"}
+                    _hover={{
+                      bg: "#FFDAAD",
+                      color: "#F99B2A",
+                      boxShadow: "lg",
+                      transform: "scale(1.05)",
+                    }}
+                    _active={{
+                      bg: "#FFDAAD",
+                      color: "#F99B2A",
+                    }}
+                    _focus={{
+                      bg: "#FFDAAD",
+                      transform: "scale(1.06)",
+                      boxShadow: "lg",
+                    }}
+                    color={"#6D6D6D"}
                     type="submit"
-                    w={"50%"}
                     alignSelf={"flex-end"}
                   >
                     Submit
                   </Button>
                   <Button
-                    w={"50%"}
+                    p={"1em"}
+                    bg={"#EEF1F2"}
+                    size={"sm"}
+                    _hover={{
+                      bg: "#FFDAAD",
+                      color: "#F99B2A",
+                      boxShadow: "lg",
+                      transform: "scale(1.05)",
+                    }}
+                    _active={{
+                      bg: "#FFDAAD",
+                      color: "#F99B2A",
+                    }}
+                    _focus={{
+                      bg: "#FFDAAD",
+                      transform: "scale(1.06)",
+                      boxShadow: "lg",
+                    }}
+                    color={"#6D6D6D"}
                     alignSelf={"flex-end"}
                     onClick={() => {
                       deleteCategory(props?.id);

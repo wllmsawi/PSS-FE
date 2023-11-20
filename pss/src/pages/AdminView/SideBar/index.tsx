@@ -36,7 +36,11 @@ export default function SideBar() {
           text={"Dashboard"}
           icon={<BsLaptop />}
         />
-        <SidebarBox text={"Report"} icon={<TbReport />} />
+        <SidebarBox
+          to={"/admin/report"}
+          text={"Report"}
+          icon={<TbReport />}
+        />
         <SidebarBox
           text={"Inventory"}
           to={"/admin/inventory"}

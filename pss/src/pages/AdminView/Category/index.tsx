@@ -83,7 +83,12 @@ export const Category = (props: any) => {
                   <Th textAlign={"center"}></Th>
                 </Tr>
               </Thead>
-              <Tbody position={"relative"} top={"-.5em"}>
+              <Tbody
+                position={"relative"}
+                top={"-.5em"}
+                color={"#6D6D6D"}
+                fontWeight={"500"}
+              >
                 {category?.map((el: any, index: number) => {
                   return (
                     <Tr
