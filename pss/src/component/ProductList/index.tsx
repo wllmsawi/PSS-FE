@@ -32,6 +32,8 @@ export const ProductList = (props: any) => {
   const [sortField, setSortField] = useState("product_name");
   const [search, setSearch] = useState("");
   const ROUTE: string = import.meta.env.VITE_APP_API_BASE_URL;
+      
+
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(

@@ -1,5 +1,4 @@
 import { Box, HStack, Text, VStack } from "@chakra-ui/layout";
-import product1 from "./img/product1.png";
 import { Image } from "@chakra-ui/image";
 import { IconButton } from "@chakra-ui/react";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
@@ -7,6 +6,9 @@ import { MdDelete } from "react-icons/md";
 import { Spacer } from "@chakra-ui/react";
 import useCounter from "../ProductCard/useCounter";
 import { useState, useEffect } from "react";
+//ts-ignore
+import * as toRupiah from "@develoka/angka-rupiah-js";
+
 export default function ProductInCart(props: any) {
   const [count, increment, decrement, reset] = useCounter(props.qty);
   const [totalPPrice, setTotalPPrice] = useState(
@@ -56,6 +58,8 @@ export default function ProductInCart(props: any) {
   };
 
   const handleDelete = (id: number) => {
+    props?.setTotal(props?.total - totalPPrice);
+    props?.setTotalPpn(props?.totalPpn - totalPPrice);
     props?.setTotalQty(props?.totalQty - props?.qty);
     props?.setCart(props?.cart.filter((el: any) => el.id !== id));
     // reset();
@@ -64,14 +68,20 @@ export default function ProductInCart(props: any) {
   return (
     <HStack boxShadow={"sm"} borderRadius={"0.5em"}>
       <Box>
-        <Image src={product1} borderRadius={"0.5em"} boxSize={"5em"} />
+        <Image
+          src={`${import.meta.env.VITE_APP_API_IMAGE_URL}/product/${
+            props?.image
+          }`}
+          borderRadius={"0.5em"}
+          boxSize={"5em"}
+        />
       </Box>
       <VStack align={"stretch"} spacing={"0"}>
         <Text fontWeight={"400"}>{props.product_name}</Text>
-        <Text
-          fontWeight={"400"}
-        >{`${props.qty} X Rp ${props.product_price}`}</Text>
-        <Text>Sum : Rp {totalPPrice}</Text>
+        <Text fontWeight={"400"}>{`${props.qty} X ${toRupiah(
+          props.product_price
+        )}`}</Text>
+        <Text>Sum : {toRupiah(totalPPrice)}</Text>
       </VStack>
       <Spacer />
       <VStack align={"stretch"}>
@@ -102,7 +112,7 @@ export default function ProductInCart(props: any) {
             onClick={() => {
               handleDelete(props?.id);
               setTotalPPrice(0);
-              props.setTotal(0);
+              // props.setTotal(0);
             }}
           />
         </HStack>
