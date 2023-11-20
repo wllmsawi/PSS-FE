@@ -15,10 +15,15 @@ export const AdminView = (props: any) => {
       gridTemplateRows={"3em 1fr 3em"}
       h={"100vh"}
       maxW={"100vw"}
-      overflow={"hidden"}
+      overflowY={"scroll"}
       gap={".5em"}
       bgColor={"#EEF1F2"}
       p={"0 1em 0 0"}
+      sx={{
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
     >
       <GridItem bg={"orange.300"} area={"nav"}>
         <SideBar />

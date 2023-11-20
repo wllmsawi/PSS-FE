@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Flex,
+  Grid,
   HStack,
   Image,
   Input,
@@ -24,6 +25,7 @@ import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { EditProductModal } from "./component/EditProductModal";
 import { CreateProductModal } from "./component/CreateProductModal";
+import { FaAngleRight } from "react-icons/fa";
 
 export const AdminProductList = () => {
   const [product, setProduct] = useState<any[]>([]);
@@ -61,6 +63,7 @@ export const AdminProductList = () => {
       const res = await axios.get(
         `${ROUTE}/category/category`
       );
+      await fetchProduct();
       await setCategory(res?.data?.data);
     } catch (err) {
       throw err;
@@ -72,6 +75,7 @@ export const AdminProductList = () => {
       const res = await axios.get(
         `${ROUTE}/category/group`
       );
+      await fetchProduct();
       await setGroup(res?.data?.data);
     } catch (err) {
       throw err;
@@ -81,6 +85,7 @@ export const AdminProductList = () => {
   const fetchStatus = async () => {
     try {
       const res = await axios.get(`${ROUTE}/status`);
+      await fetchProduct();
       setStatus(res?.data?.data);
     } catch (err) {
       throw err;
@@ -88,7 +93,17 @@ export const AdminProductList = () => {
   };
   useEffect(() => {
     fetchProduct();
-  }, [groupId, catId, page, sortField, sortOrder]);
+  }, [
+    page,
+    pageSize,
+    groupId,
+    catId,
+    page,
+    sortField,
+    sortOrder,
+    setGroupId,
+    setCatId,
+  ]);
 
   useEffect(() => {
     fetchCategory();
@@ -179,12 +194,18 @@ export const AdminProductList = () => {
                     transform: "scale(1.06)",
                     boxShadow: "lg",
                   }}
+                  color={"#6D6D6D"}
+                  onClick={() => {
+                    setGroupId(0);
+                    setCatId(0);
+                  }}
                 >
                   All
                 </Button>
               </Link>
               <Link to={""}>
                 <Button
+                  color={"#6D6D6D"}
                   w={"7em"}
                   p={"1em"}
                   bg={"#EEF1F2"}
@@ -213,6 +234,7 @@ export const AdminProductList = () => {
               </Link>
               <Link to={""}>
                 <Button
+                  color={"#6D6D6D"}
                   w={"7em"}
                   p={"1em"}
                   bg={"#EEF1F2"}
@@ -240,9 +262,11 @@ export const AdminProductList = () => {
                 </Button>
               </Link>
               <Select
+                color={"#6D6D6D"}
                 bg={"#EEF1F2"}
                 size={"sm"}
                 borderRadius={".5em"}
+                fontWeight={"500"}
                 _hover={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
@@ -267,6 +291,8 @@ export const AdminProductList = () => {
                 <option value={"desc"}>Name Z-A</option>
               </Select>
               <Select
+                color={"#6D6D6D"}
+                fontWeight={"500"}
                 bg={"#EEF1F2"}
                 size={"sm"}
                 borderRadius={".5em"}
@@ -316,14 +342,15 @@ export const AdminProductList = () => {
           <Spacer m={".3em"} />
           <Box
             h={"25em"}
-            overflow={"auto"}
+            overflowX={"scroll"}
+            overflowY={"scroll"}
             sx={{
               "&::-webkit-scrollbar": {
                 display: "none",
               },
             }}
           >
-            <TableContainer>
+            <TableContainer w={"100%"}>
               <Table
                 variant={"simple"}
                 style={{
@@ -379,7 +406,12 @@ export const AdminProductList = () => {
                     <Th textAlign={"center"}></Th>
                   </Tr>
                 </Thead>
-                <Tbody position={"relative"} top={"-.5em"}>
+                <Tbody
+                  position={"relative"}
+                  top={"-.5em"}
+                  color={"#6D6D6D"}
+                  fontWeight={"500"}
+                >
                   {product.map((el, index) => {
                     return (
                       <Tr
@@ -388,10 +420,7 @@ export const AdminProductList = () => {
                         p={".875em"}
                         bgColor={"#FAFAFA"}
                       >
-                        <Td
-                          textAlign={"center"}
-                          bgColor={"green.00"}
-                        >
+                        <Td textAlign={"center"}>
                           <Flex
                             justifyContent={"center"}
                             alignItems={"center"}
@@ -433,7 +462,7 @@ export const AdminProductList = () => {
                           <Link to={""}>
                             <EditProductModal
                               {...el}
-                              status={status}
+                              product_status={status}
                               group={group}
                               category={category}
                             />
@@ -450,9 +479,13 @@ export const AdminProductList = () => {
           <Flex
             justifyContent={"center"}
             alignItems={"center"}
+            w={"28em"}
           >
-            <HStack spacing={"2.5em"} fontWeight={"bold"}>
-              <Text>Page</Text>
+            <Flex fontWeight={"bold"}>
+              <Box>
+                <Text>Page</Text>
+              </Box>
+              <Spacer />
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
@@ -461,11 +494,6 @@ export const AdminProductList = () => {
                     Number(
                       (e.target as HTMLInputElement).value
                     )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
                   );
                 }}
                 variant={"link"}
@@ -482,17 +510,13 @@ export const AdminProductList = () => {
                       (e.target as HTMLInputElement).value
                     )
                   );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
                 }}
                 variant={"link"}
                 value={2}
               >
                 2
               </Button>
+              <Spacer />
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
@@ -501,11 +525,6 @@ export const AdminProductList = () => {
                     Number(
                       (e.target as HTMLInputElement).value
                     )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
                   );
                 }}
                 variant={"link"}
@@ -513,6 +532,7 @@ export const AdminProductList = () => {
               >
                 3
               </Button>
+              <Spacer />
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
@@ -521,11 +541,6 @@ export const AdminProductList = () => {
                     Number(
                       (e.target as HTMLInputElement).value
                     )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
                   );
                 }}
                 variant={"link"}
@@ -533,6 +548,7 @@ export const AdminProductList = () => {
               >
                 4
               </Button>
+              <Spacer />
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
@@ -542,45 +558,60 @@ export const AdminProductList = () => {
                       (e.target as HTMLInputElement).value
                     )
                   );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
                 }}
                 variant={"link"}
                 value={5}
               >
                 5
               </Button>
-            </HStack>
-
-            <Spacer />
-            <form>
-              <Input
-                type="number"
-                borderRadius={".5em"}
-                bg={"#EEF1F2"}
-                border={"none"}
-                w={"2.5em"}
-                focusBorderColor={"transparent"}
-                p={".5em"}
-                onChange={(e) => {
-                  setPage(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    )
-                  );
-                  setPageSize(
-                    Number(
-                      (e.target as HTMLInputElement).value
-                    ) * 10
-                  );
+              <Button
+                _active={{ color: "#ED1C24" }}
+                _focus={{ color: "#ED1C24" }}
+                onClick={(e) => {
+                  setPage(page + 1);
                 }}
-              />
-            </form>
+                variant={"link"}
+                value={5}
+              >
+                <FaAngleRight />
+              </Button>
+            </Flex>
             <Spacer />
-            <Text>of 5 pages</Text>
+            <Box>
+              <form>
+                <Input
+                  textAlign={"center"}
+                  type="number"
+                  borderRadius={".5em"}
+                  bg={"#EEF1F2"}
+                  border={"none"}
+                  w={"2.5em"}
+                  color={"#6D6D6D"}
+                  fontWeight={"500"}
+                  focusBorderColor={"transparent"}
+                  p={".5em"}
+                  onKeyDown={(e: any) => {
+                    console.log("CHECK ENTER", e.code);
+                    if (e.keyCode == 13) {
+                      e.preventDefault();
+                      setPage(
+                        Number(
+                          (e.target as HTMLInputElement)
+                            .value
+                        )
+                      );
+                      e.currentTarget.value = "";
+                    }
+                  }}
+                />
+              </form>
+            </Box>
+            <Spacer />
+            <Box>
+              <Text color={"#6D6D6D"} fontWeight={"500"}>
+                of 5 pages
+              </Text>
+            </Box>
           </Flex>
         </Flex>
       </Box>

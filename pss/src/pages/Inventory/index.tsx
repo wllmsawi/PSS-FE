@@ -220,7 +220,7 @@ export const Inventory = () => {
                 </Th>
               </Tr>
             </Thead>
-            <Tbody>
+            <Tbody color={"#6D6D6D"} fontWeight={"500"}>
               {filter?.map((el) => {
                 return (
                   <Tr>

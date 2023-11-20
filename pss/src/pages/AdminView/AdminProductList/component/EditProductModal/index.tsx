@@ -33,6 +33,7 @@ export const EditProductModal = (props: any) => {
   const [category, setCategory] = useState(0);
   const [group, setGroup] = useState(0);
   const [status, setStatus] = useState(1);
+
   const updateProduct = async (
     product_name: string,
     product_group_id: string,
@@ -43,7 +44,10 @@ export const EditProductModal = (props: any) => {
   ) => {
     try {
       let formData = new FormData();
-      formData.append("product_name", product_name);
+      formData.append(
+        "product_name",
+        product_name || props?.product_name
+      );
       formData.append(
         "product_group_id",
         product_group_id || props?.product_group_id || !0
@@ -75,11 +79,16 @@ export const EditProductModal = (props: any) => {
           product_status_id: product_status_id,
         }
       );
-      await onClose();
       toast({
-        title: data?.message,
+        title: `${data?.message}`,
         status: "success",
+        containerStyle: {
+          bgColor: "green",
+          borderRadius: ".5em",
+        },
       });
+
+      onClose();
     } catch (err: Error | any) {
       toast({
         title: `${err?.message}`,
@@ -89,16 +98,17 @@ export const EditProductModal = (props: any) => {
   };
   const formik = useFormik({
     initialValues: {
-      product_name: props?.product_name,
-      product_group_id: props?.product_group_id,
-      product_category_id: props?.product_category_id,
-      product_price: props?.product_price,
-      product_image: props?.product_image,
-      product_description: props?.product_description,
-      product_status_id: props?.product_status_id,
+      product_name: "",
+      product_group_id: "",
+      product_category_id: "",
+      product_price: "",
+      product_image: "",
+      product_description: "",
+      product_status_id: "",
     },
     validationSchema: Yup.object({}),
     onSubmit: (values, actions) => {
+      console.log(values.product_name);
       updateProduct(
         values.product_name ||
           props?.product_name ||
@@ -176,7 +186,6 @@ export const EditProductModal = (props: any) => {
                     <FormLabel htmlFor="product_name">
                       Product Name
                     </FormLabel>
-
                     <InputGroup>
                       <Input
                         h={"2em"}
@@ -184,6 +193,7 @@ export const EditProductModal = (props: any) => {
                         id="product_name"
                         name="product_name"
                         size="lg"
+                        placeholder={`${props?.product_name}`}
                         value={formik.values.product_name}
                         onChange={formik.handleChange}
                       />
@@ -197,6 +207,12 @@ export const EditProductModal = (props: any) => {
                         setGroup(Number(e.target.value));
                       }}
                     >
+                      <option>
+                        {
+                          props?.product_group
+                            ?.product_group_name
+                        }
+                      </option>
                       {props?.group?.map(
                         (el: any, index: number) => {
                           return (
@@ -213,13 +229,18 @@ export const EditProductModal = (props: any) => {
                     <FormLabel htmlFor="product_category_id">
                       Product Category
                     </FormLabel>
-
                     <Select
                       borderRadius={"0.5em"}
                       onChange={(e) => {
                         setCategory(Number(e.target.value));
                       }}
                     >
+                      <option>
+                        {
+                          props?.product_category
+                            ?.product_category_name
+                        }
+                      </option>
                       {props?.category?.map(
                         (el: any, index: number) => {
                           return (
@@ -244,6 +265,7 @@ export const EditProductModal = (props: any) => {
                         id="product_price"
                         name="product_price"
                         size="lg"
+                        placeholder={`${props?.product_price}`}
                         value={formik.values.product_price}
                         onChange={formik.handleChange}
                       />
@@ -261,6 +283,7 @@ export const EditProductModal = (props: any) => {
                         value={
                           formik.values.product_description
                         }
+                        placeholder={`${props?.product_description}`}
                         onChange={formik.handleChange}
                       />
                     </InputGroup>
@@ -274,8 +297,10 @@ export const EditProductModal = (props: any) => {
                         setStatus(Number(e.target.value));
                       }}
                     >
-                      <option>Select Status</option>
-                      {props?.status?.map(
+                      <option>
+                        {props?.status?.status_name}
+                      </option>
+                      {props?.product_status?.map(
                         (el: any, index: number) => {
                           return (
                             <option
