@@ -114,7 +114,7 @@ export const CreateProductModal = (props: any) => {
         size={"custom"}
       >
         <ModalOverlay />
-        <ModalContent w={"50em"}>
+        <ModalContent w={"50em"} bg={"#FAFAFA"}>
           <ModalCloseButton />
           <ModalBody>
             <Flex>
@@ -129,26 +129,56 @@ export const CreateProductModal = (props: any) => {
                 <form onSubmit={formik.handleSubmit}>
                   <VStack align={"stretch"}>
                     <FormLabel htmlFor="product_name">
-                      Product Name
+                      Name
                     </FormLabel>
                     <InputGroup>
                       <Input
+                        border={"none"}
+                        focusBorderColor={"transparent"}
+                        bg={"#EEF1F2"}
                         type="text"
                         id="product_name"
                         name="product_name"
-                        size="lg"
+                        size="md"
                         value={formik.values.product_name}
                         onChange={formik.handleChange}
                       />
                     </InputGroup>
+                    <FormLabel htmlFor="product_name">
+                      <Text>SKU</Text>
+                      <Text
+                        color={"red.400"}
+                        fontSize={".75em"}
+                      >
+                        This generated automaticly
+                      </Text>
+                    </FormLabel>
+                    <InputGroup>
+                      <Input
+                        border={"none"}
+                        focusBorderColor={"transparent"}
+                        bg={"#EEF1F2"}
+                        type="text"
+                        id="product_name"
+                        name="product_name"
+                        size="md"
+                        placeholder={`PSS-CK-ID`}
+                        // isDisabled={true}
+                        pointerEvents={"none"}
+                      />
+                    </InputGroup>
                     <FormLabel htmlFor="product_group_id">
-                      Product Group
+                      Category
                     </FormLabel>
                     <Select
                       borderRadius={"0.5em"}
                       onChange={(e) => {
                         setGroup(Number(e.target.value));
                       }}
+                      size={"md"}
+                      bg={"#EEF1F2"}
+                      border={"none"}
+                      focusBorderColor={"transparent"}
                     >
                       <option>Select Category</option>
                       {props?.group?.map(
@@ -165,13 +195,17 @@ export const CreateProductModal = (props: any) => {
                       )}
                     </Select>
                     <FormLabel htmlFor="product_category_id">
-                      Product Category
+                      Group
                     </FormLabel>
                     <Select
+                      border={"none"}
+                      focusBorderColor={"transparent"}
+                      bg={"#EEF1F2"}
                       borderRadius={"0.5em"}
                       onChange={(e) => {
                         setCategory(Number(e.target.value));
                       }}
+                      size={"md"}
                     >
                       <option>Select Group</option>
                       {props?.category?.map(
@@ -188,35 +222,63 @@ export const CreateProductModal = (props: any) => {
                       )}
                     </Select>
                     <FormLabel htmlFor="product_price">
-                      Product Price
+                      <Text>Unit</Text>
+                      <Text
+                        color={"red.400"}
+                        fontSize={".75em"}
+                      >
+                        This generated automaticly
+                      </Text>
                     </FormLabel>
                     <InputGroup>
                       <Input
                         type="number"
                         id="product_price"
                         name="product_price"
-                        size="lg"
-                        value={formik.values.product_price}
-                        onChange={formik.handleChange}
+                        placeholder={`Pieces(pcs)`}
+                        bg={"#EEF1F2"}
+                        size={"md"}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
+                        pointerEvents={"none"}
                       />
                     </InputGroup>
-                    <FormLabel htmlFor="product_description">
-                      Product Description
+                    <FormLabel htmlFor="product_price">
+                      Price
                     </FormLabel>
                     <InputGroup>
                       <Input
+                        bg={"#EEF1F2"}
+                        size={"md"}
+                        type="number"
+                        id="product_price"
+                        name="product_price"
+                        value={formik.values.product_price}
+                        onChange={formik.handleChange}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
+                      />
+                    </InputGroup>
+                    <FormLabel htmlFor="product_description">
+                      Description
+                    </FormLabel>
+                    <InputGroup>
+                      <Input
+                        bg={"#EEF1F2"}
                         type="text"
                         id="product_description"
                         name="product_description"
-                        size="lg"
+                        size="md"
                         value={
                           formik.values.product_description
                         }
                         onChange={formik.handleChange}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
                       />
                     </InputGroup>
                     <FormLabel htmlFor="product_status_id">
-                      Product Status
+                      Status
                     </FormLabel>
                     <Select
                       name={"product_status_id"}
@@ -224,6 +286,9 @@ export const CreateProductModal = (props: any) => {
                       onChange={(e) => {
                         setStatus(Number(e.target.value));
                       }}
+                      bg={"#EEF1F2"}
+                      border={"none"}
+                      focusBorderColor={"transparent"}
                     >
                       <option>Select Status</option>
                       {props?.status?.map(
@@ -240,6 +305,25 @@ export const CreateProductModal = (props: any) => {
                       )}
                     </Select>
                     <Button
+                      p={"1em"}
+                      bg={"#EEF1F2"}
+                      size={"sm"}
+                      _hover={{
+                        bg: "#FFDAAD",
+                        color: "#F99B2A",
+                        boxShadow: "lg",
+                        transform: "scale(1.05)",
+                      }}
+                      _active={{
+                        bg: "#FFDAAD",
+                        color: "#F99B2A",
+                      }}
+                      _focus={{
+                        bg: "#FFDAAD",
+                        transform: "scale(1.06)",
+                        boxShadow: "lg",
+                      }}
+                      color={"#6D6D6D"}
                       type="submit"
                       w={"50%"}
                       alignSelf={"flex-end"}

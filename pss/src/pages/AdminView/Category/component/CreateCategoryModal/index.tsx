@@ -99,8 +99,27 @@ export const CreateCategoryModal = (props: any) => {
                     />
                   </InputGroup>
                   <Button
-                    type="submit"
+                    p={"1em"}
+                    bg={"#EEF1F2"}
+                    size={"sm"}
+                    _hover={{
+                      bg: "#FFDAAD",
+                      color: "#F99B2A",
+                      boxShadow: "lg",
+                      transform: "scale(1.05)",
+                    }}
+                    _active={{
+                      bg: "#FFDAAD",
+                      color: "#F99B2A",
+                    }}
+                    _focus={{
+                      bg: "#FFDAAD",
+                      transform: "scale(1.06)",
+                      boxShadow: "lg",
+                    }}
+                    color={"#6D6D6D"}
                     w={"50%"}
+                    type="submit"
                     alignSelf={"flex-end"}
                   >
                     Submit

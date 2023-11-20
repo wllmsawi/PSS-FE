@@ -79,7 +79,16 @@ export const EditProductModal = (props: any) => {
           product_status_id: product_status_id,
         }
       );
-      toast({
+      // await toast({
+      //   title: `Loading`,
+      //   status: "loading",
+      //   containerStyle: {
+      //     bgColor: "green",
+      //     borderRadius: ".5em",
+      //   },
+      // });
+
+      await toast({
         title: `${data?.message}`,
         status: "success",
         containerStyle: {
@@ -184,15 +193,17 @@ export const EditProductModal = (props: any) => {
                 <form onSubmit={formik.handleSubmit}>
                   <VStack align={"stretch"}>
                     <FormLabel htmlFor="product_name">
-                      Product Name
+                      Name
                     </FormLabel>
                     <InputGroup>
                       <Input
-                        h={"2em"}
+                        bg={"#EEF1F2"}
+                        size={"md"}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
                         type="text"
                         id="product_name"
                         name="product_name"
-                        size="lg"
                         placeholder={`${props?.product_name}`}
                         value={formik.values.product_name}
                         onChange={formik.handleChange}
@@ -206,6 +217,10 @@ export const EditProductModal = (props: any) => {
                       onChange={(e) => {
                         setGroup(Number(e.target.value));
                       }}
+                      bg={"#EEF1F2"}
+                      size={"md"}
+                      border={"none"}
+                      focusBorderColor={"transparent"}
                     >
                       <option>
                         {
@@ -234,6 +249,10 @@ export const EditProductModal = (props: any) => {
                       onChange={(e) => {
                         setCategory(Number(e.target.value));
                       }}
+                      bg={"#EEF1F2"}
+                      size={"md"}
+                      border={"none"}
+                      focusBorderColor={"transparent"}
                     >
                       <option>
                         {
@@ -260,11 +279,13 @@ export const EditProductModal = (props: any) => {
 
                     <InputGroup>
                       <Input
-                        h={"2em"}
+                        bg={"#EEF1F2"}
+                        size={"md"}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
                         type="number"
                         id="product_price"
                         name="product_price"
-                        size="lg"
                         placeholder={`${props?.product_price}`}
                         value={formik.values.product_price}
                         onChange={formik.handleChange}
@@ -276,10 +297,12 @@ export const EditProductModal = (props: any) => {
 
                     <InputGroup>
                       <Textarea
-                        h={"2em"}
+                        bg={"#EEF1F2"}
+                        size={"md"}
+                        border={"none"}
+                        focusBorderColor={"transparent"}
                         id="product_description"
                         name="product_description"
-                        size="lg"
                         value={
                           formik.values.product_description
                         }
@@ -291,6 +314,10 @@ export const EditProductModal = (props: any) => {
                       Product Status
                     </FormLabel>
                     <Select
+                      bg={"#EEF1F2"}
+                      size={"md"}
+                      border={"none"}
+                      focusBorderColor={"transparent"}
                       name={"product_status_id"}
                       borderRadius={"0.5em"}
                       onChange={(e) => {
@@ -314,6 +341,25 @@ export const EditProductModal = (props: any) => {
                       )}
                     </Select>
                     <Button
+                      p={"1em"}
+                      bg={"#EEF1F2"}
+                      size={"sm"}
+                      _hover={{
+                        bg: "#FFDAAD",
+                        color: "#F99B2A",
+                        boxShadow: "lg",
+                        transform: "scale(1.05)",
+                      }}
+                      _active={{
+                        bg: "#FFDAAD",
+                        color: "#F99B2A",
+                      }}
+                      _focus={{
+                        bg: "#FFDAAD",
+                        transform: "scale(1.06)",
+                        boxShadow: "lg",
+                      }}
+                      color={"#6D6D6D"}
                       type="submit"
                       w={"50%"}
                       alignSelf={"flex-end"}

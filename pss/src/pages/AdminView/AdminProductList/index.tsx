@@ -51,7 +51,6 @@ export const AdminProductList = () => {
       const res = await axios.get(
         `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
       );
-      console.log("---FETCHING---");
       setProduct(res?.data?.result);
     } catch (err) {
       throw err;
