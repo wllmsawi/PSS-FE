@@ -24,6 +24,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { UploadImage } from "./component/UploadImage";
+
 export const EditProductModal = (props: any) => {
   console.log("edit product modal", props);
   const toast = useToast();
