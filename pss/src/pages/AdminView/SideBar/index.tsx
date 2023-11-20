@@ -2,6 +2,14 @@ import { Box, Image, VStack } from "@chakra-ui/react";
 import cklogo from "./components/cklogo.png";
 import { useState } from "react";
 import { SidebarBox } from "./components/SidebarBox";
+import { BsLaptop } from "react-icons/bs";
+import {
+  TbBoxSeam,
+  TbCategory2,
+  TbReport,
+} from "react-icons/tb";
+import { MdOutlineInventory2 } from "react-icons/md";
+import { IoIosPeople } from "react-icons/io";
 export default function SideBar() {
   const [order, setOrder] = useState(false);
   const [transaction, setTransaction] = useState(false);
@@ -24,19 +32,34 @@ export default function SideBar() {
         spacing={"1.5em"}
         align={"flex-end"}
       >
-        <SidebarBox text={"Dashboard"} />
-        <SidebarBox text={"Report"} />
+        <SidebarBox
+          text={"Dashboard"}
+          icon={<BsLaptop />}
+        />
+        <SidebarBox
+          to={"/admin/report"}
+          text={"Report"}
+          icon={<TbReport />}
+        />
         <SidebarBox
           text={"Inventory"}
           to={"/admin/inventory"}
+          icon={<MdOutlineInventory2 />}
         />
         <SidebarBox
           text={"Product"}
           to={"/admin/product"}
+          icon={<TbBoxSeam />}
+        />
+        <SidebarBox
+          text={"Category"}
+          to={"/admin/category"}
+          icon={<TbCategory2 />}
         />
         <SidebarBox
           text={"Employee"}
-          to={"/admin/dashboard"}
+          to={"/admin/category"}
+          icon={<IoIosPeople />}
         />
       </VStack>
       <SidebarBox text={"LogOut"} />

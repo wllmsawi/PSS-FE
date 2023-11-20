@@ -89,4 +89,5 @@ export const colors = {
     800: "#4d2a00",
     900: "#1d0d00",
   },
+  green: "#07C180",
 };

@@ -2,14 +2,10 @@ import {
   Box,
   Button,
   Flex,
-  HStack,
   Input,
   InputGroup,
   InputLeftElement,
-  Radio,
-  RadioGroup,
   Spacer,
-  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -21,8 +17,10 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
+0;
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { FaAngleRight } from "react-icons/fa";
 
 export const Inventory = () => {
   const [product, setProduct] = useState<any[]>([]);
@@ -37,7 +35,7 @@ export const Inventory = () => {
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}`
+        `http://localhost:8000/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_group_id=2&product_category_id=1&product_name=`
       );
       setProduct(res?.data?.result);
     } catch (err) {
@@ -59,7 +57,6 @@ export const Inventory = () => {
     }
   });
 
-  console.log("filter", filter);
   return (
     <Box
       bgColor={"#FFFFFF"}
@@ -75,22 +72,29 @@ export const Inventory = () => {
         flexDir={"column"}
       >
         <Flex w={"100%"}>
-          <Flex w={"25em"}>
+          <Flex w={"27em"}>
             <Link to={""}>
               <Button
+                w={"7em"}
                 p={"1em"}
                 bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
+                size={"sm"}
                 _hover={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
+                  boxShadow: "lg",
+                  transform: "scale(1.05)",
                 }}
                 _active={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
                 }}
+                _focus={{
+                  bg: "#FFDAAD",
+                  transform: "scale(1.06)",
+                  boxShadow: "lg",
+                }}
+                color={"#6D6D6D"}
                 onClick={() => {
                   setGte(0);
                   setLte(100);
@@ -102,18 +106,26 @@ export const Inventory = () => {
             <Spacer />
             <Link to={""}>
               <Button
+                w={"7em"}
                 p={"1em"}
                 bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
+                size={"sm"}
                 _hover={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
+                  boxShadow: "lg",
+                  transform: "scale(1.05)",
                 }}
                 _active={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
                 }}
+                _focus={{
+                  bg: "#FFDAAD",
+                  transform: "scale(1.06)",
+                  boxShadow: "lg",
+                }}
+                color={"#6D6D6D"}
                 onClick={() => {
                   setGte(0);
                   setLte(100);
@@ -125,18 +137,26 @@ export const Inventory = () => {
             <Spacer />
             <Link to={""}>
               <Button
+                w={"7em"}
                 p={"1em"}
                 bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
+                size={"sm"}
                 _hover={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
+                  boxShadow: "lg",
+                  transform: "scale(1.05)",
                 }}
                 _active={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
                 }}
+                _focus={{
+                  bg: "#FFDAAD",
+                  transform: "scale(1.06)",
+                  boxShadow: "lg",
+                }}
+                color={"#6D6D6D"}
                 onClick={() => {
                   setGte(0);
                   setLte(5);
@@ -148,18 +168,26 @@ export const Inventory = () => {
             <Spacer />
             <Link to={""}>
               <Button
+                w={"7em"}
                 p={"1em"}
                 bg={"#EEF1F2"}
-                border={"1px solid #6D6D6D"}
+                size={"sm"}
                 _hover={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
-                  border: "1px solid #F99B2A ",
+                  boxShadow: "lg",
+                  transform: "scale(1.05)",
                 }}
                 _active={{
                   bg: "#FFDAAD",
                   color: "#F99B2A",
                 }}
+                _focus={{
+                  bg: "#FFDAAD",
+                  transform: "scale(1.06)",
+                  boxShadow: "lg",
+                }}
+                color={"#6D6D6D"}
                 onClick={() => {
                   setGte(0);
                   setLte(0);
@@ -220,7 +248,7 @@ export const Inventory = () => {
                 </Th>
               </Tr>
             </Thead>
-            <Tbody>
+            <Tbody color={"#6D6D6D"} fontWeight={"500"}>
               {filter?.map((el) => {
                 return (
                   <Tr>
@@ -277,9 +305,13 @@ export const Inventory = () => {
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
+          w={"28em"}
         >
-          <HStack spacing={"2.5em"} fontWeight={"bold"}>
-            <Text>Page</Text>
+          <Flex fontWeight={"bold"}>
+            <Box>
+              <Text>Page</Text>
+            </Box>
+            <Spacer />
             <Button
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
@@ -288,11 +320,6 @@ export const Inventory = () => {
                   Number(
                     (e.target as HTMLInputElement).value
                   )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
                 );
               }}
               variant={"link"}
@@ -309,17 +336,13 @@ export const Inventory = () => {
                     (e.target as HTMLInputElement).value
                   )
                 );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
               }}
               variant={"link"}
               value={2}
             >
               2
             </Button>
+            <Spacer />
             <Button
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
@@ -328,11 +351,6 @@ export const Inventory = () => {
                   Number(
                     (e.target as HTMLInputElement).value
                   )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
                 );
               }}
               variant={"link"}
@@ -340,6 +358,7 @@ export const Inventory = () => {
             >
               3
             </Button>
+            <Spacer />
             <Button
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
@@ -348,11 +367,6 @@ export const Inventory = () => {
                   Number(
                     (e.target as HTMLInputElement).value
                   )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
                 );
               }}
               variant={"link"}
@@ -360,6 +374,7 @@ export const Inventory = () => {
             >
               4
             </Button>
+            <Spacer />
             <Button
               _active={{ color: "#ED1C24" }}
               _focus={{ color: "#ED1C24" }}
@@ -369,45 +384,59 @@ export const Inventory = () => {
                     (e.target as HTMLInputElement).value
                   )
                 );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
               }}
               variant={"link"}
               value={5}
             >
               5
             </Button>
-          </HStack>
-
-          <Spacer />
-          <form>
-            <Input
-              type="number"
-              borderRadius={".5em"}
-              bg={"#EEF1F2"}
-              border={"none"}
-              w={"2.5em"}
-              focusBorderColor={"transparent"}
-              p={".5em"}
-              onChange={(e) => {
-                setPage(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  )
-                );
-                setPageSize(
-                  Number(
-                    (e.target as HTMLInputElement).value
-                  ) * 10
-                );
+            <Button
+              _active={{ color: "#ED1C24" }}
+              _focus={{ color: "#ED1C24" }}
+              onClick={(e) => {
+                setPage(page + 1);
               }}
-            />
-          </form>
+              variant={"link"}
+              value={5}
+            >
+              <FaAngleRight />
+            </Button>
+          </Flex>
           <Spacer />
-          <Text>of 5 pages</Text>
+          <Box>
+            <form>
+              <Input
+                textAlign={"center"}
+                type="number"
+                borderRadius={".5em"}
+                bg={"#EEF1F2"}
+                border={"none"}
+                w={"2.5em"}
+                color={"#6D6D6D"}
+                fontWeight={"500"}
+                focusBorderColor={"transparent"}
+                p={".5em"}
+                onKeyDown={(e: any) => {
+                  console.log("CHECK ENTER", e.code);
+                  if (e.keyCode == 13) {
+                    e.preventDefault();
+                    setPage(
+                      Number(
+                        (e.target as HTMLInputElement).value
+                      )
+                    );
+                    e.currentTarget.value = "";
+                  }
+                }}
+              />
+            </form>
+          </Box>
+          <Spacer />
+          <Box>
+            <Text color={"#6D6D6D"} fontWeight={"500"}>
+              of 5 pages
+            </Text>
+          </Box>
         </Flex>
       </Flex>
     </Box>
