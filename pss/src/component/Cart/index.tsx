@@ -22,13 +22,16 @@ import {
   Input,
   useToast,
 } from "@chakra-ui/react";
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState, useEffect, CSSProperties } from "react";
 import { MdOutlineWallet } from "react-icons/md";
 import { MdOutlineQrCode2 } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
+import * as toRupiah from "@develoka/angka-rupiah-js";
+import BeatLoader from "react-spinners/BeatLoader";
 
 export default function Cart(props: any) {
+  const [loading, setLoading] = useState(false);
   const [cash, setCash] = useState(false);
   const [qris, setQris] = useState(false);
   const [wallet, setWallet] = useState(false);
@@ -40,7 +43,11 @@ export default function Cart(props: any) {
   const [paymentMethod, setPaymentMethod] = useState(0);
   const toast = useToast();
 
-  console.log("kkkk", props.cart);
+  const override: CSSProperties = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPaymentAmount(Number(e.target.value));
@@ -108,7 +115,7 @@ export default function Cart(props: any) {
         throw new Error("Error");
       }
 
-      if (paymentChange <= 0) {
+      if (paymentMethod === 1 && paymentChange <= 1) {
         toast({
           title: "Can't Process Transaction",
           description: "Insufficient payment !",
@@ -128,16 +135,28 @@ export default function Cart(props: any) {
         payment_change,
         total_price_ppn,
       });
-      console.log("lll", res);
 
       await transactionDetail(res?.data?.data?.id);
       toast({
-        title: "Transaction Done!",
-        description:"Thank You So Much!",
-        status: "success",
-        duration: 4000,
-        position: "top-right"
+        title: "Processing",
+        position: "top-right",
+        status: "loading",
+        duration: 2000,
       });
+      await setTimeout(() => setLoading(!loading), 2000);
+
+      await setTimeout(
+        () =>
+          toast({
+            title: "Transaction Done!",
+            description: "Thank You So Much!",
+            status: "success",
+            duration: 4000,
+            position: "top-right",
+          }),
+        2000
+      );
+
       onClose();
     } catch (err) {
       throw err;
@@ -161,7 +180,7 @@ export default function Cart(props: any) {
         <Text fontWeight={"700"} fontSize={"large"}>
           Cashier
         </Text>
-        <Text fontWeight={"500"}>Samuel Williams</Text>
+        <Text fontWeight={"500"}>Budi</Text>
       </VStack>
       <Divider borderColor={"black"} borderWidth={"1px"} mt={"0.5em"} />
       <Text fontWeight={"700"} alignSelf={"flex-start"} fontSize={"large"}>
@@ -195,6 +214,8 @@ export default function Cart(props: any) {
                 setTotal={props.setTotal}
                 totalQty={props.totalQty}
                 setTotalQty={props.setTotalQty}
+                setTotalPpn={props.setTotalPpn}
+                totalPpn={props.totalPpn}
               />
             );
           })}
@@ -205,17 +226,17 @@ export default function Cart(props: any) {
         <Flex>
           <Text fontWeight={"500"}>Total Sales</Text>
           <Spacer />
-          <Text fontWeight={"500"}>{props.total}</Text>
+          <Text fontWeight={"500"}>{toRupiah(props.total)}</Text>
         </Flex>
         <Flex>
           <Text fontWeight={"500"}>Total Diskon</Text>
           <Spacer />
-          <Text fontWeight={"500"}>{props.diskon}</Text>
+          <Text fontWeight={"500"}>{toRupiah(props.diskon)}</Text>
         </Flex>
         <Flex>
           <Text>PPN</Text>
           <Spacer />
-          <Text>{props.ppn}</Text>
+          <Text>{toRupiah(props.ppn)}</Text>
         </Flex>
       </VStack>
       <Divider borderColor={"black"} borderWidth={"1px"} />
@@ -231,7 +252,7 @@ export default function Cart(props: any) {
           </Text>
           <Spacer />
           <Text fontSize={"x-large"} fontWeight={"700"}>
-            {props.totalPpn}
+            {toRupiah(props.totalPpn)}
           </Text>
         </Flex>
       </VStack>
@@ -239,11 +260,11 @@ export default function Cart(props: any) {
       <Box>
         <Center>
           <Button
-            leftIcon={<FaMoneyBillWave />}
             w={"80%"}
             borderRadius={"0.5em"}
             fontWeight={"bold"}
             onClick={() => {
+              setLoading(!loading);
               onOpen();
             }}
             transition="transform .3s"
@@ -256,14 +277,26 @@ export default function Cart(props: any) {
             color={"white"}
             _active={{ bgColor: "#ED1C24" }}
           >
-            Payment
+            {loading ? (
+              <BeatLoader
+                cssOverride={override}
+                loading={loading}
+                size={15}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                color={"white"}
+              />
+            ) : (
+              "Payment"
+            )}
           </Button>
         </Center>
       </Box>
+      <Box>
       <Modal isOpen={isOpen} onClose={onClose} size={"lg"} isCentered>
-        <ModalOverlay />
+        <ModalOverlay onClick={() => setLoading(false)} />
         <ModalContent>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={() => setLoading(false)} />
           <ModalBody>
             <Center>
               <Text fontWeight={"bold"} fontSize={"x-large"}>
@@ -410,6 +443,7 @@ export default function Cart(props: any) {
                 leftIcon={<FaCheckCircle />}
                 type={"submit"}
                 onClick={async () => {
+                  // setLoading(false);
                   await transaction(
                     userId,
                     props?.total,
@@ -446,6 +480,8 @@ export default function Cart(props: any) {
           </Box>
         </ModalContent>
       </Modal>
+      </Box>
     </VStack>
   );
 }
+

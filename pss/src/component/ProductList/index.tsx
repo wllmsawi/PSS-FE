@@ -44,7 +44,7 @@ export const ProductList = (props: any) => {
       throw err;
     }
   };
-  
+
   useEffect(() => {
     fetchProduct();
   }, [
@@ -74,7 +74,6 @@ export const ProductList = (props: any) => {
             }}
             variant={"link"}
             _focus={{ color: "red", textDecoration: "underline" }}
-
           >
             Kitchen
           </Button>
@@ -114,7 +113,6 @@ export const ProductList = (props: any) => {
               onClick={() => {
                 setGroupId(0);
               }}
-
             >
               All
             </Button>

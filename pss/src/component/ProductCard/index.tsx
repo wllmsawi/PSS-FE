@@ -17,13 +17,16 @@ import {
 } from "@chakra-ui/react";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import useCounter from "./useCounter";
-import product1 from "../ProductInCart/img/product1.png";
 import { BsCartPlusFill } from "react-icons/bs";
+//@ts-ignore
+import * as toRupiah from "@develoka/angka-rupiah-js";
 
 export const ProductCard = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [count, increment, decrement, reset] = useCounter(1);
   const toast = useToast();
+  console.log("image", props.product_image);
+
   const checkExist = () => {
     let condition;
     try {
@@ -61,7 +64,12 @@ export const ProductCard = (props: any) => {
       cursor={"pointer"}
     >
       <Box bgColor={"gray.300"} h={"170px"} w={"200px"} overflow={"hidden"}>
-        <Image src={product1} boxSize={"100%"} />
+        <Image
+          src={`${import.meta.env.VITE_APP_API_IMAGE_URL}/product/${
+            props.product_image
+          }`}
+          boxSize={"100%"}
+        />
       </Box>
       <Flex
         h={"50%"}
@@ -73,7 +81,7 @@ export const ProductCard = (props: any) => {
           {props.product_name}
         </Text>
         <Text color={"#F99B2A"} fontWeight={"500"} fontSize={"sm"}>
-          Rp {props.product_price}
+          {toRupiah(props.product_price)}
         </Text>
         <Modal isOpen={isOpen} onClose={onClose} size={"lg"} isCentered>
           <ModalOverlay />
@@ -81,7 +89,13 @@ export const ProductCard = (props: any) => {
             <ModalCloseButton />
             <ModalBody>
               <VStack p={"1.5em"}>
-                <Image src={product1} boxSize={"20em"} borderRadius={".5em"} />
+                <Image
+                  src={`${import.meta.env.VITE_APP_API_IMAGE_URL}/product/${
+                    props.product_image
+                  }`}
+                  boxSize={"20em"}
+                  borderRadius={".5em"}
+                />
                 <Text fontWeight={"bold"} color={"red"} fontSize={"xl"}>
                   {props.product_name}
                 </Text>
@@ -133,9 +147,10 @@ export const ProductCard = (props: any) => {
                   onClick={() => {
                     const test = {
                       id: props.id,
-                      product_name: props.product_name,
-                      product_price: props.product_price,
+                      product_name: props?.product_name,
+                      product_price: props?.product_price,
                       qty: count,
+                      image: props?.product_image,
                     };
                     const check = checkExist();
                     if (check === false) {
