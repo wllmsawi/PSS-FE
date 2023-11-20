@@ -57,7 +57,6 @@ export const Report = (props: any) => {
       [id]: !set[id],
     }));
   };
-  console.log("SHOW", show);
   useEffect(() => {
     fetchTransactions();
   }, [page, pageSize]);
@@ -68,7 +67,6 @@ export const Report = (props: any) => {
       padding={""}
       flexDir={"column"}
     >
-      <Box alignSelf={"flex-end"}></Box>
       <Spacer m={".3em 0"} />
       <Box
         bgColor={"#FFFFFF"}
@@ -82,9 +80,16 @@ export const Report = (props: any) => {
           borderRadius={"1em"}
           flexDir={"column"}
         >
-          <HStack spacing={"1.875em"}></HStack>
           <Spacer m={".3em"} />
           <Flex w={"100%"}>
+            <Input
+              w={"10em"}
+              size="md"
+              type="date"
+              onChange={(e) => {
+                console.log(e.target.value);
+              }}
+            />
             <Spacer />
             <InputGroup w={"11em"}>
               <InputLeftElement
@@ -494,7 +499,6 @@ export const Report = (props: any) => {
                     // setGroupId(0);
                   }}
                   onKeyDown={(e: any) => {
-                    console.log("CHECK ENTER", e.code);
                     if (e.keyCode == 13) {
                       e.preventDefault();
                       setPage(
