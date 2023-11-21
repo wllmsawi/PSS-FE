@@ -16,6 +16,7 @@ import { IoIosSearch } from "react-icons/io";
 import { ProductCard } from "../ProductCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FaAngleRight } from "react-icons/fa";
 
 export const ProductList = (props: any) => {
   const [gte, setGte] = useState(0);
@@ -31,12 +32,13 @@ export const ProductList = (props: any) => {
   const [sortOrder, setSortOrder] = useState("");
   const [sortField, setSortField] = useState("product_name");
   const [search, setSearch] = useState("");
+  const [searchName, setSearchName] = useState("");   
   const ROUTE: string = import.meta.env.VITE_APP_API_BASE_URL;
 
   const fetchProduct = async (): Promise<any> => {
     try {
       const res = await axios.get(
-        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}`
+        `${ROUTE}/product?page=${page}&pageSize=${pageSize}&sortOrder=${sortOrder}&sortField=${sortField}&branch_id=${branchId}&gte=${gte}&lte=${lte}&product_category_id=${catId}&product_group_id=${groupId}&product_name=${searchName}`
       );
       console.log("--Fetching--");
       setProduct(res?.data?.result);
@@ -259,19 +261,17 @@ export const ProductList = (props: any) => {
           p={".875em"}
           borderRadius={"1em"}
         >
-          <Flex justifyContent={"center"} alignItems={"center"}>
-            <HStack spacing={"2.5em"} fontWeight={"bold"}>
-              <Text>Page</Text>
+          <Flex justifyContent={"center"} alignItems={"center"} w={"28em"}>
+            <Flex fontWeight={"bold"}>
+              <Box>
+                <Text>Page</Text>
+              </Box>
+              <Spacer />
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   ) * 10
-                  // );
                 }}
                 variant={"link"}
                 value={1}
@@ -283,89 +283,98 @@ export const ProductList = (props: any) => {
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   ) * 10
-                  // );
                 }}
                 variant={"link"}
                 value={2}
               >
                 2
               </Button>
+              <Spacer />
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   ) * 10
-                  // );
                 }}
                 variant={"link"}
                 value={3}
               >
                 3
               </Button>
+              <Spacer />
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   ) * 10
-                  // );
                 }}
                 variant={"link"}
                 value={4}
               >
                 4
               </Button>
+              <Spacer />
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
                 onClick={(e) => {
                   setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   ) * 10
-                  // );
                 }}
                 variant={"link"}
                 value={5}
               >
                 5
               </Button>
-            </HStack>
-            <Spacer />
-            <form>
-              <Input
-                textAlign={"center"}
-                type="number"
-                borderRadius={".5em"}
-                bg={"#EEF1F2"}
-                border={"none"}
-                w={"2.5em"}
-                focusBorderColor={"transparent"}
-                p={".5em"}
-                onChange={(e) => {
-                  setPage(Number((e.target as HTMLInputElement).value));
-                  // setPageSize(
-                  //   Number(
-                  //     (e.target as HTMLInputElement).value
-                  //   ) * 10
-                  // );
+              <Button
+                _active={{ color: "#ED1C24" }}
+                _focus={{ color: "#ED1C24" }}
+                onClick={(e) => {
+                  setPage(page + 1);
                 }}
-              />
-            </form>
+                variant={"link"}
+                value={5}
+              >
+                <FaAngleRight />
+              </Button>
+            </Flex>
             <Spacer />
-            <Text>of 30 pages</Text>
+            <Box>
+              <form>
+                <Input
+                  textAlign={"center"}
+                  type="number"
+                  borderRadius={".5em"}
+                  bg={"#EEF1F2"}
+                  border={"none"}
+                  w={"2.5em"}
+                  color={"#6D6D6D"}
+                  fontWeight={"500"}
+                  focusBorderColor={"transparent"}
+                  p={".5em"}
+                  onChange={() => {
+                    setCatId(0);
+                    setGroupId(0);
+                  }}
+                  onKeyDown={(e: any) => {
+                    console.log("CHECK ENTER", e.code);
+                    if (e.keyCode == 13) {
+                      e.preventDefault();
+                      setCatId(0);
+                      setGroupId(0);
+                      setPage(Number((e.target as HTMLInputElement).value));
+
+                      e.currentTarget.value = "";
+                    }
+                  }}
+                />
+              </form>
+            </Box>
+            <Spacer />
+            <Box>
+              <Text color={"#6D6D6D"} fontWeight={"500"}>
+                of 5 pages
+              </Text>
+            </Box>
           </Flex>
         </Box>
       </Flex>
