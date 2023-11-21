@@ -12,20 +12,15 @@ import {
   ModalCloseButton,
   ModalContent,
   useDisclosure,
-  ModalHeader,
-  ModalFooter,
   Button,
   Center,
   AspectRatio,
   Stack,
-  Heading,
   Input,
   useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { RiNotification3Fill } from "react-icons/ri";
-import { BsCartFill } from "react-icons/bs";
-import budi from "./img/budi.jpg";
 import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
 
@@ -89,7 +84,7 @@ export const NavBar = (props?: any | null) => {
       );
       toast({
         title: data?.message,
-        status: "success",
+        status: "error",
       });
       setFieldImage("");
       await onClose();
@@ -97,7 +92,7 @@ export const NavBar = (props?: any | null) => {
       toast({
         title: "Upload Error",
         description: "File Too Large",
-        status: "error",
+        status: "warning",
       });
       setFieldImage("");
     }
@@ -122,20 +117,15 @@ export const NavBar = (props?: any | null) => {
           bgColor={"#FAFAFA"}
           p={".5em"}
         >
-          <BsCartFill />
-        </Box>
-        <Box
-          borderRadius={"50%"}
-          bgColor={"#FAFAFA"}
-          p={".5em"}
-        >
           <RiNotification3Fill />
         </Box>
 
         <Box borderRadius={"50%"} p={".5em"}>
           <Box overflow={"hidden"} onClick={onOpen}>
             <Image
-              src={budi}
+              src={`${
+                import.meta.env.VITE_APP_API_IMAGE_URL
+              }/profile/product_2023_10_19_logo ratan.png`}
               borderRadius={"50%"}
               boxSize={"2em"}
             />
@@ -147,7 +137,7 @@ export const NavBar = (props?: any | null) => {
           lineHeight={"1"}
         >
           <Text fontWeight={"bold"}>Budi</Text>
-          <Text fontSize={".75em"}>Admin</Text>
+          <Text fontSize={".75em"}>Cashier</Text>
         </VStack>
       </HStack>
       <Modal isOpen={isOpen} onClose={onClose} size={"lg"}>
@@ -166,6 +156,11 @@ export const NavBar = (props?: any | null) => {
             </Text>
           </Center>
           <ModalBody p={"2em"}>
+            <Center>
+              <Text fontSize={"sm"} fontWeight={"light"}>
+                File type allowed are .jpg .png .jpeg .gif
+              </Text>
+            </Center>
             <Center>
               <Text fontSize={"sm"} fontWeight={"light"}>
                 File type allowed are .jpg .png .jpeg .gif
