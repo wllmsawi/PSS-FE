@@ -3,13 +3,10 @@ import {
   Button,
   Divider,
   Flex,
-  HStack,
   IconButton,
-  Image,
   Input,
   InputGroup,
   InputLeftElement,
-  Select,
   Spacer,
   Table,
   TableContainer,
@@ -21,35 +18,41 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
-import { CreateCategoryModal } from "../Category/component/CreateCategoryModal";
-import { CreateProductModal } from "../AdminProductList/component/CreateProductModal";
-import { Link } from "react-router-dom";
+import { ImStatsBars } from "react-icons/im";
 import { IoIosSearch } from "react-icons/io";
 import {
-  FaAngleLeft,
   FaAngleRight,
+  FaCaretLeft,
+  FaCaretRight,
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
-import { EditProductModal } from "../AdminProductList/component/EditProductModal";
 import { useEffect, useState } from "react";
 import axios from "axios";
+// @ts-ignore
 import * as toRupiah from "@develoka/angka-rupiah-js";
 import ProductInCart from "../../../component/ProductInCart";
-export const Report = (props: any) => {
+
+export const Report = () => {
   const [transaction, setTransaction] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const date = new Date();
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  const [tDate, setTDate] = useState(date.getDate());
+  const [tNextDate, setTNextDate] = useState(
+    date.getDate() + 1
+  );
+  const [tMonth, setTMonth] = useState(date.getMonth() + 1);
+  const [tYear, setTYear] = useState(date.getFullYear());
+  useEffect(() => {
+    setTDate(date.getDate());
+  }, []);
+  useEffect(() => {
+    setTMonth(date.getMonth());
+  }, []);
+  useEffect(() => {
+    setTYear(date.getFullYear());
+  }, []);
   const months = [
     "January",
     "February",
@@ -64,18 +67,17 @@ export const Report = (props: any) => {
     "November",
     "December",
   ];
-  console.log(
-    "TODAY",
-    `${date.getDate()}-${
-      months[date.getMonth()]
-    }-${date.getFullYear()}`
-  );
   const fetchTransactions = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/transaction?page=${page}&pageSize=${pageSize}&startDate=2023-11-01&endDate=2023-11-30`
+        `http://localhost:8000/transaction?page=${page}&pageSize=${pageSize}&startDate=${tYear}-${
+          tMonth + 1
+        }-${tDate}&endDate=${tYear}-${
+          tMonth + 1
+        }-${tNextDate}`
       );
       setTransaction(res?.data?.data);
+      setPageSize(10);
     } catch (err) {
       throw err;
     }
@@ -89,7 +91,7 @@ export const Report = (props: any) => {
   };
   useEffect(() => {
     fetchTransactions();
-  }, [page, pageSize]);
+  }, [page, pageSize, tDate, tNextDate]);
   return (
     <Flex
       h={"100%"}
@@ -97,7 +99,112 @@ export const Report = (props: any) => {
       padding={""}
       flexDir={"column"}
     >
-      <Spacer m={".3em 0"} />
+      <Flex>
+        <Box
+          bg={"#FFFFFF"}
+          p={"1em"}
+          borderRadius={"1em"}
+          w={"30%"}
+        >
+          <Flex flexDir={"column"}>
+            <Text
+              w={"80%"}
+              fontSize={".75em"}
+              fontWeight={"bold"}
+            >
+              Total Transaction Today
+            </Text>
+            <Flex align={"center"}>
+              <Text fontWeight={"bold"}>
+                {transaction?.length}
+              </Text>
+              <Spacer />
+              <Box color={"green"}>
+                <ImStatsBars />
+              </Box>
+            </Flex>
+          </Flex>
+        </Box>
+        <Spacer />
+        <Box
+          bg={"#FFFFFF"}
+          p={"1em"}
+          borderRadius={"1em"}
+          w={"20%"}
+        >
+          <Flex flexDir={"column"}>
+            <Text
+              w={"80%"}
+              fontSize={".75em"}
+              fontWeight={"bold"}
+            >
+              Total Transaction Today
+            </Text>
+            <Flex align={"center"}>
+              <Text fontWeight={"bold"}>
+                {transaction?.length}
+              </Text>
+              <Spacer />
+              <Box color={"green"}>
+                <ImStatsBars />
+              </Box>
+            </Flex>
+          </Flex>
+        </Box>
+        <Spacer />
+        <Box
+          bg={"#FFFFFF"}
+          p={"1em"}
+          borderRadius={"1em"}
+          w={"20%"}
+        >
+          <Flex flexDir={"column"}>
+            <Text
+              w={"80%"}
+              fontSize={".75em"}
+              fontWeight={"bold"}
+            >
+              Total Transaction Today
+            </Text>
+            <Flex align={"center"}>
+              <Text fontWeight={"bold"}>
+                {transaction?.length}
+              </Text>
+              <Spacer />
+              <Box color={"green"}>
+                <ImStatsBars />
+              </Box>
+            </Flex>
+          </Flex>
+        </Box>
+        <Spacer />
+        <Box
+          bg={"#FFFFFF"}
+          p={"1em"}
+          borderRadius={"1em"}
+          w={"20%"}
+        >
+          <Flex flexDir={"column"}>
+            <Text
+              w={"80%"}
+              fontSize={".75em"}
+              fontWeight={"bold"}
+            >
+              Total Transaction Today
+            </Text>
+            <Flex align={"center"}>
+              <Text fontWeight={"bold"}>
+                {transaction?.length}
+              </Text>
+              <Spacer />
+              <Box color={"green"}>
+                <ImStatsBars />
+              </Box>
+            </Flex>
+          </Flex>
+        </Box>
+      </Flex>
+      <Spacer m={".5em 0"} />
       <Box
         bgColor={"#FFFFFF"}
         h={"100%"}
@@ -110,25 +217,49 @@ export const Report = (props: any) => {
           borderRadius={"1em"}
           flexDir={"column"}
         >
-          <Spacer m={".3em"} />
+          <Spacer />
           <Flex w={"100%"}>
             <Flex align={"center"}>
-              <FaAngleLeft />
+              <IconButton
+                onClick={() => {
+                  setTDate(tDate - 1);
+                  setTNextDate(tNextDate - 1);
+                }}
+                aria-label=""
+                color={"#fafafa"}
+                backgroundColor={"red.400"}
+                _hover={{ bg: "red.400" }}
+                icon={<FaCaretLeft />}
+                fontSize={"2em"}
+                borderRadius={".3em 0  0 .3em"}
+              />
               <Input
                 color={"#6D6D6D"}
                 w={"11em"}
                 size="md"
                 type="text"
                 textAlign={"center"}
-                placeholder={`${date.getDate()}-${
-                  months[date.getMonth()]
-                }-${date.getFullYear()}`}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-                border={"none"}
+                placeholder={`${tDate}-${months[tMonth]}-${tYear}`}
+                border={"1px solid #6D6D6D"}
+                borderLeft={"0"}
+                borderRight={"0"}
+                borderRadius={"0"}
+                pointerEvents={"none"}
               />
-              <FaAngleRight />
+
+              <IconButton
+                aria-label=""
+                fontSize={"2em"}
+                icon={<FaCaretRight />}
+                color={"#fafafa"}
+                onClick={() => {
+                  setTDate(tDate + 1);
+                  setTNextDate(tNextDate + 1);
+                }}
+                backgroundColor={"red.400"}
+                _hover={{ bg: "red.400" }}
+                borderRadius={"0 0.3em  .3em 0"}
+              />
             </Flex>
             <Spacer />
             <InputGroup w={"11em"}>
@@ -255,7 +386,9 @@ export const Report = (props: any) => {
                               }
                             </Td>
                             <Td textAlign={"center"}>
-                              {toRupiah(el?.payment_amount)}
+                              {toRupiah(
+                                el?.total_price_ppn
+                              )}
                             </Td>
                             <Td textAlign={"center"}>
                               {
