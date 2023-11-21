@@ -36,7 +36,13 @@ export const Category = (props: any) => {
   }, [setCategory]);
   console.log("CATEGORY", category);
   return (
-    <Box w={"100%"} h={"100%"}>
+    <Box
+      w={"100%"}
+      h={"100%"}
+      bgColor={"#FFFFFF"}
+      borderRadius={"1.5em"}
+      p={"1.5em"}
+    >
       <Flex flexDir={"column"}>
         <Box alignSelf={"flex-end"}>
           <CreateCategoryModal />

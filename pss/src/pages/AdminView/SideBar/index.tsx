@@ -35,6 +35,7 @@ export default function SideBar() {
         <SidebarBox
           text={"Dashboard"}
           icon={<BsLaptop />}
+          to={"/admin/dashboard"}
         />
         <SidebarBox
           to={"/admin/report"}

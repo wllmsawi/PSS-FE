@@ -1,7 +1,15 @@
-import { Box, HStack, Text, VStack } from "@chakra-ui/layout";
+import {
+  Box,
+  HStack,
+  Text,
+  VStack,
+} from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { IconButton } from "@chakra-ui/react";
-import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
+import {
+  FaPlusCircle,
+  FaMinusCircle,
+} from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Spacer } from "@chakra-ui/react";
 import useCounter from "../ProductCard/useCounter";
@@ -10,13 +18,22 @@ import { useState, useEffect } from "react";
 import * as toRupiah from "@develoka/angka-rupiah-js";
 
 export default function ProductInCart(props: any) {
-  const [count, increment, decrement, reset] = useCounter(props.qty);
+  const [count, increment, decrement, reset] = useCounter(
+    props.qty
+  );
   const [totalPPrice, setTotalPPrice] = useState(
     props.product_price * props.qty
   );
   useEffect(() => {
     setTotalPPrice(props.qty * props.product_price);
-  }, [totalPPrice, setTotalPPrice, props.qty, count, increment, decrement]);
+  }, [
+    totalPPrice,
+    setTotalPPrice,
+    props.qty,
+    count,
+    increment,
+    decrement,
+  ]);
 
   const plus = (id: number) => {
     props?.setCart(
@@ -61,7 +78,9 @@ export default function ProductInCart(props: any) {
     props?.setTotal(props?.total - totalPPrice);
     props?.setTotalPpn(props?.totalPpn - totalPPrice);
     props?.setTotalQty(props?.totalQty - props?.qty);
-    props?.setCart(props?.cart.filter((el: any) => el.id !== id));
+    props?.setCart(
+      props?.cart.filter((el: any) => el.id !== id)
+    );
     // reset();
   };
 
@@ -69,23 +88,25 @@ export default function ProductInCart(props: any) {
     <HStack boxShadow={"sm"} borderRadius={"0.5em"}>
       <Box>
         <Image
-          src={`${import.meta.env.VITE_APP_API_IMAGE_URL}/product/${
-            props?.image
-          }`}
+          src={`${
+            import.meta.env.VITE_APP_API_IMAGE_URL
+          }/product/${props?.image}`}
           borderRadius={"0.5em"}
           boxSize={"5em"}
         />
       </Box>
       <VStack align={"stretch"} spacing={"0"}>
         <Text fontWeight={"400"}>{props.product_name}</Text>
-        <Text fontWeight={"400"}>{`${props.qty} X ${toRupiah(
-          props.product_price
-        )}`}</Text>
-        <Text>Sum : {toRupiah(totalPPrice)}</Text>
+        <Text fontWeight={"400"}>{`${
+          props.qty
+        } X ${toRupiah(props.product_price)}`}</Text>
+        <Text display={props?.display}>
+          Sum : {toRupiah(totalPPrice)}
+        </Text>
       </VStack>
       <Spacer />
       <VStack align={"stretch"}>
-        <HStack spacing={"0"}>
+        <HStack spacing={"0"} display={props?.display}>
           <IconButton
             aria-label="Minus"
             icon={<FaMinusCircle />}

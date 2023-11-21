@@ -580,7 +580,7 @@ export const AdminProductList = () => {
               <Button
                 _active={{ color: "#ED1C24" }}
                 _focus={{ color: "#ED1C24" }}
-                onClick={(e) => {
+                onClick={() => {
                   setPage(page + 1);
                 }}
                 variant={"link"}
